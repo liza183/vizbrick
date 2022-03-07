@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web-Interface</title>
+    <link rel="shortcut icon" href="">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!-- DataTable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+    <!-- vis.js-->
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+    <style type="text/css">
+        #mynetwork {
+            width: 100%;
+            height: 480pt;
+            border: 1px solid lightgray;
+        }
+    </style>
+
+    <!-- Bootstrap -->
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <script>
+        var metadata_table;
+        var location_table;
+        var relationship_table;
+        var class_table;
+        var network;
+        var nodes;
+        var edges;
+
+        function proxy_request(url, request_type, data, callback) {
+
+            var json_data =
+            {
+                url: url,
+                request_type: request_type,
+                data: data
+            };
+
+            var dataToSend = JSON.stringify(json_data);
+            var objresponse = null;
+            $("body").css("cursor", "progress");
+            $('selector').click(false);
+            $.ajax({
+
+                url: '/proxy',
+                type: 'POST',
+                data: dataToSend,
+
+                success: function (jsonResponse) {
+                    objresponse = JSON.parse(jsonResponse);
+                    $("body").css("cursor", "default");
+                    $('selector').click(true);
+                    callback(objresponse);
+                },
+                error: function (jsonResponse) {
+                    alert('Something went wrong.');
+                }
+            });
+
+            return objresponse;
+
+        };
+
+        function check_node(nodeId, include, exclude) {
+
+            if (include[0] == '' && include[0] == '')
+                return false;
+
+            for (i = 0; i < include.length; i++) {
+                if (include[i] != '') {
+                    if (nodeId.includes(include[i]) == false) {
+                        return false;
+                    }
+                };
+            };
+            for (i = 0; i < exclude.length; i++) {
+                if (exclude[i] != '') {
+                    if (nodeId.includes(exclude[i]) == true) {
+                        return false;
+                    }
+                };
+            };
+            return true;
+        };
+
+        function make_search_result_selectable() {
+            $('#search-result-list li').on('click', function () {
+                var $this = $(this);
+                var $alias = $this.data('alias');
+
+                $('.active').removeClass('active');
+                $this.toggleClass('active')
+            });
+        };
+
+        function slugify(str) {
+            str = str.replace(/^\s+|\s+$/g, '');
+
+            // Make the string lowercase
+            slugstr = str.toLowerCase();
+
+            // Remove accents, swap ñ for n, etc
+            var from = "ÁÄÂÀÃÅČÇĆĎÉĚËÈÊẼĔȆÍÌÎÏŇÑÓÖÒÔÕØŘŔŠŤÚŮÜÙÛÝŸŽáäâàãåčçćďéěëèêẽĕȇíìîïňñóöòôõøðřŕšťúůüùûýÿžþÞĐđßÆa·/_,:;";
+            var to = "AAAAAACCCDEEEEEEEEIIIINNOOOOOORRSTUUUUUYYZaaaaaacccdeeeeeeeeiiiinnooooooorrstuuuuuyyzbBDdBAa------";
+            for (var i = 0, l = from.length; i < l; i++) {
+                str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+            }
+
+            // Remove invalid chars
+            str = str.replace(/[^a-z0-9 -]/g, '')
+                // Collapse whitespace and replace by -
+                .replace(/\s+/g, '-')
+                // Collapse dashes
+                .replace(/-+/g, '-');
+
+            return str;
+        }
+        function get_metadata_csv(data) {
+            //call back function example
+
+            list_of_rows = data['list_of_rows'];
+            for (var i = 0; i < list_of_rows.length; i++) {
+                metadata_table.row.add([i, list_of_rows[i][0], list_of_rows[i][1], list_of_rows[i][2], ""]).draw();
+            }
+
+            list_of_locations = data['list_of_locations'];
+            for (var i = 0; i < list_of_locations.length; i++) {
+                location_table.row.add([i, list_of_locations[i], ""]).draw();
+            }
+
+        };
+
+        function get_rel_list(data) {
+            //call back function example
+            rel_list = data['rel_list'];
+
+            $("#rel_list_1").empty();
+            for (var i = 0; i < rel_list.length; i++) {
+                $("#rel_list_1").append('<li class="list-group-item"><b>' + rel_list[i] + '</b></li>');
+            }
+
+            $('#rel_list_1 li').on('click', function () {
+                var $this = $(this);
+                var $alias = $this.data('alias');
+
+                $('.active').removeClass('active');
+                $this.toggleClass('active')
+            });
+
+            $("#rel_list_2").empty();
+            for (var i = 0; i < rel_list.length; i++) {
+                $("#rel_list_2").append('<li class="list-group-item"><b>' + rel_list[i] + '</b></li>');
+            }
+
+            $('#rel_list_2 li').on('click', function () {
+                var $this = $(this);
+                var $alias = $this.data('alias');
+
+                $('.active').removeClass('active');
+                $this.toggleClass('active')
+            });
+
+        };
+        function suggest_all_location_callback(data) {
+            matched_classes = data['matched_classes'];
+            for (var i = 0; i < matched_classes.length; i++) {
+                classname = matched_classes[i][1];
+                row_id = matched_classes[i][0];
+                location_table.row(row_id).data([row_id, list_of_locations[row_id], classname]).draw();
+            }
+        };
+
+        function suggest_all_callback(data) {
+            matched_classes = data['matched_classes'];
+            for (var i = 0; i < matched_classes.length; i++) {
+                item = matched_classes[i];
+                classname = item[1][0][0];
+                row_id = item[0];
+                metadata_table.row(row_id).data([row_id, list_of_rows[row_id][0], list_of_rows[row_id][1], list_of_rows[row_id][2], classname]).draw();
+            }
+        };
+
+        function search_btn_callback(data) {
+            result = data['result'];
+            $("#search-result-list").empty();
+            for (var i = 0; i < result.length; i++) {
+                $("#search-result-list").append('<li class="list-group-item"><b>' + result[i][0] + '</b><span class="badge badge-pill badge-info">' + result[i][1] + '</span></li>');
+            }
+            make_search_result_selectable();
+        };
+
+        function save_brick_done(data) {
+            if (data['endcode'] == 0) {
+                    alert('A ttl file has been created.');
+                } else { alert('Something went wrong!'); }
+        };
+
+        $(document).ready(function () {
+
+            data = { input_file: 'NIST.csv' };
+            // data needs to be json
+            //proxy_request("/get_metadata_csv", "POST", data, get_metadata_csv);
+            proxy_request("/get_rel_list", "POST", data, get_rel_list);
+
+            $('#metadataTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    metadata_table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+
+            $('#locationTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    location_table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+
+            // add functions that need to be executed when the web-page is loaded
+            function clear_everything() {
+                metadata_table.clear();
+                location_table.clear();
+                metadata_table.draw();
+                location_table.draw();
+                class_table.clear();
+                relationship_table.clear();
+                class_table.draw();
+                relationship_table.draw();
+                network.destroy();
+                // // create an array with nodes
+                nodes = new vis.DataSet([
+                ]);
+
+                // create an array with edges
+                edges = new vis.DataSet([
+                ]);
+
+                // // create a network
+                var container = document.getElementById('mynetwork');
+
+                // // provide the data in the vis format
+                var data = {
+                    nodes: nodes,
+                    edges: edges
+                };
+                var options = {};
+                // // initialize your network!
+                network = new vis.Network(container, data, options);
+                network.on('click', function (properties) {
+                    var ids = properties.nodes;
+                    var clickedNodes = nodes.get(ids);
+                    console.log('clicked nodes:', clickedNodes);
+                });
+
+                node_list = [];
+                edge_list = [];
+
+            }
+            $('#suggest-all-location-btn').click(function (event) {
+                data = { list_of_locations: list_of_locations };
+                proxy_request("/suggest_all_location", "POST", data, suggest_all_location_callback);
+
+            });
+
+            $('#save-brick-btn').click(function (event) {
+                class_table_data = class_table.rows().data().toArray();
+                relationship_table_data = relationship_table.rows().data().toArray();
+                data_to_save = {};
+                data_to_save['filename'] = $('#brick-file').val();
+                data_to_save['class_table_data'] = class_table_data;
+                data_to_save['relationship_table_data'] = relationship_table_data;
+
+                proxy_request("/save_brick", "POST", data_to_save, save_brick_done);
+
+            });
+
+            $('#clear-everything').click(function (event) {
+                clear_everything();
+
+            });
+            function checkpoint_done(data) {
+                if (data['endcode'] == 0) {
+                    alert('A Checkpoint has been created.');
+                } else { alert('Something went wrong!'); }
+            }
+
+            function get_checkpoint_done(data) {
+                if (data['endcode'] == 0) {
+                    
+                    list_of_rows = data['data']['metadata_table_data'];
+                    for (var i = 0; i < list_of_rows.length; i++) {
+                        metadata_table.row.add([list_of_rows[i][0], list_of_rows[i][1], list_of_rows[i][2], list_of_rows[i][3],list_of_rows[i][4]]).draw();
+                    }
+
+                    list_of_locations = data['data']['location_table_data'];
+                    for (var i = 0; i < list_of_locations.length; i++) {
+                        location_table.row.add([list_of_locations[i][0], list_of_locations[i][1], list_of_locations[i][2]]).draw();
+                    }
+
+                    list_of_classes = data['data']['class_table_data'];
+                    for (var i = 0; i < list_of_classes.length; i++) {
+                        class_table.row.add([list_of_classes[i][0], list_of_classes[i][1],list_of_classes[i][2],list_of_classes[i][3],list_of_classes[i][4],list_of_classes[i][5],list_of_classes[i][6]]).draw();
+                    }
+
+                    lost_of_rels = data['data']['relationship_table_data'];
+                    for (var i = 0; i < lost_of_rels.length; i++) {
+                        relationship_table.row.add([lost_of_rels[i][0],lost_of_rels[i][1],lost_of_rels[i][2],lost_of_rels[i][3]]).draw();
+                    }
+
+                    // // create an array with nodes
+                    nodes = new vis.DataSet(data['data']['node_data']);
+
+                    // create an array with edges
+                    edges = new vis.DataSet(data['data']['edge_data']);
+
+                    // // create a network
+                    var container = document.getElementById('mynetwork');
+
+                    // // provide the data in the vis format
+                    var data = {
+                        nodes: nodes,
+                        edges: edges
+                    };
+                    var options = {};
+                    // // initialize your network!
+                    network = new vis.Network(container, data, options);
+                    network.on('click', function (properties) {
+                        var ids = properties.nodes;
+                        var clickedNodes = nodes.get(ids);
+                        console.log('clicked nodes:', clickedNodes);
+                    });
+                    
+                    alert('A Checkpoint has been loaded.');
+
+                } else { alert('Something went wrong'); }
+            }
+
+            $('#create-checkpoint').click(function (event) {
+                node_data = nodes.get(nodes.getIds());
+                edge_data = edges.get(edges.getIds());
+                location_table_data = location_table.rows().data().toArray();
+                metadata_table_data = metadata_table.rows().data().toArray();
+                class_table_data = class_table.rows().data().toArray();
+                relationship_table_data = relationship_table.rows().data().toArray();
+
+                data_to_save = {}
+                data_to_save['node_data'] = node_data;
+                data_to_save['edge_data'] = edge_data;
+                data_to_save['location_table_data'] = location_table_data;
+                data_to_save['metadata_table_data'] = metadata_table_data;
+                data_to_save['class_table_data'] = class_table_data;
+                data_to_save['relationship_table_data'] = relationship_table_data;
+
+                data_to_save['filename'] = $('#checkpoint-file').val();
+                proxy_request("/create_checkpoint", "POST", data_to_save, checkpoint_done);
+
+            });
+
+            $('#load-metadata').click(function (event) {
+                clear_everything();
+                data = { input_file: $('#input-file').val() };
+                // data needs to be json
+                proxy_request("/get_metadata_csv", "POST", data, get_metadata_csv);
+            });
+
+            $('#load-checkpoint').click(function (event) {
+                clear_everything();
+                data = { filename: $('#checkpoint-file').val() };
+                // data needs to be json
+                proxy_request("/get_checkpoint", "POST", data, get_checkpoint_done);
+            });
+
+            $('#add-all-to-graph-btn').click(function (event) {
+
+                location_table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+
+
+                    data = this.data();
+
+                    $('#obj-type').text('Location');
+                    $('#obj-row-id').text(data[0]);
+                    $('#original-lbl').text(data[1]);
+                    $('#obj-name').text(data[1]);
+                    $('#brick-class').text(data[2]);
+                    $('#description').text('');
+                    $('#location').text('');
+
+                    if ($('#brick-class').text() != "" && $('#obj-name').text() != "") {
+
+                        newId = $('#obj-name').text() + " (" + $('#brick-class').text() + ")"
+
+                        try {
+                            nodes.add({ id: newId, label: newId });
+                            class_table.row.add([newId, $('#obj-type').text(), $('#obj-row-id').text(), $('#original-lbl').text(), $('#brick-class').text(), $('#obj-name').text(), $('#description').text()]).draw();
+                        } catch (err) {
+                            alert(newId + " is already in the network!");
+                        }
+                    }
+
+
+                });
+
+            });
+
+            $('#from-class-btn').click(function (event) {
+                selected_class = class_table.row('.selected').data()[0];
+                $('#selected-from').text(selected_class);
+            });
+
+            $('#to-class-btn').click(function (event) {
+                selected_class = class_table.row('.selected').data()[0];
+                $('#selected-to').text(selected_class);
+            });
+
+            $('#from-graph-btn').click(function (event) {
+                selected_node = network.getSelectedNodes();
+                $('#selected-from').text(selected_node);
+            });
+
+            $('#to-graph-btn').click(function (event) {
+                selected_node = network.getSelectedNodes();
+                if ($('#selected-from') != selected_node) {
+                    $('#selected-to').text(selected_node);
+                } else {
+                    alert('From and To can\'t be the same nodes!');
+                }
+            });
+
+            $('#clear-selected-btn').click(function (event) {
+                selected_node = network.getSelectedNodes();
+                $('#selected-from').text('');
+                $('#selected-to').text('');
+            });
+
+
+            $('#suggest-selected-btn').click(function (event) {
+
+                keyword = $('#original-lbl').text() + ' ' + $('#description').text() + ' ' + $("#search-kwd").val() + ' ' + $("#location").val();
+                data = { search_kwd: keyword };
+                proxy_request("/search", "POST", data, search_btn_callback);
+
+            });
+
+            $('#suggest-all-btn').click(function (event) {
+                data = { list_of_rows: list_of_rows };
+                proxy_request("/suggest_all", "POST", data, suggest_all_callback);
+
+            });
+
+            $('#add-to-graph-btn').click(function (event) {
+
+                selected_node = network.getSelectedNodes()
+
+                if ($('#brick-class').text() != "" && $('#obj-name').text() != "") {
+                    newId = $('#obj-name').text() + " (" + $('#brick-class').text() + ")"
+                    nodes.remove({ id: newId });
+                    nodes.add({ id: newId, label: newId });
+                    class_table.row.add([newId, $('#obj-type').text(), $('#obj-row-id').text(), $('#original-lbl').text(), $('#brick-class').text(), $('#obj-name').text(), $('#description').text()]).draw();
+
+                }
+                else {
+                    alert("Object name or Brick class can't be empty.");
+                }
+
+            });
+
+            $('#clear-inspector-btn').click(function (event) {
+
+                $('#obj-type').text('');
+                $('#obj-row-id').text('');
+                $('#original-lbl').text('');
+                $('#brick-class').text('');
+                $('#obj-name').text('');
+                $('#description').text('');
+
+            });
+
+            $('#search-btn').click(function (event) {
+                search_kwd = $("#search-kwd").val();
+                data = { search_kwd: search_kwd };
+                proxy_request("/search", "POST", data, search_btn_callback);
+
+            });
+
+
+
+            $('#update-objname-btn').click(function (event) {
+                obj_name = $("#new-obj-name").val();
+                $('#obj-name').text(obj_name);
+            });
+
+            $('#update-brick-btn').click(function (event) {
+                brick_class = $("#search-result-list li.active b").text();
+                $('#brick-class').text(brick_class);
+                if ($('#obj-type').text() == "Location") {
+                    location_table.row($('#obj-row-id').text()).data([$('#obj-row-id').text(), $('#obj-name').text(), $('#brick-class').text()]).draw();
+                }
+                else {
+                    if ($('#obj-type').text() == "Data Label") {
+                        metadata_table.row($('#obj-row-id').text()).data([$('#obj-row-id').text(), $('#obj-name').text(), $('#location').text(), $('#description').text(), $('#brick-class').text()]).draw();
+                    }
+                }
+            });
+
+            $('#create-edge-btn').click(function (event) {
+                from_node = $('#selected-from').text();
+                to_node = $('#selected-to').text();
+                rel_type = $("#rel_list_2 li.active").text();
+                if (rel_type == '' || from_node == '' || to_node == '') {
+                    alert('Please select from_node, to_node, and a relationship type!');
+                    return;
+                }
+                edges.add({
+                    from: from_node, to: to_node, rel_type: rel_type, id: slugify(from_node + ":" + to_node + ":" + rel_type),
+                    arrows: {
+                        to: {
+                            enabled: true,
+                            type: "arrow",
+                        }
+                    }
+                });
+                relationship_table.row.add([slugify(from_node + ":" + to_node + ":" + rel_type), from_node, to_node, rel_type]).draw();
+            });
+
+            $('#create-edges-btn').click(function (event) {
+
+                from_include = $('#from_include').val().split(",");
+                from_exclude = $('#from_exclude').val().split(",");
+                to_include = $('#to_include').val().split(",");
+                to_exclude = $('#to_exclude').val().split(",");
+                node_list = nodes.getIds();
+
+                if (from_include.length != 0 && from_exclude.length != 0 && to_include.length != 0 && to_exclude.length != 0) {
+                    for (var i = 0; i < node_list.length; i++) {
+                        for (var j = 0; j < node_list.length; j++) {
+                            from_node_id = node_list[i];
+                            to_node_id = node_list[j];
+                            check_node_from = check_node(from_node_id, from_include, from_exclude);
+                            check_node_to = check_node(to_node_id, to_include, to_exclude);
+                            //console.log(from_node_id+" "+to_node_id+" "+check_node_from+" "+check_node_to);
+
+                            rel_type = $("#rel_list_1 li.active").text();
+                            if (check_node_from == true && check_node_to == true && rel_type != '') {
+                                edges.add({
+                                    from: from_node_id, to: to_node_id, rel_type: rel_type, id: slugify(from_node_id + ":" + to_node_id + ":" + rel_type),
+                                    arrows: {
+                                        to: {
+                                            enabled: true,
+                                            type: "arrow",
+                                        }
+                                    }
+                                });
+                                relationship_table.row.add([slugify(from_node_id + ":" + to_node_id + ":" + rel_type), from_node_id, to_node_id, rel_type]).draw();
+                            };
+                        }
+                    }
+                };
+            });
+
+            $('#inspect-class-btn').click(function (event) {
+                selected_rows = class_table.row('.selected');
+                selected_rows = class_table.row(selected_rows[0]).data();
+                $('#obj-type').text(selected_rows[0]);
+                $('#obj-row-id').text(selected_rows[2]);
+                $('#original-lbl').text(selected_rows[3]);
+                $('#obj-name').text(selected_rows[5]);
+                $('#brick-class').text(selected_rows[4]);
+                $('#description').text(selected_rows[6]);
+                $('#location').text('');
+
+            });
+
+            $('#remove-class-btn').click(function (event) {
+                selected_rows = class_table.row('.selected');
+                selected_rows = class_table.row(selected_rows[0]).data();
+                class_table.column(0).search(selected_rows[0]).draw();
+                filtered_data = class_table.rows({ "filter": "applied" }).data().toArray()[0];
+                newId = filtered_data[0];
+                nodes.remove({ id: newId });
+                class_table.rows({ "filter": "applied" }).remove();
+                class_table.search('').columns().search('').draw();
+
+            });
+
+            $('#remove-rel-btn').click(function (event) {
+                selected_rows = relationship_table.row('.selected');
+                selected_rows = relationship_table.row(selected_rows[0]).data();
+                relationship_table.column(0).search(selected_rows[0]).draw();
+                filtered_data = relationship_table.rows({ "filter": "applied" }).data().toArray()[0];
+                from_node = filtered_data[1];
+                to_node = filtered_data[2];
+                rel_type = filtered_data[3];
+                rel_id = filtered_data[0];
+
+                edges.remove([rel_id]);
+                relationship_table.rows({ "filter": "applied" }).remove();
+                relationship_table.search('').columns().search('').draw();
+
+            });
+
+            $('#inspect-location-btn').click(function (event) {
+                selected_rows = location_table.row('.selected');
+                selected_rows = location_table.row(selected_rows[0]).data();
+                $('#obj-type').text('Location');
+                $('#obj-row-id').text(selected_rows[0]);
+                $('#original-lbl').text(selected_rows[1]);
+                $('#obj-name').text(selected_rows[1]);
+                $('#brick-class').text(selected_rows[2]);
+                $('#description').text('');
+                $('#location').text('');
+
+            });
+
+            $('#remove-node-btn').click(function (event) {
+                selected_node = network.getSelectedNodes()
+
+                if (selected_node.length == 1) {
+                    selected_node = selected_node[0]
+                    class_table.column(0).search(selected_node).draw();
+                    filtered_data = class_table.rows({ "filter": "applied" }).data().toArray()[0];
+                    newId = filtered_data[0];
+                    nodes.remove({ id: newId });
+                    class_table.rows({ "filter": "applied" }).remove();
+                    class_table.search('').columns().search('').draw();
+
+                }
+                else {
+                    alert("Node not selected.");
+                }
+            });
+
+            $('#inspect-node-btn').click(function (event) {
+                selected_node = network.getSelectedNodes()
+
+                if (selected_node.length == 1) {
+                    selected_node = selected_node[0]
+                    class_table.column(0).search(selected_node).draw();
+                    filtered_data = class_table.rows({ "filter": "applied" }).data().toArray()[0];
+
+                    $('#obj-type').text(filtered_data[1]);
+                    $('#obj-row-id').text(filtered_data[2]);
+                    $('#original-lbl').text(filtered_data[3]);
+                    $('#brick-class').text(filtered_data[4]);
+                    $('#obj-name').text(filtered_data[5]);
+                    $('#description').text(filtered_data[6]);
+                    $('#location').text(filtered_data[7]);
+
+                    class_table.search('').columns().search('').draw();
+
+                }
+                else {
+                    alert("Node not selected.");
+                }
+
+                //$('#obj-type').text('Location');
+                //$('#obj-row-id').text(selected_rows[0]);
+                //$('#original-lbl').text(selected_rows[1]);
+                //$('#obj-name').text(slugify(selected_rows[1]));
+                //$('#brick-class').text(selected_rows[2]);
+
+            });
+
+            $('#inspect-btn').click(function (event) {
+                selected_rows = metadata_table.row('.selected');
+                selected_rows = metadata_table.row(selected_rows[0]).data();
+                $('#obj-type').text('Data Label');
+                $('#obj-row-id').text(selected_rows[0]);
+                $('#original-lbl').text(selected_rows[1]);
+                $('#obj-name').text(selected_rows[1]);
+                $('#description').text(selected_rows[3]);
+                $('#brick-class').text(selected_rows[4]);
+                $('#location').text(selected_rows[2]);
+
+            });
+
+            // $('#clear-panels-btn').click(function (event) {
+            //     html_to_replace = ``;
+            //     $('#panel1-body').html(html_to_replace);
+            //     $('#panel2-body').html(html_to_replace);
+            //     alert('Cleared!');
+
+            // });
+
+            // $('#send-to-panel1-btn').click(function (event) {
+            //     html_to_replace = $('#panel-input').val();
+            //     $('#panel1-body').html(html_to_replace);
+            // });
+
+            // $('#send-to-panel2-btn').click(function (event) {
+            //     html_to_replace = $('#panel-input').val()
+            //     $('#panel2-body').html(html_to_replace);
+            // });
+
+            // // create an array with nodes
+            nodes = new vis.DataSet([
+            ]);
+
+            // create an array with edges
+            edges = new vis.DataSet([
+            ]);
+
+            // // create a network
+            var container = document.getElementById('mynetwork');
+
+            // // provide the data in the vis format
+            var data = {
+                nodes: nodes,
+                edges: edges
+            };
+            var options = {};
+            // // initialize your network!
+            network = new vis.Network(container, data, options);
+            network.on('click', function (properties) {
+                var ids = properties.nodes;
+                var clickedNodes = nodes.get(ids);
+                console.log('clicked nodes:', clickedNodes);
+            });
+
+            metadata_table = $('#metadataTable').DataTable({
+                scrollY: '50vh',
+                scrollCollapse: true,
+                paging: true
+            });
+            location_table = $('#locationTable').DataTable({
+                scrollY: '50vh',
+                scrollCollapse: true,
+                paging: true
+            });
+
+            relationship_table = $('#relationshipTable').DataTable({
+                scrollY: '50vh',
+                scrollCollapse: true,
+                paging: true
+            });
+
+            class_table = $('#classTable').DataTable({
+                scrollY: '50vh',
+                scrollCollapse: true,
+                paging: true
+            });
+
+            $('#classTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    class_table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+
+            $('#relationshipTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    relationship_table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+
+            $('#button').click(function () {
+                class_table.row('.selected').remove().draw(false);
+            });
+
+            $('#button').click(function () {
+                relationship_table.row('.selected').remove().draw(false);
+            });
+
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">ORNL VizBrick</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <!-- use following if nav bar needed -->
+                    <!--li class="active"><a href="#">Home<span class="sr-only"></span></a></li!-->
+                    <!--li><a href="#">To be implemented</li>
+            <li><a href="#">To be implemented</li>
+            <li><a href="#">To be implemented</li-->
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- grid layout -->
+    <!--div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Test Buttons</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button id="api-test-btn" class="btn btn-default">API Test (Request to API
+                                    server)</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="panel-input"
+                                    placeholder="Enter text to send to panel">
+                            </div>
+                            <div class="col-md-6">
+                                <button id="send-to-panel1-btn" class="btn btn-default">Send Text to Panel 1</button>
+                                <button id="send-to-panel2-btn" class="btn btn-default">Send Text to Panel 2</button>
+                                <button id="clear-panels-btn" class="btn btn-default">Clear Panels</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Panel 1</h3>
+                </div>
+                <div class="panel-body" id="panel1-body">
+                    Panel 1 contents displayed here
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Panel 2</h3>
+                </div>
+                <div class="panel-body" id="panel2-body">
+                    Panel 2 contents displayed here
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Graph Viz</h3>
+                </div>
+                <div class="panel-body" id="panel1-body">
+                    Graph vizualization testing
+                    <div id="mynetwork"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div -->
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="input-group">
+                        <input type="text" id="input-file" class="form-control" placeholder="Load from ..."
+                            value="NIST.csv">
+                        <span class="input-group-btn">
+                            <button id="load-metadata" class="btn btn-default" type="button">Load (Start from
+                                Scratch)</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <button id="clear-everything" class="btn btn-default" type="button">Clear All</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <div class="input-group">
+
+                        <input type="text" id="checkpoint-file" class="form-control"
+                            placeholder="Save Checkpoint to ..." value="checkpoint.json">
+                        <span class="input-group-btn">
+                            <button id="create-checkpoint" class="btn btn-default" type="button">Save
+                                Checkpoint</button>
+                            <button id="load-checkpoint" class="btn btn-default" type="button">Load Checkpoint</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-2"></div>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Location Table</h3>
+                </div>
+                <div class="panel-body" style="min-height: 700px; max-height: 700px;" id="panel-location-body">
+                    <button id="suggest-all-location-btn" class="btn btn-default">Suggest All</button>
+                    <button id="add-all-to-graph-btn" class="btn btn-default">Add All to Canvas</button>
+                    <button id="inspect-location-btn" class="btn btn-default">Inspect</button>
+                    <hr />
+                    <table id="locationTable" class="display">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Location</th>
+                                <th>Brick Class</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Metadata Table</h3>
+                </div>
+                <div class="panel-body" style="min-height: 700px; max-height: 700px;" id="panel-metadata-body">
+                    <button id="suggest-all-btn" class="btn btn-default">Suggest All</button>
+                    <button id="inspect-btn" class="btn btn-default">Inspect</button>
+                    <hr />
+                    <table id="metadataTable" class="display">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Data Label</th>
+                                <th>Location</th>
+                                <th>Description</th>
+                                <th>Brick Class</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Search & Suggest</h3>
+                </div>
+                <div class="panel-body">
+                    <button id="suggest-selected-btn" class="btn btn-default">Suggest on Selected Object and
+                        Keywords</button>
+                    <button id="update-brick-btn" class="btn btn-default">Update Brick Class</button>
+                    <hr />
+                    <div class="input-group">
+                        <input type="text" id="search-kwd" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button id="search-btn" class="btn btn-default" type="button">Search with Kewords!</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="panel-body" style="min-height: 360px; max-height: 360px; overflow-y: scroll;">
+                    <ul class="list-group" id="search-result-list">
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Brick Object Creator</h3>
+                </div>
+                <div class="panel-body" id="panel-canvas-body" style="min-height: 500px; max-height: 500px;">
+                    <button id="add-to-graph-btn" class="btn btn-default">Add to Canvas</button>
+                    <button id="clear-inspector-btn" class="btn btn-default">Clear</button>
+                    <hr />
+                    <div class="input-group">
+                        <input type="text" id="new-obj-name" class="form-control" placeholder="">
+                        <span class="input-group-btn">
+                            <button id="update-objname-btn" class="btn btn-default" type="button">Update Object
+                                Name</button>
+                        </span>
+                    </div>
+                    <hr />
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b>Object Type:</b>
+                                </td>
+                                <td>
+                                    <div id="obj-type"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Row ID:</b>
+                                </td>
+                                <td>
+                                    <div id="obj-row-id"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Original Label:</b>
+                                </td>
+                                <td>
+                                    <div id="original-lbl"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Object Name:</b>
+                                </td>
+                                <td>
+                                    <div id="obj-name"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Brick Class:</b>
+                                </td>
+                                <td>
+                                    <div id="brick-class"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Description:</b>
+                                </td>
+                                <td>
+                                    <div id="description"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Location:</b>
+                                </td>
+                                <td>
+                                    <div id="location"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--form>
+                        <label for="fname">New Object Name:</label><br>
+                        <input type="text" id="input-obj-name"><br>
+                    </form>
+                    <hr />
+                    <button id="update-obj-name-btn" class="btn btn-default">Update</button-->
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Rule-based Edge Creator</h3>
+                </div>
+                <div class="panel-body" id="panel-canvas-body">
+                    <button id="create-edges-btn" class="btn btn-default">Create Edges</button>
+                    <hr />
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b>From Node (must include) :</b>
+                                </td>
+                                <td>
+                                    <input type="text" id="from_include">
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>From Node (must exclude) :</b>
+                                </td>
+                                <td>
+                                    <input type="text" id="from_exclude">
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>To Node (must include) :</b>
+                                </td>
+                                <td>
+                                    <input type="text" id="to_include">
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>To Node (must exclude) :</b>
+                                </td>
+                                <td>
+                                    <input type="text" id="to_exclude">
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="panel-body" style="min-height: 100px; max-height: 100px; overflow-y: scroll;">
+                        <ul class="list-group" id="rel_list_1">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Edge Creator</h3>
+                </div>
+                <div class="panel-body" id="panel-canvas-body">
+                    <button id="create-edge-btn" class="btn btn-default">Create Edge</button>
+                    <hr />
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b>From:</b>
+                                </td>
+                                <td>
+                                    <div id="selected-from"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>To :</b>
+                                </td>
+                                <td>
+                                    <div id="selected-to"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="panel-body" style="min-height: 100px; max-height: 100px; overflow-y: scroll;">
+                        <ul class="list-group" id="rel_list_2">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Brick Canvas</h3>
+                </div>
+                <div class="panel-body" id="panel-canvas-body">
+                    <button id="inspect-node-btn" class="btn btn-default">Inspect Node</button>
+                    <button id="from-graph-btn" class="btn btn-default">From</button>
+                    <button id="to-graph-btn" class="btn btn-default">To</button>
+                    <button id="remove-node-btn" class="btn btn-default">Remove Node</button>
+                    <button id="clear-selected-btn" class="btn btn-default">Clear Selected</button>
+                    <hr/>
+                    <div class="input-group">
+
+                        <input type="text" id="brick-file" class="form-control"
+                            placeholder="Save Brick to ..." value="brick.ttl">
+                        <span class="input-group-btn">
+                            <button id="save-brick-btn" class="btn btn-default" type="button">Save
+                                Brick</button>
+                        </span>
+                    </div>
+                    <hr />
+                    <div id="mynetwork"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Relationship Table</h3>
+                </div>
+                <div class="panel-body" style="min-height: 700px; max-height: 700px;" id="panel-location-body">
+                    <button id="remove-rel-btn" class="btn btn-default">Remove</button>
+                    <hr />
+                    <table id="relationshipTable" class="display">
+                        <thead>
+                            <tr>
+                                <th>Edge Id</th>
+                                <th>From Node</th>
+                                <th>To Node</th>
+                                <th>Relationship Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Class Table</h3>
+                </div>
+                <div class="panel-body" style="min-height: 700px; max-height: 700px;" id="panel-metadata-body">
+                    <button id="inspect-class-btn" class="btn btn-default">Inspect</button>
+                    <button id="from-class-btn" class="btn btn-default">From</button>
+                    <button id="to-class-btn" class="btn btn-default">To</button>
+                    <button id="remove-class-btn" class="btn btn-default">Remove</button>
+                    <hr />
+                    <table id="classTable" class="display">
+                        <thead>
+                            <tr>
+                                <th>Node ID</th>
+                                <th>Source Table</th>
+                                <th>Source Row ID</th>
+                                <th>Source Label</th>
+                                <th>Brick Class</th>
+                                <th>Object Name</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+</body>
+
+</html>
