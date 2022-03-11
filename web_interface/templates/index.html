@@ -84,7 +84,7 @@
         function check_node(nodeId, include, exclude) {
 
             if (include[0] == '' && include[0] == '')
-                return false;
+                return true;
 
             for (i = 0; i < include.length; i++) {
                 if (include[i] != '') {
@@ -114,24 +114,9 @@
         };
 
         function slugify(str) {
-            str = str.replace(/^\s+|\s+$/g, '');
-
-            // Make the string lowercase
-            slugstr = str.toLowerCase();
-
-            // Remove accents, swap ñ for n, etc
-            var from = "ÁÄÂÀÃÅČÇĆĎÉĚËÈÊẼĔȆÍÌÎÏŇÑÓÖÒÔÕØŘŔŠŤÚŮÜÙÛÝŸŽáäâàãåčçćďéěëèêẽĕȇíìîïňñóöòôõøðřŕšťúůüùûýÿžþÞĐđßÆa·/_,:;";
-            var to = "AAAAAACCCDEEEEEEEEIIIINNOOOOOORRSTUUUUUYYZaaaaaacccdeeeeeeeeiiiinnooooooorrstuuuuuyyzbBDdBAa------";
-            for (var i = 0, l = from.length; i < l; i++) {
-                str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
-            }
-
-            // Remove invalid chars
-            str = str.replace(/[^a-z0-9 -]/g, '')
-                // Collapse whitespace and replace by -
-                .replace(/\s+/g, '-')
-                // Collapse dashes
-                .replace(/-+/g, '-');
+            str = str.toLowerCase()
+                .replace(/ /g, '-')
+                .replace(/[^\w-]+/g, '');
 
             return str;
         }
@@ -211,8 +196,8 @@
 
         function save_brick_done(data) {
             if (data['endcode'] == 0) {
-                    alert('A ttl file has been created.');
-                } else { alert('Something went wrong!'); }
+                alert('A ttl file has been created.');
+            } else { alert('Something went wrong!'); }
         };
 
         $(document).ready(function () {
@@ -312,10 +297,10 @@
 
             function get_checkpoint_done(data) {
                 if (data['endcode'] == 0) {
-                    
+
                     list_of_rows = data['data']['metadata_table_data'];
                     for (var i = 0; i < list_of_rows.length; i++) {
-                        metadata_table.row.add([list_of_rows[i][0], list_of_rows[i][1], list_of_rows[i][2], list_of_rows[i][3],list_of_rows[i][4]]).draw();
+                        metadata_table.row.add([list_of_rows[i][0], list_of_rows[i][1], list_of_rows[i][2], list_of_rows[i][3], list_of_rows[i][4]]).draw();
                     }
 
                     list_of_locations = data['data']['location_table_data'];
@@ -325,12 +310,12 @@
 
                     list_of_classes = data['data']['class_table_data'];
                     for (var i = 0; i < list_of_classes.length; i++) {
-                        class_table.row.add([list_of_classes[i][0], list_of_classes[i][1],list_of_classes[i][2],list_of_classes[i][3],list_of_classes[i][4],list_of_classes[i][5],list_of_classes[i][6]]).draw();
+                        class_table.row.add([list_of_classes[i][0], list_of_classes[i][1], list_of_classes[i][2], list_of_classes[i][3], list_of_classes[i][4], list_of_classes[i][5], list_of_classes[i][6]]).draw();
                     }
 
                     lost_of_rels = data['data']['relationship_table_data'];
                     for (var i = 0; i < lost_of_rels.length; i++) {
-                        relationship_table.row.add([lost_of_rels[i][0],lost_of_rels[i][1],lost_of_rels[i][2],lost_of_rels[i][3]]).draw();
+                        relationship_table.row.add([lost_of_rels[i][0], lost_of_rels[i][1], lost_of_rels[i][2], lost_of_rels[i][3]]).draw();
                     }
 
                     // // create an array with nodes
@@ -355,7 +340,7 @@
                         var clickedNodes = nodes.get(ids);
                         console.log('clicked nodes:', clickedNodes);
                     });
-                    
+
                     alert('A Checkpoint has been loaded.');
 
                 } else { alert('Something went wrong'); }
@@ -424,6 +409,34 @@
                     }
 
 
+                });
+
+            });
+
+            $('#add-all-meta-to-graph-btn').click(function (event) {
+
+                metadata_table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+
+
+                    data = this.data();
+
+                    $('#obj-type').text('Data Label');
+                    $('#obj-row-id').text(data[0]);
+                    $('#original-lbl').text(data[1]);
+                    $('#obj-name').text(data[1]);
+                    $('#brick-class').text(data[4]);
+                    $('#description').text(data[3]);
+                    $('#location').text(data[2]);
+
+                    if ($('#brick-class').text() != "" && $('#obj-name').text() != "") {
+                        newId = $('#obj-name').text() + " (" + $('#brick-class').text() + ")"
+                        try {
+                            nodes.add({ id: newId, label: newId });
+                            class_table.row.add([newId, $('#obj-type').text(), $('#obj-row-id').text(), $('#original-lbl').text(), $('#brick-class').text(), $('#obj-name').text(), $('#description').text()]).draw();
+                        } catch (err) {
+                            alert(newId + " is already in the network!");
+                        }
+                    }
                 });
 
             });
@@ -505,10 +518,7 @@
                 search_kwd = $("#search-kwd").val();
                 data = { search_kwd: search_kwd };
                 proxy_request("/search", "POST", data, search_btn_callback);
-
             });
-
-
 
             $('#update-objname-btn').click(function (event) {
                 obj_name = $("#new-obj-name").val();
@@ -518,6 +528,7 @@
             $('#update-brick-btn').click(function (event) {
                 brick_class = $("#search-result-list li.active b").text();
                 $('#brick-class').text(brick_class);
+
                 if ($('#obj-type').text() == "Location") {
                     location_table.row($('#obj-row-id').text()).data([$('#obj-row-id').text(), $('#obj-name').text(), $('#brick-class').text()]).draw();
                 }
@@ -528,6 +539,65 @@
                 }
             });
 
+            $('#update-brick-rule-btn').click(function (event) {
+                label_include = $('#label_include').val().split(",");
+                label_exclude = $('#label_exclude').val().split(",");
+                desc_include = $('#desc_include').val().split(",");
+                desc_exclude = $('#desc_exclude').val().split(",");
+
+                metadata_table_rows = metadata_table.rows().data().toArray();
+
+                if (label_include.length != 0 && label_exclude.length != 0 && desc_include.length != 0 && desc_exclude.length != 0) {
+                    for (let i = 0; i < metadata_table_rows.length; i++) {
+                        label = metadata_table_rows[i][1];
+                        description = metadata_table_rows[i][3];
+                        check_label = check_node(label, label_include, label_exclude);
+                        check_desc = check_node(description, desc_include, desc_exclude);
+                        brick_class = $("#search-result-list li.active b").text();
+
+                        if (brick_class == '') {
+                            alert('Please search and select a brick class type!');
+                            return;
+                        }
+                        else {
+
+                            if (check_label == true && check_desc == true) {
+                                console.log(label, description, check_label, check_desc);
+                                row_to_update = metadata_table_rows[i];
+                                row_to_update[4] = brick_class
+                                metadata_table.row(i).data(row_to_update).draw();
+
+                            }
+
+                        }
+                    }
+                    /*
+                    for (var i = 0; i < node_list.length; i++) {
+                        for (var j = 0; j < node_list.length; j++) {
+                            from_node_id = node_list[i];
+                            to_node_id = node_list[j];
+                            check_node_from = check_node(from_node_id, from_include, from_exclude);
+                            check_node_to = check_node(to_node_id, to_include, to_exclude);
+                            //console.log(from_node_id+" "+to_node_id+" "+check_node_from+" "+check_node_to);
+
+                            rel_type = $("#rel_list_1 li.active").text();
+                            if (check_node_from == true && check_node_to == true && rel_type != '') {
+                                edges.add({
+                                    from: from_node_id, to: to_node_id, rel_type: rel_type, id: slugify(from_node_id + ":" + to_node_id + ":" + rel_type),
+                                    arrows: {
+                                        to: {
+                                            enabled: true,
+                                            type: "arrow",
+                                        }
+                                    }
+                                });
+                                relationship_table.row.add([slugify(from_node_id + ":" + to_node_id + ":" + rel_type), from_node_id, to_node_id, rel_type]).draw();
+                            };
+                        }
+                    }*/
+                };
+            });
+
             $('#create-edge-btn').click(function (event) {
                 from_node = $('#selected-from').text();
                 to_node = $('#selected-to').text();
@@ -536,15 +606,19 @@
                     alert('Please select from_node, to_node, and a relationship type!');
                     return;
                 }
-                edges.add({
-                    from: from_node, to: to_node, rel_type: rel_type, id: slugify(from_node + ":" + to_node + ":" + rel_type),
-                    arrows: {
-                        to: {
-                            enabled: true,
-                            type: "arrow",
+                try {
+                    edges.add({
+                        from: from_node, to: to_node, rel_type: rel_type, id: slugify(from_node + ":" + to_node + ":" + rel_type),
+                        arrows: {
+                            to: {
+                                enabled: true,
+                                type: "arrow",
+                            }
                         }
-                    }
-                });
+                    });
+                } catch (err) {
+                    alert('Edge already exists in the network!', from_node, to_node, rel_type);
+                }
                 relationship_table.row.add([slugify(from_node + ":" + to_node + ":" + rel_type), from_node, to_node, rel_type]).draw();
             });
 
@@ -567,15 +641,20 @@
 
                             rel_type = $("#rel_list_1 li.active").text();
                             if (check_node_from == true && check_node_to == true && rel_type != '') {
-                                edges.add({
-                                    from: from_node_id, to: to_node_id, rel_type: rel_type, id: slugify(from_node_id + ":" + to_node_id + ":" + rel_type),
-                                    arrows: {
-                                        to: {
-                                            enabled: true,
-                                            type: "arrow",
+                                console.log(from_node_id, to_node_id, check_node_from, check_node_to);
+                                try {
+                                    edges.add({
+                                        from: from_node_id, to: to_node_id, rel_type: rel_type, id: slugify(from_node_id + ":" + to_node_id + ":" + rel_type),
+                                        arrows: {
+                                            to: {
+                                                enabled: true,
+                                                type: "arrow",
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                                } catch (err) {
+                                    alert('* Edge :'+ from_node_id+" "+to_node_id +" "+ rel_type +' already exists!');
+                                }
                                 relationship_table.row.add([slugify(from_node_id + ":" + to_node_id + ":" + rel_type), from_node_id, to_node_id, rel_type]).draw();
                             };
                         }
@@ -985,6 +1064,7 @@
                 <div class="panel-body" style="min-height: 700px; max-height: 700px;" id="panel-metadata-body">
                     <button id="suggest-all-btn" class="btn btn-default">Suggest All</button>
                     <button id="inspect-btn" class="btn btn-default">Inspect</button>
+                    <button id="add-all-meta-to-graph-btn" class="btn btn-default">Add All to Canvas</button>
                     <hr />
                     <table id="metadataTable" class="display">
                         <thead>
@@ -1012,10 +1092,57 @@
                     <h3 class="panel-title">Search & Suggest</h3>
                 </div>
                 <div class="panel-body">
-                    <button id="suggest-selected-btn" class="btn btn-default">Suggest on Selected Object and
-                        Keywords</button>
-                    <button id="update-brick-btn" class="btn btn-default">Update Brick Class</button>
+                    <button id="suggest-selected-btn" class="btn btn-default">Suggest on Selected & Keywords</button>
+                    <button id="update-brick-btn" class="btn btn-default">Update Class</button>
+                    <button id="update-brick-rule-btn" class="btn btn-default">Update Class (Rule-based)</button>
                     <hr />
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b>Label (must include) :</b>
+                                </td>
+                                <td>
+                                    <input type="text" id="label_include">
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Label (must exclude) :</b>
+                                </td>
+                                <td>
+                                    <input type="text" id="label_exclude">
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Description (must include) :</b>
+                                </td>
+                                <td>
+                                    <input type="text" id="desc_include">
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Description (must exclude) :</b>
+                                </td>
+                                <td>
+                                    <input type="text" id="desc_exclude">
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <div class="input-group">
                         <input type="text" id="search-kwd" class="form-control" placeholder="Search for...">
                         <span class="input-group-btn">
@@ -1023,7 +1150,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="panel-body" style="min-height: 360px; max-height: 360px; overflow-y: scroll;">
+                <div class="panel-body" style="min-height: 140px; max-height: 140px; overflow-y: scroll;">
                     <ul class="list-group" id="search-result-list">
                     </ul>
                 </div>
@@ -1238,11 +1365,11 @@
                     <button id="to-graph-btn" class="btn btn-default">To</button>
                     <button id="remove-node-btn" class="btn btn-default">Remove Node</button>
                     <button id="clear-selected-btn" class="btn btn-default">Clear Selected</button>
-                    <hr/>
+                    <hr />
                     <div class="input-group">
 
-                        <input type="text" id="brick-file" class="form-control"
-                            placeholder="Save Brick to ..." value="mybrick.ttl">
+                        <input type="text" id="brick-file" class="form-control" placeholder="Save Brick to ..."
+                            value="mybrick.ttl">
                         <span class="input-group-btn">
                             <button id="save-brick-btn" class="btn btn-default" type="button">Save
                                 Brick</button>
