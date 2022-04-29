@@ -404,7 +404,7 @@
                             nodes.add({ id: newId, label: newId });
                             class_table.row.add([newId, $('#obj-type').text(), $('#obj-row-id').text(), $('#original-lbl').text(), $('#brick-class').text(), $('#obj-name').text(), $('#description').text()]).draw();
                         } catch (err) {
-                            alert(newId + " is already in the network!");
+                            //alert(newId + " is already in the network!");
                         }
                     }
 
@@ -434,7 +434,7 @@
                             nodes.add({ id: newId, label: newId });
                             class_table.row.add([newId, $('#obj-type').text(), $('#obj-row-id').text(), $('#original-lbl').text(), $('#brick-class').text(), $('#obj-name').text(), $('#description').text()]).draw();
                         } catch (err) {
-                            alert(newId + " is already in the network!");
+                            //alert(newId + " is already in the network!");
                         }
                     }
                 });
@@ -635,6 +635,11 @@
                         for (var j = 0; j < node_list.length; j++) {
                             from_node_id = node_list[i];
                             to_node_id = node_list[j];
+
+                            //class_table.column(0).search(to_node_id).draw()
+                            //description = class_table.rows({ "filter": "applied" }).data().toArray()[0][6];
+                            //class_table.search('').columns().search('').draw();
+
                             check_node_from = check_node(from_node_id, from_include, from_exclude);
                             check_node_to = check_node(to_node_id, to_include, to_exclude);
                             //console.log(from_node_id+" "+to_node_id+" "+check_node_from+" "+check_node_to);

@@ -244,7 +244,7 @@ class SaveBrickHandler(tornado.web.RequestHandler):
         classes = json_obj['class_table_data']
         relationships = json_obj['relationship_table_data']
         for item in classes:
-            class_line = "bldg:"+str(item[3]).replace(" ","_")+" a brick:"+str(item[4]).replace(" ","_")+" ."
+            class_line = "bldg:"+str(item[5]).replace(" ","_")+" a brick:"+str(item[4]).replace(" ","_")+" ."
             ttl+=class_line+"\n"
 
         for item in relationships:
