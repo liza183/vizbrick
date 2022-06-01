@@ -42,7 +42,7 @@ The VizBrick API server is now up and running. Then, we need to start up the web
 
 Then, open any web browser and go to ``http://localhost:8088/` . If you see the following interface, now, you’re ready to use the VizBrick.
 
-![Figure 1. VizBrick web-interface](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652796548853_Screen+Shot+2022-05-17+at+10.08.37+AM.png)
+![Figure 1. VizBrick Interface](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1654099804161_Screen+Shot+2022-06-01+at+12.09.31+PM.png)
 
 # Example: Creating a Brick model for a Ecobee dataset using VizBrick
 
@@ -82,18 +82,18 @@ Note that the list of data labels and their descriptions are often provided by t
 
 When the CSV file is ready. Open a web browser window and load the CSV file by clicking the ‘Load (Start from Scratch)’ button to load the file with VizBrick.
 
-![Figure 2. Loading a metadata csv file with VizBrick](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652799748963_Screen+Shot+2022-05-17+at+11.00.35+AM.png)
+![Figure 2. Loading a metadata csv file with VizBrick](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1654099973456_Screen+Shot+2022-06-01+at+12.12.43+PM.png)
 
 
 When the metadata is successfully loaded by VizBrick. You will see the metadata table loaded. 
 
-![Figure 3. Loaded metadata table in VizBrick](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652799910992_Screen+Shot+2022-05-17+at+11.04.29+AM.png)
+![Figure 3. Loaded metadata table in VizBrick](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1654100050232_Screen+Shot+2022-06-01+at+12.13.15+PM.png)
 
 ## 2. Creating Brick entities for data labels
 
 Next, we will create Brick entities for data points by finding the best matching class for each data label from the Brick ontology. Searching and browsing the Brick ontology to find the best matching class for each data point can be repetitive and time-consuming. To speed up the process, VizBrick provides a suggestion capability. When you click the ‘Suggest All’ button on top of the metadata table, VizBrick will iterate each row in the metadata table and automatically find the most appropriate Brick class for each data label based on keywords included in the data label and the description. The suggestion can take a few minutes or more depending on the number of data labels in the metadata table. Figure 4 shows the result of the suggestion.
 
-![Figure 4.  Brick classes are automatically suggested for each data label.](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652801256959_Screen+Shot+2022-05-17+at+11.27.18+AM.png)
+![Figure 4.  Brick classes are automatically suggested for each data label.](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1654100107226_Screen+Shot+2022-06-01+at+12.14.51+PM.png)
 
 
 Although VizBrick can suggest Brick classes automatically, the accuracy of this automatic matching largely depends on the quality of the data label and description. Thus, we need to manually confirm if these suggestions were correct. For instance, VizBrick thinks that the best matching Brick class for the data label ‘T_stp_cool’ and ‘T_stp_heat’ are ‘Cooling Temperature Setpoint’ and ‘Heating Temperature Setpoint’ respectively, which is correct. Matchings for ‘Humidity’ and ‘auxHeat1’ are correct. However, the most appropriate Brick class for the data label ‘T_ctrl’ should be ‘Average Zone Air Temperature Sensor’ not the ‘Temperature Setpoint’. In this case. we need to correct the matching.
@@ -187,5 +187,4 @@ The first line needs to be manually updated to assign a proper url for this Bric
 # Conclusions
 
 VizBrick enables creating Brick models for building datasets without having to program or understand the syntax of RDF language or details of Brick ontology. The tool provides several assist capabilities such as Brick class suggestion, rule-based mapping, interactive manipulation of the network, and visualization. In this document, we demonstrated how to install, run, and use VizBrick to create a Brick model for building a dataset. We chose Ecobee dataset as our example dataset and explained every step of the process. 
-
 
