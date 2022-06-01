@@ -40,7 +40,7 @@
 
     <script>
         var metadata_table;
-        var location_table;
+        //var location_table;
         var relationship_table;
         var class_table;
         var network;
@@ -125,13 +125,13 @@
 
             list_of_rows = data['list_of_rows'];
             for (var i = 0; i < list_of_rows.length; i++) {
-                metadata_table.row.add([i, list_of_rows[i][0], list_of_rows[i][1], list_of_rows[i][2], ""]).draw();
+                metadata_table.row.add([i, list_of_rows[i][0], list_of_rows[i][1],""]).draw();
             }
 
-            list_of_locations = data['list_of_locations'];
+            /*list_of_locations = data['list_of_locations'];
             for (var i = 0; i < list_of_locations.length; i++) {
                 location_table.row.add([i, list_of_locations[i], ""]).draw();
-            }
+            }*/
 
         };
 
@@ -166,6 +166,7 @@
             });
 
         };
+        /*
         function suggest_all_location_callback(data) {
             matched_classes = data['matched_classes'];
             for (var i = 0; i < matched_classes.length; i++) {
@@ -173,7 +174,7 @@
                 row_id = matched_classes[i][0];
                 location_table.row(row_id).data([row_id, list_of_locations[row_id], classname]).draw();
             }
-        };
+        };*/
 
         function suggest_all_callback(data) {
             matched_classes = data['matched_classes'];
@@ -181,7 +182,7 @@
                 item = matched_classes[i];
                 classname = item[1][0][0];
                 row_id = item[0];
-                metadata_table.row(row_id).data([row_id, list_of_rows[row_id][0], list_of_rows[row_id][1], list_of_rows[row_id][2], classname]).draw();
+                metadata_table.row(row_id).data([row_id, list_of_rows[row_id][0], list_of_rows[row_id][1], classname]).draw();
             }
         };
 
@@ -216,7 +217,7 @@
                     $(this).addClass('selected');
                 }
             });
-
+            /*
             $('#locationTable tbody').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
@@ -225,14 +226,14 @@
                     location_table.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected');
                 }
-            });
+            });*/
 
             // add functions that need to be executed when the web-page is loaded
             function clear_everything() {
                 metadata_table.clear();
-                location_table.clear();
+                //location_table.clear();
                 metadata_table.draw();
-                location_table.draw();
+                //location_table.draw();
                 class_table.clear();
                 relationship_table.clear();
                 class_table.draw();
@@ -267,11 +268,12 @@
                 edge_list = [];
 
             }
+            /*
             $('#suggest-all-location-btn').click(function (event) {
                 data = { list_of_locations: list_of_locations };
                 proxy_request("/suggest_all_location", "POST", data, suggest_all_location_callback);
 
-            });
+            });*/
 
             $('#save-brick-btn').click(function (event) {
                 class_table_data = class_table.rows().data().toArray();
@@ -302,11 +304,11 @@
                     for (var i = 0; i < list_of_rows.length; i++) {
                         metadata_table.row.add([list_of_rows[i][0], list_of_rows[i][1], list_of_rows[i][2], list_of_rows[i][3], list_of_rows[i][4]]).draw();
                     }
-
+                    /*
                     list_of_locations = data['data']['location_table_data'];
                     for (var i = 0; i < list_of_locations.length; i++) {
                         location_table.row.add([list_of_locations[i][0], list_of_locations[i][1], list_of_locations[i][2]]).draw();
-                    }
+                    }*/
 
                     list_of_classes = data['data']['class_table_data'];
                     for (var i = 0; i < list_of_classes.length; i++) {
@@ -349,7 +351,7 @@
             $('#create-checkpoint').click(function (event) {
                 node_data = nodes.get(nodes.getIds());
                 edge_data = edges.get(edges.getIds());
-                location_table_data = location_table.rows().data().toArray();
+                //location_table_data = location_table.rows().data().toArray();
                 metadata_table_data = metadata_table.rows().data().toArray();
                 class_table_data = class_table.rows().data().toArray();
                 relationship_table_data = relationship_table.rows().data().toArray();
@@ -357,7 +359,7 @@
                 data_to_save = {}
                 data_to_save['node_data'] = node_data;
                 data_to_save['edge_data'] = edge_data;
-                data_to_save['location_table_data'] = location_table_data;
+                //data_to_save['location_table_data'] = location_table_data;
                 data_to_save['metadata_table_data'] = metadata_table_data;
                 data_to_save['class_table_data'] = class_table_data;
                 data_to_save['relationship_table_data'] = relationship_table_data;
@@ -380,9 +382,11 @@
                 // data needs to be json
                 proxy_request("/get_checkpoint", "POST", data, get_checkpoint_done);
             });
-
+            
+            /*
             $('#add-all-to-graph-btn').click(function (event) {
 
+                
                 location_table.rows().every(function (rowIdx, tableLoop, rowLoop) {
 
 
@@ -411,7 +415,7 @@
 
                 });
 
-            });
+            });*/
 
             $('#add-all-meta-to-graph-btn').click(function (event) {
 
@@ -426,7 +430,7 @@
                     $('#obj-name').text(data[1]);
                     $('#brick-class').text(data[4]);
                     $('#description').text(data[3]);
-                    $('#location').text(data[2]);
+                    //$('#location').text(data[2]);
 
                     if ($('#brick-class').text() != "" && $('#obj-name').text() != "") {
                         newId = $('#obj-name').text() + " (" + $('#brick-class').text() + ")"
@@ -474,7 +478,7 @@
 
             $('#suggest-selected-btn').click(function (event) {
 
-                keyword = $('#original-lbl').text() + ' ' + $('#description').text() + ' ' + $("#search-kwd").val() + ' ' + $("#location").val();
+                keyword = $('#original-lbl').text() + ' ' + $('#description').text() + ' ' + $("#search-kwd").val() + ' ' ;
                 data = { search_kwd: keyword };
                 proxy_request("/search", "POST", data, search_btn_callback);
 
@@ -528,15 +532,10 @@
             $('#update-brick-btn').click(function (event) {
                 brick_class = $("#search-result-list li.active b").text();
                 $('#brick-class').text(brick_class);
-
-                if ($('#obj-type').text() == "Location") {
-                    location_table.row($('#obj-row-id').text()).data([$('#obj-row-id').text(), $('#obj-name').text(), $('#brick-class').text()]).draw();
+                if ($('#obj-type').text() == "Data Label") {
+                    metadata_table.row($('#obj-row-id').text()).data([$('#obj-row-id').text(), $('#obj-name').text(), $('#description').text(), $('#brick-class').text()]).draw();
                 }
-                else {
-                    if ($('#obj-type').text() == "Data Label") {
-                        metadata_table.row($('#obj-row-id').text()).data([$('#obj-row-id').text(), $('#obj-name').text(), $('#location').text(), $('#description').text(), $('#brick-class').text()]).draw();
-                    }
-                }
+            
             });
 
             $('#update-brick-rule-btn').click(function (event) {
@@ -676,7 +675,7 @@
                 $('#obj-name').text(selected_rows[5]);
                 $('#brick-class').text(selected_rows[4]);
                 $('#description').text(selected_rows[6]);
-                $('#location').text('');
+                //$('#location').text('');
 
             });
 
@@ -707,7 +706,7 @@
                 relationship_table.search('').columns().search('').draw();
 
             });
-
+            /*
             $('#inspect-location-btn').click(function (event) {
                 selected_rows = location_table.row('.selected');
                 selected_rows = location_table.row(selected_rows[0]).data();
@@ -719,7 +718,7 @@
                 $('#description').text('');
                 $('#location').text('');
 
-            });
+            });*/
 
             $('#remove-node-btn').click(function (event) {
                 selected_node = network.getSelectedNodes()
@@ -753,7 +752,7 @@
                     $('#brick-class').text(filtered_data[4]);
                     $('#obj-name').text(filtered_data[5]);
                     $('#description').text(filtered_data[6]);
-                    $('#location').text(filtered_data[7]);
+                    //$('#location').text(filtered_data[7]);
 
                     class_table.search('').columns().search('').draw();
 
@@ -777,9 +776,9 @@
                 $('#obj-row-id').text(selected_rows[0]);
                 $('#original-lbl').text(selected_rows[1]);
                 $('#obj-name').text(selected_rows[1]);
-                $('#description').text(selected_rows[3]);
-                $('#brick-class').text(selected_rows[4]);
-                $('#location').text(selected_rows[2]);
+                $('#description').text(selected_rows[2]);
+                $('#brick-class').text(selected_rows[3]);
+                //$('#location').text(selected_rows[2]);
 
             });
 
@@ -831,11 +830,12 @@
                 scrollCollapse: true,
                 paging: true
             });
+            /*
             location_table = $('#locationTable').DataTable({
                 scrollY: '50vh',
                 scrollCollapse: true,
                 paging: true
-            });
+            });*/
 
             relationship_table = $('#relationshipTable').DataTable({
                 scrollY: '50vh',
@@ -1037,7 +1037,7 @@
     </div>
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-3">
+        <!--div class="col-md-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Location Table</h3>
@@ -1060,8 +1060,8 @@
                     </table>
                 </div>
             </div>
-        </div>
-        <div class="col-md-5">
+        </div-->
+        <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Metadata Table</h3>
@@ -1076,7 +1076,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Data Label</th>
-                                <th>Location</th>
+                                <!--th>Location</th-->
                                 <th>Description</th>
                                 <th>Brick Class</th>
                             </tr>
@@ -1230,14 +1230,14 @@
                                     <div id="description"></div>
                                 </td>
                             </tr>
-                            <tr>
+                            <!--r>
                                 <td>
                                     <b>Location:</b>
                                 </td>
                                 <td>
                                     <div id="location"></div>
                                 </td>
-                            </tr>
+                            </tr-->
                         </tbody>
                     </table>
                     <!--form>
