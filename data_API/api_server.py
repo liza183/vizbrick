@@ -152,17 +152,13 @@ def search(query, hint="", topk=20):
 def get_metadata_csv(filename='NIST_metadata_cleaned.csv'):
     
     list_of_rows = []
-    list_of_locations = []
-
+    
     data = pd.read_csv(filename)
     data = data.fillna('NONE')
     for index, row in data.iterrows():
-        list_of_rows.append([row[1],row[2],row[3]])
-        if row[2]!='NONE':
-            list_of_locations.append(row[2])
-    list_of_locations = list(set(list_of_locations)) 
-
-    return list_of_rows, list_of_locations
+        list_of_rows.append([row[1],row[2]])
+        
+    return list_of_rows
 
 def get_rel_list():
     rel_list = []
@@ -187,8 +183,8 @@ class GetMetadataCSVHandler(tornado.web.RequestHandler):
      def post(self):
         json_obj = json_decode(self.request.body)
         input_file = json_obj['input_file']
-        list_of_rows, list_of_locations = get_metadata_csv(input_file)           
-        response_to_send = {"list_of_rows":list_of_rows,"list_of_locations":list_of_locations}
+        list_of_rows = get_metadata_csv(input_file)           
+        response_to_send = {"list_of_rows":list_of_rows}
         
         self.write(json.dumps(response_to_send))
 
@@ -197,6 +193,7 @@ class SearchHandler(tornado.web.RequestHandler):
      def post(self):
         json_obj = json_decode(self.request.body)
         search_kwd = json_obj['search_kwd']
+        print(search_kwd)
         response_to_send = {}
         response_to_send['result'] = search(search_kwd)
         self.write(json.dumps(response_to_send))
@@ -286,7 +283,7 @@ class GetCheckpointHandler(tornado.web.RequestHandler):
             response_to_send['endcode'] = 1
             
         self.write(json.dumps(response_to_send))
-
+'''
 class SuggestAllLocationHandler(tornado.web.RequestHandler):
     
      def post(self):
@@ -303,7 +300,7 @@ class SuggestAllLocationHandler(tornado.web.RequestHandler):
         response_to_send = {'matched_classes': matched_classes}
         print(response_to_send)
         self.write(json.dumps(response_to_send))
-
+'''
 import re
 def parse_colname(term):
     parsed = re.sub('[^a-zA-Z0-9\n\.]', ' ', term)
@@ -337,7 +334,8 @@ class SuggestAllHandler(tornado.web.RequestHandler):
         idx = 0
         for row in rows:
             print(idx,"/",len(rows)," processed")
-            query = row[0]+" "+row[2]
+            query = row[0]+" "+row[1]
+            print(query)
             search_perform = search(query,topk=1)
             matched_classes.append([idx, search_perform])
             idx+=1
@@ -351,7 +349,7 @@ def data_api_app():
         (r"/get_metadata_csv", GetMetadataCSVHandler),
         (r"/get_rel_list", GetRelListHandler),
         (r"/search", SearchHandler),
-        (r"/suggest_all_location", SuggestAllLocationHandler),
+        #(r"/suggest_all_location", SuggestAllLocationHandler),
         (r"/suggest_all", SuggestAllHandler),
         (r"/create_checkpoint", CreateCheckpointHandler),
         (r"/get_checkpoint", GetCheckpointHandler),
