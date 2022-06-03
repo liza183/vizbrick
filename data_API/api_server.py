@@ -26,7 +26,7 @@ import numpy as np
 
 # Loadinb Brick Schema
 g = Graph()
-g.parse("/Users/slz/git_repo/vizbrick/Brick.ttl", format="turtle")
+g.parse("data/Brick.ttl", format="turtle")
 
 def vectorize(list_of_docs):
     vectorizer = TfidfVectorizer()
