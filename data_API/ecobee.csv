@@ -1,0 +1,27 @@
+﻿,Data Label,Description
+0,T_ctrl,Indoor averaged measured temperature
+1,T_stp_cool,Indoor cooling setpoint 
+2,T_stp_heat,Indoor heating setpoint 
+3,Humidity,Indoor humidity
+4,auxHeat1,Run time for other heat source 1
+5,auxHeat2,Run time for other heat source 2
+6,auxHeat3,Run time for other heat source 3
+7,compCool1,Run time for cooling 1
+8,compCool2,Run time for cooling 2
+9,compHeat1,Run time for heat pump 1
+10,compHeat2,Run time for heat pump 2
+11,fan,Run time for fan
+12,Thermostat_Temperature,Measured temperature sensor at thermostat
+13,Thermostat_Motion,Detected thermostat motion at the time
+14,Remote_Sensor_1_Temperature,Measured temperature at remote sensor 1
+15,Remote_Sensor_1_Motion,Detected motion at remote sensor 1
+16,Remote_Sensor_2_Temperature,Measured temperature at remote sensor 2
+17,Remote_Sensor_2_Motion,Detected motion at remote sensor 2
+18,Remote_Sensor_3_Temperature,Measured temperature at remote sensor 3
+19,Remote_Sensor_3_Motion,Detected motion at remote sensor 3
+20,Remote_Sensor_4_Temperature,Measured temperature at remote sensor 4
+21,Remote_Sensor_4_Motion,Detected motion at remote sensor 4
+22,Remote_Sensor_5_Temperature,Measured temperature at remote sensor 5
+23,Remote_Sensor_5_Motion,Detected motion at remote sensor 5
+24,T_out,Outdoor temperature for nearest weather station
+25,RH_out,Outdoor humidity for nearest weather station

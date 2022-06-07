@@ -324,7 +324,7 @@ def parse_label(label):
         tmp=""
     return ' '.join(terms)
 
-class SuggestAllHandler(tornado.web.RequestHandler):
+class SuggestSelectedHandler(tornado.web.RequestHandler):
     
      def post(self):
         json_obj = json_decode(self.request.body)
@@ -334,10 +334,10 @@ class SuggestAllHandler(tornado.web.RequestHandler):
         idx = 0
         for row in rows:
             print(idx,"/",len(rows)," processed")
-            query = row[0]+" "+row[1]
+            query = row[1]+" "+row[3]
             print(query)
             search_perform = search(query,topk=1)
-            matched_classes.append([idx, search_perform])
+            matched_classes.append([row[0], search_perform])
             idx+=1
             #if idx==5: break
         response_to_send = {'matched_classes': matched_classes}
@@ -350,7 +350,7 @@ def data_api_app():
         (r"/get_rel_list", GetRelListHandler),
         (r"/search", SearchHandler),
         #(r"/suggest_all_location", SuggestAllLocationHandler),
-        (r"/suggest_all", SuggestAllHandler),
+        (r"/suggest_selected", SuggestSelectedHandler),
         (r"/create_checkpoint", CreateCheckpointHandler),
         (r"/get_checkpoint", GetCheckpointHandler),
         (r"/save_brick", SaveBrickHandler),
