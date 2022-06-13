@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Web-Interface</title>
     <link rel="shortcut icon" href="">
+
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -97,16 +98,16 @@
             if (include[0] == '' && include[0] == '')
                 return true;
 
-            for (i = 0; i < include.length; i++) {
-                if (include[i] != '') {
-                    if (nodeId.includes(include[i]) == false) {
+            for (var k = 0; k < include.length; k++) {
+                if (include[k] != '') {
+                    if (nodeId.includes(include[k]) == false) {
                         return false;
                     }
                 };
             };
-            for (i = 0; i < exclude.length; i++) {
-                if (exclude[i] != '') {
-                    if (nodeId.includes(exclude[i]) == true) {
+            for (var k = 0; k < exclude.length; k++) {
+                if (exclude[k] != '') {
+                    if (nodeId.includes(exclude[k]) == true) {
                         return false;
                     }
                 };
@@ -132,8 +133,6 @@
             return str;
         }
         function get_metadata_csv(data) {
-            //call back function example
-
             list_of_rows = data['list_of_rows'];
             for (var i = 0; i < list_of_rows.length; i++) {
                 metadata_table.row.add([i, list_of_rows[i][0], list_of_rows[i][0], list_of_rows[i][1], "", "Started"]).draw();
@@ -142,14 +141,11 @@
         };
 
         function add_row() {
-            //call back function example
-
             metadata_table.row.add([metadata_table.rows().data().toArray().length, "", "", "", "", "New Row"]).draw();
 
         };
 
         function get_rel_list(data) {
-            //call back function example
             rel_list = data['rel_list'];
 
             $("#rel_list_1").empty();
@@ -178,16 +174,20 @@
                 $this.toggleClass('active')
             });
 
-        };
-        /*
-        function suggest_all_location_callback(data) {
-            matched_classes = data['matched_classes'];
-            for (var i = 0; i < matched_classes.length; i++) {
-                classname = matched_classes[i][1];
-                row_id = matched_classes[i][0];
-                location_table.row(row_id).data([row_id, list_of_locations[row_id], classname]).draw();
+            $("#rel_list_3").empty();
+            for (var i = 0; i < rel_list.length; i++) {
+                $("#rel_list_3").append('<li class="list-group-item"><b>' + rel_list[i] + '</b></li>');
             }
-        };*/
+
+            $('#rel_list_3 li').on('click', function () {
+                var $this = $(this);
+                var $alias = $this.data('alias');
+
+                $('.active').removeClass('active');
+                $this.toggleClass('active')
+            });
+
+        };
 
         function suggest_selected_callback(data) {
             matched_classes = data['matched_classes'];
@@ -217,30 +217,7 @@
         $(document).ready(function () {
 
             data = { input_file: 'NIST.csv' };
-            // data needs to be json
-            //proxy_request("/get_metadata_csv", "POST", data, get_metadata_csv);
             proxy_request("/get_rel_list", "POST", data, get_rel_list);
-
-            /*
-            $('#metadataTable tbody').on('click', 'tr', function () {
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
-                }
-                else {
-                    metadata_table.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
-            });*/
-            /*
-            $('#locationTable tbody').on('click', 'tr', function () {
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
-                }
-                else {
-                    location_table.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
-            });*/
 
             // add functions that need to be executed when the web-page is loaded
             function clear_everything() {
@@ -282,12 +259,6 @@
                 edge_list = [];
 
             }
-            /*
-            $('#suggest-all-location-btn').click(function (event) {
-                data = { list_of_locations: list_of_locations };
-                proxy_request("/suggest_all_location", "POST", data, suggest_all_location_callback);
-
-            });*/
 
             $('#save-brick-btn').click(function (event) {
                 class_table_data = class_table.rows().data().toArray();
@@ -329,6 +300,35 @@
 
             });
 
+            $('#add-to-canvas-btn').click(function (event) {
+                list_of_selected_rows = relationship_table.rows('.selected').data().toArray();
+                for (var i = 0; i < list_of_selected_rows.length; i++) {
+                    edge_id = list_of_selected_rows[i][0];
+                    from_node_id = list_of_selected_rows[i][1];
+                    to_node_id = list_of_selected_rows[i][2];
+                    edge_type = list_of_selected_rows[i][3];
+
+                    node_ids = nodes.getIds();
+                    if (node_ids.includes(from_node_id) == false)
+                        nodes.add({ id: from_node_id, label: from_node_id });
+                    if (node_ids.includes(to_node_id) == false)
+                        nodes.add({ id: to_node_id, label: to_node_id });
+
+                    edge_ids = edges.getIds();
+                    if (edge_ids.includes(edge_id) == false) {
+                        edges.add({
+                            from: from_node_id, to: to_node_id, rel_type: edge_type, id: edge_id,
+                            arrows: {
+                                to: {
+                                    enabled: true,
+                                    type: "arrow",
+                                }
+                            }
+                        });
+                    }
+                };
+            });
+
             function checkpoint_done(data) {
                 if (data['endcode'] == 0) {
                     alert('A Checkpoint has been created.');
@@ -350,7 +350,7 @@
 
                     list_of_classes = data['data']['class_table_data'];
                     for (var i = 0; i < list_of_classes.length; i++) {
-                        class_table.row.add([list_of_classes[i][0], list_of_classes[i][1], list_of_classes[i][2], list_of_classes[i][3], list_of_classes[i][4], list_of_classes[i][5], list_of_classes[i][6]]).draw();
+                        class_table.row.add([list_of_classes[i][0], list_of_classes[i][1], list_of_classes[i][2], list_of_classes[i][3], list_of_classes[i][4], list_of_classes[i][5], list_of_classes[i][6]], "Started").draw();
                     }
 
                     lost_of_rels = data['data']['relationship_table_data'];
@@ -486,9 +486,7 @@
                         if (pass == 1) {
                             try {
                                 //nodes.add({ id: newId, label: newId });
-
-
-                                class_table.row.add([newId, obj_row_id, org_row_lbl, brick_class, obj_name, description]).draw();
+                                class_table.row.add([newId, obj_row_id, org_row_lbl, brick_class, obj_name, description, "Started"]).draw();
                             } catch (err) {
                                 //alert(newId + " is already in the network!");
                             }
@@ -498,9 +496,9 @@
                         warning = 1;
                     }
                 }
-                if(warning==1)
-                alert('Some nodes were not ready to be convert to Brick Object. Please assign Brick classes to the selected rows');
-                        
+                if (warning == 1)
+                    alert('Some nodes were not ready to be convert to Brick Object. Please assign Brick classes to the selected rows');
+
             });
 
             $('#from-class-btn').click(function (event) {
@@ -531,6 +529,20 @@
                 selected_node = network.getSelectedNodes();
                 if ($('#selected-from') != selected_node) {
                     $('#selected-to').text(selected_node);
+                } else {
+                    alert('From and To can\'t be the same nodes!');
+                }
+            });
+
+            $('#from-graph-btn-canvas').click(function (event) {
+                selected_node = network.getSelectedNodes();
+                $('#selected-from-canvas').text(selected_node);
+            });
+
+            $('#to-graph-btn-canvas').click(function (event) {
+                selected_node = network.getSelectedNodes();
+                if ($('#selected-from-canvas') != selected_node) {
+                    $('#selected-to-canvas').text(selected_node);
                 } else {
                     alert('From and To can\'t be the same nodes!');
                 }
@@ -570,6 +582,11 @@
                 metadata_table.rows().select();
             });
 
+            $('#select-none-btn').click(function (event) {
+                //metadata_table.selectAll();
+                metadata_table.rows().deselect();
+            });
+
             $('#select-all-class-btn').click(function (event) {
                 //metadata_table.selectAll();
                 class_table.rows().select();
@@ -580,10 +597,16 @@
                 class_table.rows().deselect();
             });
 
-            $('#select-none-btn').click(function (event) {
+            $('#select-all-rel-btn').click(function (event) {
                 //metadata_table.selectAll();
-                class_table.rows().deselect();
+                relationship_table.rows().select();
             });
+
+            $('#select-none-rel-btn').click(function (event) {
+                //metadata_table.selectAll();
+                relationship_table.rows().deselect();
+            });
+
 
             $('#suggest-btn').click(function (event) {
 
@@ -611,6 +634,29 @@
 
             });
 
+            $('#class-mark-as-complete').click(function (event) {
+
+                list_of_selected_rows = class_table.rows('.selected').data().toArray();
+
+                class_table.rows('.selected').every(function (rowIdx, tableLoop, rowLoop) {
+                    // The checks the id of the current row
+                    class_table.row(rowIdx).data([class_table.row(rowIdx).data()[0], class_table.row(rowIdx).data()[1], class_table.row(rowIdx).data()[2], class_table.row(rowIdx).data()[3], class_table.row(rowIdx).data()[4], class_table.row(rowIdx).data()[5], "Completed"]).draw();
+                });
+
+
+            });
+
+            $('#class-mark-as-pass').click(function (event) {
+
+                list_of_selected_rows = class_table.rows('.selected').data().toArray();
+
+                class_table.rows('.selected').every(function (rowIdx, tableLoop, rowLoop) {
+                    // The checks the id of the current row
+                    class_table.row(rowIdx).data([class_table.row(rowIdx).data()[0], class_table.row(rowIdx).data()[1], class_table.row(rowIdx).data()[2], class_table.row(rowIdx).data()[3], class_table.row(rowIdx).data()[4], class_table.row(rowIdx).data()[5], "Pass"]).draw();
+                });
+
+            });
+
             $('#create-brick-obj').click(function (event) {
 
                 selected_node = network.getSelectedNodes()
@@ -632,7 +678,7 @@
                             class_table.search('').columns().search('').draw();
                         }
                     }
-                    class_table.row.add([newId, $('#obj-row-id').text(), $('#original-lbl').text(), $('#brick-class').text(), $('#obj-name').text(), $('#description').text()]).draw();
+                    class_table.row.add([newId, $('#obj-row-id').text(), $('#original-lbl').text(), $('#brick-class').text(), $('#obj-name').text(), $('#description').text(), "Started"]).draw();
 
                 }
                 else {
@@ -765,10 +811,41 @@
                 };
             });
 
+            
+
+            $('#create-edge-btn-canvas').click(function (event) {
+                from_node = $('#selected-from-canvas').text();
+                to_node = $('#selected-to-canvas').text();
+                
+                rel_type = $("#rel_list_3 li.active").text();
+                if (rel_type == '' || from_node == '' || to_node == '') {
+                    alert('Please select from_node, to_node, and a relationship type!');
+                    return;
+                }
+
+                edge_id = slugify(from_node_id + ":" + to_node_id + ":" + rel_type);
+                edge_ids = edges.getIds();
+                if (edge_ids.includes(edge_id) == false) {
+                    edges.add({
+                        from: from_node, to: to_node, rel_type: rel_type, id: edge_id,
+                        arrows: {
+                            to: {
+                                enabled: true,
+                                type: "arrow",
+                            }
+                        }
+                    });
+                }
+                
+                relationship_table.row.add([edge_id, from_node, to_node, rel_type]).draw();
+
+
+            });
+
             $('#create-edge-btn').click(function (event) {
                 from_node = $('#selected-from').text();
                 to_node = $('#selected-to').text();
-                
+
                 rel_type = $("#rel_list_2 li.active").text();
                 if (rel_type == '' || from_node == '' || to_node == '') {
                     alert('Please select from_node, to_node, and a relationship type!');
@@ -789,19 +866,32 @@
                     //alert('Edge already exists in the network!', from_node, to_node, rel_type);
                 }
                 ids_of_rel = [];
-                for(var i=0;i<relationship_table.rows().data().toArray().length;i++){
+                for (var i = 0; i < relationship_table.rows().data().toArray().length; i++) {
                     ids_of_rel.push(relationship_table.rows().data().toArray()[i][0]);
                 }
                 to_node_list = to_node.split(",");
-                for (var i = 0; i < to_node_list.length - 1; i++){
-                    alert(i);
+
+                for (var i = 0; i < to_node_list.length - 1; i++) {
                     id_to_add = slugify(from_node + ":" + to_node_list[i] + ":" + rel_type);
-                    if(ids_of_rel.includes(id_to_add)==false){
+                    if (ids_of_rel.includes(id_to_add) == false) {
+
+                        relationship_table_data = relationship_table.rows().data().toArray();
+                        for (var j = 0; j < relationship_table_data.length; j++) {
+                            existing_newId = relationship_table_data[j][0];
+                            if (existing_newId == id_to_add) {
+                                relationship_table.column(0).search(id_to_add).draw();
+                                relationship_table.rows({ "filter": "applied" }).remove();
+                                relationship_table.search('').columns().search('').draw();
+
+                            }
+                        }
                         relationship_table.row.add([id_to_add, from_node, to_node_list[i], rel_type]).draw();
                         ids_of_rel.push(id_to_add);
-                     }
+                    }
                 }
-                
+
+
+
             });
 
             $('#create-edges-btn').click(function (event) {
@@ -810,7 +900,12 @@
                 from_exclude = $('#from_exclude').val().split(",");
                 to_include = $('#to_include').val().split(",");
                 to_exclude = $('#to_exclude').val().split(",");
-                node_list = nodes.getIds();
+                node_list = [];
+                class_table_data = class_table.rows().data().toArray();
+                for (var i = 0; i < class_table_data.length; i++) {
+                    node_list.push(class_table_data[i][0]);
+                }
+
 
                 if (from_include.length != 0 && from_exclude.length != 0 && to_include.length != 0 && to_exclude.length != 0) {
                     for (var i = 0; i < node_list.length; i++) {
@@ -818,32 +913,33 @@
                             from_node_id = node_list[i];
                             to_node_id = node_list[j];
 
-                            //class_table.column(0).search(to_node_id).draw()
-                            //description = class_table.rows({ "filter": "applied" }).data().toArray()[0][6];
-                            //class_table.search('').columns().search('').draw();
-
                             check_node_from = check_node(from_node_id, from_include, from_exclude);
                             check_node_to = check_node(to_node_id, to_include, to_exclude);
-                            //console.log(from_node_id+" "+to_node_id+" "+check_node_from+" "+check_node_to);
-
-                            rel_type = $("#rel_list_1 li.active").text();
-                            if (check_node_from == true && check_node_to == true && rel_type != '') {
-                                console.log(from_node_id, to_node_id, check_node_from, check_node_to);
-                                try {
-                                    edges.add({
-                                        from: from_node_id, to: to_node_id, rel_type: rel_type, id: slugify(from_node_id + ":" + to_node_id + ":" + rel_type),
-                                        arrows: {
-                                            to: {
-                                                enabled: true,
-                                                type: "arrow",
-                                            }
-                                        }
-                                    });
-                                } catch (err) {
-                                    alert('* Edge :' + from_node_id + " " + to_node_id + " " + rel_type + ' already exists!');
+                            if (check_node_from == true && check_node_to == true) {
+                                rel_type = $("#rel_list_1 li.active").text();
+                                if (rel_type == '') {
+                                    alert('Please select a relationship type!');
+                                    return;
                                 }
-                                relationship_table.row.add([slugify(from_node_id + ":" + to_node_id + ":" + rel_type), from_node_id, to_node_id, rel_type]).draw();
-                            };
+
+                                id_to_add = slugify(from_node_id + ":" + to_node_id + ":" + rel_type);
+                                relationship_table_data = relationship_table.rows().data().toArray();
+
+                                for (var k = 0; k < relationship_table_data.length; k++) {
+                                    existing_newId = relationship_table_data[k][0];
+                                    if (existing_newId == id_to_add) {
+                                        //alert(newId + ' : Same Node ID already exist! please remove first!');
+                                        relationship_table.column(0).search(id_to_add).draw();
+                                        //filtered_data = class_table.rows({ "filter": "applied" }).data().toArray()[0];
+                                        //newId = filtered_data[0];
+                                        //nodes.remove({ id: newId });
+                                        relationship_table.rows({ "filter": "applied" }).remove();
+                                        relationship_table.search('').columns().search('').draw();
+
+                                    }
+                                }
+                                relationship_table.row.add([id_to_add, from_node_id, to_node_id, rel_type]).draw();
+                            }
                         }
                     }
                 };
@@ -862,14 +958,14 @@
             });
 
             $('#remove-class-btn').click(function (event) {
-                selected_rows = class_table.row('.selected');
-                selected_rows = class_table.row(selected_rows[0]).data();
-                class_table.column(0).search(selected_rows[0]).draw();
-                //filtered_data = class_table.rows({ "filter": "applied" }).data().toArray()[0];
-                //newId = filtered_data[0];
-                //nodes.remove({ id: newId });
-                class_table.rows({ "filter": "applied" }).remove();
-                class_table.search('').columns().search('').draw();
+                list_of_selected_rows = class_table.rows('.selected').data().toArray();
+                for (var i = 0; i < list_of_selected_rows.length; i++) {
+                    newId = list_of_selected_rows[i][0];
+                    class_table.column(0).search(newId).draw();
+                    class_table.rows({ "filter": "applied" }).remove();
+                    class_table.search('').columns().search('').draw();
+                }
+
 
             });
 
@@ -888,61 +984,17 @@
                 relationship_table.search('').columns().search('').draw();
 
             });
-            /*
-            $('#inspect-location-btn').click(function (event) {
-                selected_rows = location_table.row('.selected');
-                selected_rows = location_table.row(selected_rows[0]).data();
-                $('#obj-type').text('Location');
-                $('#obj-row-id').text(selected_rows[0]);
-                $('#original-lbl').text(selected_rows[1]);
-                $('#obj-name').text(selected_rows[1]);
-                $('#brick-class').text(selected_rows[2]);
-                $('#description').text('');
-                $('#location').text('');
-
-            });*/
 
             $('#remove-node-btn').click(function (event) {
-                selected_node = network.getSelectedNodes()
+                selected_node = network.getSelectedNodes();
 
                 if (selected_node.length == 1) {
                     selected_node = selected_node[0]
-                    class_table.column(0).search(selected_node).draw();
-                    filtered_data = class_table.rows({ "filter": "applied" }).data().toArray()[0];
-                    newId = filtered_data[0];
-                    nodes.remove({ id: newId });
-                    class_table.rows({ "filter": "applied" }).remove();
-                    class_table.search('').columns().search('').draw();
-
+                    nodes.remove({ id: selected_node });
                 }
                 else {
                     alert("Node not selected.");
                 }
-            });
-
-            $('#inspect-node-btn').click(function (event) {
-                selected_node = network.getSelectedNodes()
-
-                if (selected_node.length == 1) {
-                    selected_node = selected_node[0]
-                    class_table.column(0).search(selected_node).draw();
-                    filtered_data = class_table.rows({ "filter": "applied" }).data().toArray()[0];
-
-                    $('#obj-type').text(filtered_data[1]);
-                    $('#obj-row-id').text(filtered_data[2]);
-                    $('#original-lbl').text(filtered_data[3]);
-                    $('#brick-class').text(filtered_data[4]);
-                    $('#obj-name').text(filtered_data[5]);
-                    $('#description').text(filtered_data[6]);
-                    //$('#location').text(filtered_data[7]);
-
-                    class_table.search('').columns().search('').draw();
-
-                }
-                else {
-                    alert("Node not selected.");
-                }
-
             });
 
             $('#inspect-btn').click(function (event) {
@@ -1002,9 +1054,19 @@
             });
 
             relationship_table = $('#relationshipTable').DataTable({
+                dom: 'Bfrtip',
+                language: {
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries ",
+                },
+                select: {
+                    style: 'multi'
+                },
                 scrollY: '50vh',
                 scrollCollapse: true,
-                paging: false
+                paging: false,
+                select: {
+                    style: 'multi'
+                },
             });
 
             class_table = $('#classTable').DataTable({
@@ -1019,26 +1081,6 @@
                 scrollCollapse: true,
                 paging: false,
                 //rowId: 'Node ID'
-            });
-
-            /*$('#classTable tbody').on('click', 'tr', function () {
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
-                }
-                else {
-                    class_table.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
-            });*/
-
-            $('#relationshipTable tbody').on('click', 'tr', function () {
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
-                }
-                else {
-                    relationship_table.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
             });
 
             $('#button').click(function () {
@@ -1303,6 +1345,8 @@
                     <button id="select-all-class-btn" class="btn btn-default">Select All</button>
                     <button id="select-none-class-btn" class="btn btn-default">Select None</button>
                     <button id="remove-class-btn" class="btn btn-default">Remove</button>
+                    <button id="class-mark-as-complete" class="btn btn-default">Complete</button>
+                    <button id="class-mark-as-pass" class="btn btn-default">Pass</button>
                     <hr />
                     <table id="classTable" class="display">
                         <thead>
@@ -1313,6 +1357,7 @@
                                 <th>Brick Class</th>
                                 <th>Object Name</th>
                                 <th>Description</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1396,7 +1441,7 @@
                 <div class="panel-body" id="panel-canvas-body">
                     <button id="from-class-btn" class="btn btn-default">From</button>
                     <button id="to-class-btn" class="btn btn-default">To</button>
-                    <button id="create-edge-btn" class="btn btn-default">Create Edge</button>
+                    <button id="create-edge-btn" class="btn btn-default">Create Relationships</button>
                     <hr />
                     <table class="table">
                         <tbody>
@@ -1429,7 +1474,7 @@
                     <h3 class="panel-title">Rule-based Edge Creator</h3>
                 </div>
                 <div class="panel-body" id="panel-canvas-body">
-                    <button id="create-edges-btn" class="btn btn-default">Create Edges</button>
+                    <button id="create-edges-btn" class="btn btn-default">Create Relationships</button>
                     <hr />
                     <table class="table">
                         <tbody>
@@ -1496,7 +1541,10 @@
                     <h3 class="panel-title">Relationship Table</h3>
                 </div>
                 <div class="panel-body" style="min-height: 820px; max-height: 820px;" id="panel-location-body">
+                    <button id="select-all-rel-btn" class="btn btn-default">Select All</button>
+                    <button id="select-none-rel-btn" class="btn btn-default">Select None</button>
                     <button id="remove-rel-btn" class="btn btn-default">Remove</button>
+                    <button id="add-to-canvas-btn" class="btn btn-default">Add to Graph</button>
                     <hr />
                     <table id="relationshipTable" class="display">
                         <thead>
@@ -1516,14 +1564,22 @@
         <div class="col-md-7">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Brick Canvas</h3>
+                    <h3 class="panel-title">Brick Graph</h3>
                 </div>
                 <div class="panel-body" id="panel-canvas-body">
-                    <button id="inspect-node-btn" class="btn btn-default">Inspect Node</button>
-                    <button id="from-graph-btn" class="btn btn-default">From</button>
-                    <button id="to-graph-btn" class="btn btn-default">To</button>
-                    <button id="remove-node-btn" class="btn btn-default">Remove Node</button>
+                    <button id="reset-graph-btn" class="btn btn-default">Reset</button>
+
                     <button id="clear-selected-btn" class="btn btn-default">Clear Selected</button>
+                    <button id="remove-node-btn" class="btn btn-default">Remove Node</button>
+                    <button id="from-graph-btn-canvas" class="btn btn-default">From</button>
+                    <button id="to-graph-btn-canvas" class="btn btn-default">To</button>
+                    <button id="create-edge-btn-canvas" class="btn btn-default">Create Edge</button>
+                    <div id="selected-from-canvas"></div>
+                    <div id="selected-to-canvas"></div>
+                    <div class="panel-body" style="min-height: 100px; max-height: 100px; overflow-y: scroll;">
+                        <ul class="list-group" id="rel_list_3">
+                        </ul>
+                    </div>
                     <hr />
                     <div class="input-group">
 

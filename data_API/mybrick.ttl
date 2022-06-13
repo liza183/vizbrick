@@ -1,0 +1,24 @@
+@prefix bldg: <https://url_of_this_data#> .
+@prefix brick: <https://brickschema.org/schema/1.1/Brick#> . 
+@prefix btag: <https://brickschema.org/schema/1.0.2/BrickTag#> .
+@prefix gtc: <https://brickschema.org/schema/1.0.2/building_example#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tag: <https://brickschema.org/schema/1.1/BrickTag#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+        
+bldg:Run_time_for_other_heat_source_1 a brick:auxHeat1 .
+bldg:Run_time_for_other_heat_source_2 a brick:auxHeat2 .
+bldg:Run_time_for_cooling_2 a brick:compCool2 .
+bldg:Run_time_for_heat_pump_1 a brick:compHeat1 .
+bldg:Indoor_averaged_measured_temperature a brick:T_ctrl .
+bldg:Indoor_cooling_setpoint_ a brick:T_stp_cool .
+bldg:auxHeat1 brick:feeds bldg:compCool2 .
+bldg:auxHeat1 brick:feedsAir bldg:compCool2 .
+bldg:auxHeat2 brick:feedsAir bldg:compCool2 .
+bldg:compHeat1 brick:feeds bldg:auxHeat1 .
+bldg:compHeat1 brick:feeds bldg:compCool2 .
+bldg:auxHeat2 brick:feedsAir bldg:compHeat1 .
+
