@@ -550,8 +550,8 @@
 
             $('#clear-selected-btn').click(function (event) {
                 selected_node = network.getSelectedNodes();
-                $('#selected-from').text('');
-                $('#selected-to').text('');
+                $('#selected-from-canvas').text('');
+                $('#selected-to-canvas').text('');
             });
 
 
@@ -704,6 +704,11 @@
                 proxy_request("/search", "POST", data, search_btn_callback);
             });
 
+            $('#reset-graph-btn').click(function (event) {
+                nodes.clear();
+                edges.clear();
+            });
+
             $('#update-objname-btn').click(function (event) {
                 obj_name = $("#new-obj-name").val();
                 $('#obj-name').text(obj_name);
@@ -823,7 +828,7 @@
                     return;
                 }
 
-                edge_id = slugify(from_node_id + ":" + to_node_id + ":" + rel_type);
+                edge_id = slugify(from_node+ ":" + to_node + ":" + rel_type);
                 edge_ids = edges.getIds();
                 if (edge_ids.includes(edge_id) == false) {
                     edges.add({
@@ -835,11 +840,8 @@
                             }
                         }
                     });
+                    relationship_table.row.add([edge_id, from_node, to_node, rel_type]).draw();
                 }
-                
-                relationship_table.row.add([edge_id, from_node, to_node, rel_type]).draw();
-
-
             });
 
             $('#create-edge-btn').click(function (event) {
@@ -989,12 +991,27 @@
                 selected_node = network.getSelectedNodes();
 
                 if (selected_node.length == 1) {
-                    selected_node = selected_node[0]
+                    selected_node = selected_node[0];
                     nodes.remove({ id: selected_node });
                 }
                 else {
                     alert("Node not selected.");
                 }
+
+                edge_id_list = edges.getIds();
+
+                slugified_node = slugify(selected_node);
+                console.log('sluggified_node' + slugified_node);
+                for (var k = 0; k < edge_id_list.length; k++) {
+                    edge_id = edge_id_list[k];
+                    
+                    if(edge_id.includes(slugified_node)==true){
+                        console.log(edge_id+" "+ true);
+                        edges.remove({id:edge_id});
+                    }
+                };
+
+
             });
 
             $('#inspect-btn').click(function (event) {
@@ -1567,7 +1584,7 @@
                     <h3 class="panel-title">Brick Graph</h3>
                 </div>
                 <div class="panel-body" id="panel-canvas-body">
-                    <button id="reset-graph-btn" class="btn btn-default">Reset</button>
+                    <button id="reset-graph-btn" class="btn btn-default">Clear Graph</button>
 
                     <button id="clear-selected-btn" class="btn btn-default">Clear Selected</button>
                     <button id="remove-node-btn" class="btn btn-default">Remove Node</button>
