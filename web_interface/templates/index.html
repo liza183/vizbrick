@@ -261,12 +261,16 @@
             }
 
             $('#save-brick-btn').click(function (event) {
-                class_table_data = class_table.rows().data().toArray();
-                relationship_table_data = relationship_table.rows().data().toArray();
                 data_to_save = {};
                 data_to_save['filename'] = $('#brick-file').val();
-                data_to_save['class_table_data'] = class_table_data;
-                data_to_save['relationship_table_data'] = relationship_table_data;
+                list_of_rels = []
+                edge_id_list = edges.getIds();
+                for (id in edge_id_list){
+                    edge_id = edge_id_list[id];
+                    list_of_rels.push([edges.get(edge_id)['id'], edges.get(edge_id)['from'], edges.get(edge_id)['to'], edges.get(edge_id)['rel_type']]);
+                };
+                data_to_save['list_of_rels'] = list_of_rels;
+                data_to_save['list_of_nodes'] = nodes.getIds();
 
                 proxy_request("/save_brick", "POST", data_to_save, save_brick_done);
 

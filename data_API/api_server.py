@@ -238,10 +238,12 @@ class SaveBrickHandler(tornado.web.RequestHandler):
         """
         ttl+=header+"\n"
         
-        classes = json_obj['class_table_data']
-        relationships = json_obj['relationship_table_data']
+        classes = json_obj['list_of_nodes']
+        relationships = json_obj['list_of_rels']
         for item in classes:
-            class_line = "bldg:"+str(item[5]).replace(" ","_")+" a brick:"+str(item[4]).replace(" ","_")+" ."
+            obj_name = item.split("(")[0].strip()
+            brick_name = item.split("(")[1][:-1].strip()
+            class_line = "bldg:"+str(obj_name).replace(" ","_")+" a brick:"+str(brick_name).replace(" ","_")+" ."
             ttl+=class_line+"\n"
 
         for item in relationships:
