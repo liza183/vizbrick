@@ -2,7 +2,7 @@
 
 # Introduction
 
-**VizBrick** (https://github.com/liza183/vizbrick) is a web-based tool with a graphical user interface that helps users to create Brick models (https://brickschema.org/) for their building datasets more easily in an interactive way, without having to know the detailed syntax of RDF TTL(Terse RDF Triple Language) that is used to describe Brick models. In this tutorial, we explain how to create a Brick model using **VizBrick** with the *Ecobee* building dataset (link).
+**VizBrick** (https://github.com/liza183/vizbrick) is a web-based tool with a graphical user interface that helps users to create Brick models (https://brickschema.org/) for their building datasets more easily in an interactive way, without having to know the detailed syntax of RDF TTL(Terse RDF Triple Language) that is used to describe Brick models. In this tutorial, we explain how to create a Brick model using **VizBrick** with the *Ecobee* building dataset (https://bbd.labworks.org/ds/bbd/ecobee).
 
 # Installation & how to run
 
@@ -42,7 +42,7 @@ The VizBrick API server is now up and running. Then, we need to start up the web
 
 Then, open any web browser and go to ``http://localhost:8088/` . If you see the following interface, now, you’re ready to use the VizBrick.
 
-![Figure 1. VizBrick Interface](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1654099804161_Screen+Shot+2022-06-01+at+12.09.31+PM.png)
+![Figure 1. VizBrick Interface](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1657041582929_Screen+Shot+2022-07-05+at+1.19.16+PM.png)
 
 # Example: Creating a Brick model for a Ecobee dataset using VizBrick
 
@@ -82,60 +82,50 @@ Note that the list of data labels and their descriptions are often provided by t
 
 When the CSV file is ready. Open a web browser window and load the CSV file by clicking the ‘Load (Start from Scratch)’ button to load the file with VizBrick.
 
-![Figure 2. Loading a metadata csv file with VizBrick](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1654099973456_Screen+Shot+2022-06-01+at+12.12.43+PM.png)
+![Figure 2. Loading a metadata csv file with VizBrick](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1657041649166_Screen+Shot+2022-07-05+at+1.20.38+PM.png)
 
 
-When the metadata is successfully loaded by VizBrick. You will see the metadata table loaded. 
+When the metadata is successfully loaded by VizBrick. You will see the metadata table loaded. Each row represents a data point in the dataset. By default, object names are assigned to be the same as the data label names.
 
-![Figure 3. Loaded metadata table in VizBrick](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1654100050232_Screen+Shot+2022-06-01+at+12.13.15+PM.png)
 
-## 2. Creating Brick entities for data labels
+![Figure 3. Loaded metadata table in VizBrick](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1657041692158_Screen+Shot+2022-07-05+at+1.21.23+PM.png)
 
-Next, we will create Brick entities for data points by finding the best matching class for each data label from the Brick ontology. Searching and browsing the Brick ontology to find the best matching class for each data point can be repetitive and time-consuming. To speed up the process, VizBrick provides a suggestion capability. When you click the ‘Suggest All’ button on top of the metadata table, VizBrick will iterate each row in the metadata table and automatically find the most appropriate Brick class for each data label based on keywords included in the data label and the description. The suggestion can take a few minutes or more depending on the number of data labels in the metadata table. Figure 4 shows the result of the suggestion.
+## 2. Mapping Brick classes to data points
 
-![Figure 4.  Brick classes are automatically suggested for each data label.](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1654100107226_Screen+Shot+2022-06-01+at+12.14.51+PM.png)
+Next, we will find and assign best matching Brick classes for data points from the Brick ontology. VizBrick provides a suggestion capability. When you select multiple rows from the table and click the ‘Auto-suggestion button on top of the metadata table, VizBrick will iterate each selected row in the metadata table and automatically find the most appropriate Brick class for each data label based on keywords included in the data label and the description. Depending on the number of selected rows, the suggestion can take a few minutes or more depending on the number of data labels in the metadata table. Figure 4 shows the result of the suggestion when auto-suggestion was performed all rows in the table.
+
+![Figure 4.  Brick classes are automatically suggested for each data label.](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1657042042963_Screen+Shot+2022-07-05+at+1.27.04+PM.png)
 
 
 Although VizBrick can suggest Brick classes automatically, the accuracy of this automatic matching largely depends on the quality of the data label and description. Thus, we need to manually confirm if these suggestions were correct. For instance, VizBrick thinks that the best matching Brick class for the data label ‘T_stp_cool’ and ‘T_stp_heat’ are ‘Cooling Temperature Setpoint’ and ‘Heating Temperature Setpoint’ respectively, which is correct. Matchings for ‘Humidity’ and ‘auxHeat1’ are correct. However, the most appropriate Brick class for the data label ‘T_ctrl’ should be ‘Average Zone Air Temperature Sensor’ not the ‘Temperature Setpoint’. In this case. we need to correct the matching.
 
-Select the row with ID 0 (the row for T_ctrl) and click ‘Inspect’, then you can see the details of this data label and make modifications as you want in the Brick Object Creator.
+What we will do is to get another suggestion give more hints to VizBrick and select manually from the result. Select the row with ID 0 (the row for T_ctrl) and type ‘Agerage’ in the search bar in the Search & Suggest panel. If you click ‘Search’ then only the keywords in the search bar will be used, however, if you click ‘Suggest’, the data label name and the data description will be used together to find classes in the Brick Ontology. 
 
-![Figure 5. Brick Object creator](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652801877137_Screen+Shot+2022-05-17+at+11.36.25+AM.png)
-
-
-Now we see that the Brick class matched for this label is ‘Temperature Setpoint’. What we will do is to get another suggestion give more hints to VizBrick and select manually from the result. On the left side of the Brick Object Creator panel, you will see Search & Suggest panel. You can provide more keywords as hints to VizBrick to generate better suggestion results or you can perform a keyword search too. The difference between suggestion and search is that suggestion uses the description of the data label and keywords provided by the user but search only uses the keywords provided by the user. In this example, we give one keyword ‘average’ as an additional keyword and click the ‘Suggest on Selected & Keywords’ button to get the suggestion list. Rank 1 from the list was ‘Average Zone Air Temperature Sensor’ which we think is correct, so we select and click ‘Update Class’.
-
-![Figure 6. Search & Suggest panel](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652802129446_Screen+Shot+2022-05-17+at+11.41.55+AM.png)
+![](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1657042160729_Screen+Shot+2022-07-05+at+1.29.08+PM.png)
 
 
-Once we confirm that all the matchings are good for all data labels. Now it is to create Brick entities. 
+Rank 1 from the list was ‘Average Zone Air Temperature Sensor’ which we think is correct, so we select and click ‘Update Row’. 
 
-First, we start with creating Brick entities that are not data points but the ones have relationships with the data points. Locations, equipments, and other things that are helpful to semantically describe the dataset can be created as Brick entities. Figure 7 shows an example of creating an entity for a hvac zone. First, we click the ‘Clear’ button to initialize the Brick object creator tool. Then, update the name with ‘hvac_zone’ by typing in and clicking the ‘Update Object Name’ button. After searching with keywords ‘hvac zone’ in the left panel and we updated the Brick class of the entity to be the ‘HVAC Zone’. Then, clicking ‘Add to Canvas’ button will create a Brick entity with the information shown in the Brick object creator panel and add it in the Canvas, where the current in-progress Brick model is visualized. Each Brick entity is represented as a node (vertex) in the Canvas panel.
+There may be rows that were not included in the original CSV file. In such case, a new row in the metadata table can be added by clicking a ‘Add a row’ button and the row can be updated. For instance, rows, which are not data points, representings locations, equipments, and other things that can be added. Let us create a row representing a HVAC zone. First, click the ‘Add a row’ button, then typing in ‘hvac_zone’ in the object field field. Then, search with keywords ‘hvac zone’ and select ‘HVAC Zone’ from the result. Then, clicking ‘Update row’ button will update a selected row, in this case, the newly created row.
 
+![Figure 4. Updating a row with new object name and Brick class](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1657043987712_Screen+Shot+2022-07-05+at+1.56.02+PM.png)
 
-![Figure 7. Creating a Brick entity.](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652802740778_Screen+Shot+2022-05-17+at+11.52.07+AM.png)
-
-
-Just like we created the ‘hvac_zone’ entity, we created other entities such as outside, rooms, and hvac_system. The terms between the parentheses are the Brick class names. How many Brick entities and what should be created depend on the dataset and user’s knowledge about the dataset, but it is recommended to be descriptive, but not unnecessarily complex.
-
-![Figure 8. Created Brick entities](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652809920191_Screen+Shot+2022-05-17+at+11.51.40+AM.png)
+![Figure 5. A newly created is updated to have the object name ‘hvac_zone’ and Brick class ‘HVAC Zone’ has been assigned to the row.](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1657044051724_Screen+Shot+2022-07-05+at+1.56.08+PM.png)
 
 
-Then, next, we create Brick entities for the data labels. Since we already assigned Brick classes to each data label, we can simply click the ‘Add All to Canvas’ button in the metadata table panel. Then, entities will be created for data labels and added to the canvas panel.
+
+
+    Just like we created the ‘hvac_zone’ row, we created other entities such as outside, rooms, and hvac_system. How many additional rows and what rows should be created depend on the dataset and user’s knowledge about the dataset. It is recommended to be descriptive, but not unnecessarily complex. Once the all rows (i.e., Location, Equipment, and Point) that we want to represent in our Brick model are included in the metadata table and they are properly mapped to Brick classes. Now it is time to convert those rows into Brick objects (nodes/vertices). How to do that is simply selecting rows in the metadata table and clicking the ‘Convert to Brick Object’ button. Figure 6 shows an example of the Brick object table after the conversion.
+![Figure 6. Brick object table](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1657044775594_Screen+Shot+2022-07-05+at+2.12.45+PM.png)
 
 ## 3. Creating Brick relationships across entities
 
-In the previous step, we created Brick entities and they are added to the canvas panel. Each entity is represented as a node in the network, and the next thing we need to do is to describe the relationships across them. One way of creating relationships is using the Rule-based Edge Creator panel. For instance, we know that the room_1, room_2, …, and room_5 are parts of the hvac_zone, so we need to create edges between all the pairs with the Brick relationship type ‘isPartOf’. So we type in ‘room’ to be the value of the form ‘From Node (must include)’ and ‘hvac_zone’ in the form ‘To Node (must include)’. Then, we click ‘Create Edges’. This means that we want to create edges between any entities that contain the keyword ‘room’ in their data labels or descriptions to any entities that contain ‘hvac_zone’ in their data labels or descriptions.
+In the previous step, we created Brick objects, where they are nodes in the Brick model. The next thing, we need to do is to describe the relationships across them. One way of creating relationships is using the Rule-based Edge Creator panel. For instance, we know that the room_1, room_2, …, and room_5 are parts of the hvac_zone, so we need to create edges between all the pairs with the Brick relationship type ‘isPartOf’. So we type in ‘room’ to be the value of the form ‘From Node (must include)’ and ‘hvac_zone’ in the form ‘To Node (must include)’. Then, we click ‘Create Edges’. This means that we want to create edges between any entities that contain the keyword ‘room’ in their data labels or descriptions to any entities that contain ‘hvac_zone’ in their data labels or descriptions.
 
 ![Figure 9. Creating relationships using ruled-based edge creator](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652810604577_Screen+Shot+2022-05-17+at+2.02.38+PM.png)
 
 
-As a result, 5 relationships will be created as shown in Figure 10.
-
-![Figure 10. Created Brick relationships between entities](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652810995165_Screen+Shot+2022-05-17+at+2.07.57+PM.png)
-
-
-If a single edge between specific two Brick entities needs to be created, a user can use a Brick Edge Creator panel. By selecting an entity in the canvas and clicking ‘From’ or ‘To’ button in the edge creator panel, we set up what entities to be connected. Next is to select a relationship type and click ‘Create’ button. Figure 11 shows an example.
+If edges between specific a specific Brick object and other nodes need to be created, a user can use a Brick Edge Creator panel. By selecting a *From* object and a *To* object (or objects) in the brick object table and clicking ‘From’ or ‘To’ button in the edge creator panel, we set up what objects to be connected. Next is to select a relationship type and click ‘Create’ button. Figure 10 shows an example.
 
 ![Figure 11. Creating an edge between Thermostat_Temperature entity and hvac_zone entity with a relationship type ‘isPointOf’](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652811329596_Screen+Shot+2022-05-17+at+2.11.20+PM.png)
 
@@ -145,7 +135,12 @@ Relationships across entities are represented as directional edges on the canvas
 ![Figure 12. Intermediate progress can be saved as a JSON file.](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652811486262_Screen+Shot+2022-05-17+at+2.17.42+PM.png)
 
 
-Creating relationships requires many iterative processes of choosing things to connect with and assigning proper relationship types. Figure 13 shows the final result visualized in the canvas after a few iterations of creating relationships. The result can be saved as a TTL file by simply clicking the ‘Save Brick button'
+Creating relationships requires many iterative processes of choosing things to connect with and assigning proper relationship types. Created relationships between objects are added in the relationship table and they can be visualized by clicking the ‘Add to Graph’. Further modification of creating and/or removing nodes and edges is possible.
+
+![Figure 13. Visualization of created edges using a graph representation](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1657045412338_Screen+Shot+2022-07-05+at+2.22.50+PM.png)
+
+
+Figurere 14 shows the final result visualized in the canvas after a few iterations of creating relationships. The result can be saved as a TTL file by simply clicking the ‘Save Brick button'
 
 ![Figure 13. Ecobee Brick model visualized by VizBrick](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652811874991_Screen+Shot+2022-05-17+at+2.24.13+PM.png)
 
@@ -176,7 +171,6 @@ The following file shows the first few lines of the created ttl file.
     bldg:hvac_system a brick:HVAC_System .
     bldg:hvac_zone a brick:HVAC_Zone .
     bldg:outside a brick:Outside .
-    
     ...
 
 
