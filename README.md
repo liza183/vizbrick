@@ -2,10 +2,11 @@
 
 # Introduction
 
+**VizBrick** (https://github.com/liza183/vizbrick) is a web-based tool with a graphical user interface that helps users to create Brick models (https://brickschema.org/) for their building datasets more easily in an interactive way, without having to know the detailed syntax of RDF TTL(Terse RDF Triple Language) that is used to describe Brick models. In this tutorial, we explain how to create a Brick model using **VizBrick** with the *Ecobee* building dataset (https://bbd.labworks.org/ds/bbd/ecobee).
+
+# Demo Video (For ISWC'22 demo paper submission)
 Click the following image to see the VizBrick demonstration video on YouTube:
 [![VizBrick Demonstration Video](https://img.youtube.com/vi/YMkrOF9t8w0/0.jpg)](https://www.youtube.com/watch?v=YMkrOF9t8w0)
-
-**VizBrick** (https://github.com/liza183/vizbrick) is a web-based tool with a graphical user interface that helps users to create Brick models (https://brickschema.org/) for their building datasets more easily in an interactive way, without having to know the detailed syntax of RDF TTL(Terse RDF Triple Language) that is used to describe Brick models. In this tutorial, we explain how to create a Brick model using **VizBrick** with the *Ecobee* building dataset (https://bbd.labworks.org/ds/bbd/ecobee).
 
 # Installation & how to run
 
