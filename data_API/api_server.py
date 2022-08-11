@@ -39,20 +39,36 @@ def vectorize(list_of_docs):
 
 def indexing_brick():
     definitions = {}
-    
+      
+    try:
+        df = pd.read_csv('model.csv', header=None)
+        #df = df.drop_duplicates()
+
+        model = {}
+        for index, row in df.iterrows():
+            model[row[2]]=str(row[0])+" "+str(row[1])    
+    except:
+        model = {}
+
     for triple in g:
         if "definition" in triple[1]:
             class_name = triple[0].replace("https://brickschema.org/schema/Brick#","")
             definition = triple[2]
             class_name = class_name.replace("_"," ")
-            definitions[class_name] = definition+" "+ class_name
-        
+            try:
+                definitions[class_name] = definition+" "+ class_name+ " " + model[class_name]
+            except:
+                definitions[class_name] = definition+" "+ class_name
+
         elif "#Location" in triple[2]:
             class_name = triple[0].replace("https://brickschema.org/schema/Brick#","")
             definition = class_name
             class_name = class_name.replace("_"," ")
-            definitions[class_name] = definition +" " + class_name
-    
+            try:
+                definitions[class_name] = definition +" " + class_name + " " + model[class_name]
+            except:
+                definitions[class_name] = definition +" " + class_name + " "
+
     for key in definitions.keys():
         if str(definitions[key]).startswith("See"):
             definitions[key] = definitions[definitions[key].split(" ")[1].replace("_"," ")]
@@ -267,6 +283,22 @@ class SaveBrickHandler(tornado.web.RequestHandler):
         self.write(json.dumps(response_to_send))
 
 
+class UpdateModelHandler(tornado.web.RequestHandler):
+    
+     def post(self):
+        json_obj = json_decode(self.request.body)
+        data_label = json_obj['data_label']
+        description = json_obj['description']
+        brick_class = json_obj['brick_class']
+        f = open('model.csv','a')
+        f.write(data_label+","+description+","+brick_class+"\n")
+        f.close()
+
+        response_to_send = {}
+
+        self.write(json.dumps(response_to_send))
+
+
 class GetCheckpointHandler(tornado.web.RequestHandler):
     
      def post(self):
@@ -336,13 +368,23 @@ class SuggestSelectedHandler(tornado.web.RequestHandler):
         idx = 0
         for row in rows:
             print(idx,"/",len(rows)," processed")
-            query = row[1]+" "+row[3]
+            query = str(row[1])+" "+str(row[3])
             print(query)
             search_perform = search(query,topk=1)
             matched_classes.append([row[0], search_perform])
             idx+=1
             #if idx==5: break
         response_to_send = {'matched_classes': matched_classes}
+        print(response_to_send)
+        self.write(json.dumps(response_to_send))
+
+class ReIndexHandler(tornado.web.RequestHandler):
+    
+     def post(self):
+        global df_class, df_def, vectorizer_class, vectorizer_def, list_of_classname, list_of_definitions
+        df_class, df_def, vectorizer_class, vectorizer_def, list_of_classname, list_of_definitions = indexing_brick()
+
+        response_to_send = {}
         print(response_to_send)
         self.write(json.dumps(response_to_send))
 
@@ -356,6 +398,8 @@ def data_api_app():
         (r"/create_checkpoint", CreateCheckpointHandler),
         (r"/get_checkpoint", GetCheckpointHandler),
         (r"/save_brick", SaveBrickHandler),
+        (r"/update_model", UpdateModelHandler),
+        (r"/reindex", ReIndexHandler),
         
     ])
 
