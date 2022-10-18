@@ -5,6 +5,9 @@
 **VizBrick** (https://github.com/liza183/vizbrick) is a web-based tool with a graphical user interface that helps users to create Brick models (https://brickschema.org/) for their building datasets more easily in an interactive way, without having to know the detailed syntax of RDF TTL(Terse RDF Triple Language) that is used to describe Brick models. In this tutorial, we explain how to create a Brick model using **VizBrick** with the *Ecobee* building dataset (https://bbd.labworks.org/ds/bbd/ecobee).
 
 # Demo Video (For ISWC'22 demo paper submission)
+
+![VizBrick Overview](ISWC-lightening.jpg)
+
 Click the following image to see the VizBrick demonstration video on YouTube:
 
 [![VizBrick Demonstration Video](https://img.youtube.com/vi/YMkrOF9t8w0/0.jpg)](https://www.youtube.com/watch?v=YMkrOF9t8w0)
@@ -137,8 +140,8 @@ If edges between specific a specific Brick object and other nodes need to be cre
 
 Relationships across entities are represented as directional edges on the canvas. Depending on the complexity of the model that is being created, intermediate results may need to be created. Progress can be saved by clicking the ‘Save Checkpoint’ button and the file name can be given by the user. Loading the progress can be done similarly, but it needs to be carefully done as loading from a file can override your current progress.
 
-![Figure 12. Intermediate progress can be saved as a JSON file.](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652811486262_Screen+Shot+2022-05-17+at+2.17.42+PM.png)
 
+![Figure 12. Intermediate progress can be saved as a JSON file.](https://paper-attachments.dropbox.com/s_5AEBC4E7DCA06DB394BC0A6C46EA3A506569679FC6989D084D41AA65AF030204_1652811486262_Screen+Shot+2022-05-17+at+2.17.42+PM.png)
 
 Creating relationships requires many iterative processes of choosing things to connect with and assigning proper relationship types. Created relationships between objects are added in the relationship table and they can be visualized by clicking the ‘Add to Graph’. Further modification of creating and/or removing nodes and edges is possible.
 
