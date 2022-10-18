@@ -7,7 +7,7 @@
 # Demo Video (For ISWC'22 demo paper submission)
 Click the following image to see the VizBrick demonstration video on YouTube:
 
-[![VizBrick Demonstration Video](https://img.youtube.com/vi/YMkrOF9t8w0/0.jpg)](https://www.youtube.com/watch?v=YMkrOF9t8w0)
+[![VizBrick Demonstration Video](https://img.youtube.com/vi/YMkrOF9t8w0/0.jpg)](https://youtu.be/TO38GtuaYgw)
 
 # Installation & how to run
 
