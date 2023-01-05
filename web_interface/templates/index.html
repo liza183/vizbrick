@@ -195,7 +195,7 @@
                 item = matched_classes[i];
                 classname = item[1][0][0];
                 row_id = item[0];
-                metadata_table.row(row_id).data([row_id, list_of_rows[row_id][0], list_of_rows[row_id][0], list_of_rows[row_id][1], classname, "Auto-suggested"]).draw();
+                metadata_table.row(row_id).data([row_id, list_of_rows[row_id][1], list_of_rows[row_id][2], list_of_rows[row_id][3], classname, "Auto-suggested"]).draw();
             }
         };
 
@@ -939,7 +939,7 @@
             });
 
             $('#create-edges-btn').click(function (event) {
-
+                alert('here');
                 from_include = $('#from_include').val().split(",");
                 from_exclude = $('#from_exclude').val().split(",");
                 to_include = $('#to_include').val().split(",");
@@ -959,6 +959,9 @@
 
                             check_node_from = check_node(from_node_id, from_include, from_exclude);
                             check_node_to = check_node(to_node_id, to_include, to_exclude);
+                            //console.log(check_node_from+"--"+from_node_id+"--"+from_include+"--"+from_exclude);
+                            //console.log(check_node_to+"--"+to_node_id+"--"+to_include+"--"+to_exclude);
+
                             if (check_node_from == true && check_node_to == true) {
                                 rel_type = $("#rel_list_1 li.active").text();
                                 if (rel_type == '') {
@@ -1526,10 +1529,10 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Rule-based Edge Creator</h3>
+                    <h3 class="panel-title">Rule-based Edge Creator !!</h3>
                 </div>
                 <div class="panel-body" id="panel-canvas-body">
-                    <button id="create-edges-btn" class="btn btn-default">Create Relationships</button>
+                    <button id="create-edges-btn" class="btn btn-default">Create Relationships (beta)</button>
                     <hr />
                     <table class="table">
                         <tbody>

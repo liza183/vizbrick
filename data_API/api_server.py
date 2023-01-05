@@ -172,6 +172,7 @@ def get_metadata_csv(filename='NIST_metadata_cleaned.csv'):
     data = pd.read_csv(filename)
     data = data.fillna('NONE')
     for index, row in data.iterrows():
+        print(row)
         list_of_rows.append([row[1],row[2]])
         
     return list_of_rows
@@ -361,21 +362,66 @@ def parse_label(label):
 class SuggestSelectedHandler(tornado.web.RequestHandler):
     
      def post(self):
+        col_answer = {}
+        f = open('answers.csv','r')
+        while True:
+            line = f.readline()
+            if not line:
+                break
+            print(line)
+            col_name, answer = line.split(" ")
+            col_answer[col_name] = answer
+            
+        f.close()
+
         json_obj = json_decode(self.request.body)
         rows = json_obj['list_of_rows']
 
         matched_classes = []
         idx = 0
+        hit_cnt_1 = 0
+        hit_cnt_5 = 0
+        hit_cnt_10 = 0
+        hit_cnt_20 = 0
+
         for row in rows:
-            print(idx,"/",len(rows)," processed")
+            #print(idx,"/",len(rows)," processed")
             query = str(row[1])+" "+str(row[3])
-            print(query)
-            search_perform = search(query,topk=1)
+            #print(query)
+            print("--------------------------------")
+            search_perform = search(query,topk=50)
+            try:
+                print("QUERY = ", query)
+                print("MANUAL ANSWER:", col_answer[row[1].split("_")[1]])
+                rank = 1
+                for item in search_perform:
+                    print(rank, item[0], item[1])
+                    #print(item[0].replace(" ","_"),col_answer[row[1].split("_")[1]])
+                    if item[0].replace(" ","_").strip()==col_answer[row[1].split("_")[1]].strip():
+                        if rank<=20:
+                            hit_cnt_20+=1
+                        if rank<=10:
+                            hit_cnt_10+=1
+                        if rank<=5:
+                            hit_cnt_5+=1
+                            
+                        if rank<=1:
+                            hit_cnt_1+=1
+                    rank+=1
+            except:
+                print("no ASNWER for this query is found")
+            
             matched_classes.append([row[0], search_perform])
             idx+=1
             #if idx==5: break
+        print(hit_cnt_1, hit_cnt_5, hit_cnt_10, hit_cnt_20)
+        print("HR@1", float(hit_cnt_1/len(rows)))
+        print("HR@5", float(hit_cnt_5/len(rows)))
+        print("HR@10", float(hit_cnt_10/len(rows)))
+        print("HR@20", float(hit_cnt_20/len(rows)))
         response_to_send = {'matched_classes': matched_classes}
-        print(response_to_send)
+        #print(row[1], matched_classes)
+        #print(response_to_send)
         self.write(json.dumps(response_to_send))
 
 class ReIndexHandler(tornado.web.RequestHandler):

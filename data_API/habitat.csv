@@ -1,0 +1,42 @@
+﻿ID,Labels,Description
+0,ID,Logger ID
+1,Year,Year
+2,Day,Day of year
+3,Hour,Time
+4,Ihor,Solar radiation - horizontal
+5,Icoll,Solar radiation - plane of collectors
+6,Tamb,Outdoor air temperature
+7,Rhamb,Outdoor relative humidity
+8,WS,Millisecond
+9,TsolIn,Solar water heating system - water temperature (to collectors)
+10,TsolOut,Solar water heating system - water temperature (from collectors)
+11,Ttank,Solar water heating system - tank water temperature
+12,TwtrHtr,Hot water temperature (supply to house)
+13,Tliving,Living room air temperature
+14,Tbath,Bathroom air temperature
+15,TbrNW,North bedroom air temperature
+16,TbrSW,Southeast bedroom air temperature
+17,TbrSE,Cold water supply temperature
+18,Textra1,Water heater temperature 1
+19,Textra2,Water heater temperature 2
+20,Textra3,Water heater temperature 3
+21,Textra4,Water heater temperature 4
+22,Textra5,Water heater temperature 5
+23,Textra6,Water heater temperature 6
+24,Emsc1,All other loads part 1
+25,Emsc2,All other loads part 2
+26,Epv,PV energy generation
+27,Elite,Hard-wired lights energy consumption
+28,Epump,Solar pump energy consumption
+29,Ehtrs,Baseboard electric heaters energy consumption
+30,Ewatr,Space and water heating energy consumption
+31,Erang,Kitchen range energy consumption
+32,Eerv,ERV ventilation system energy consumption
+33,Extra,
+34,GwtrH,Space heater natural gas consumption
+35,GspcH,Back-up water heater natural gas consumption
+36,FhWtr,Hot water use
+37,FDTsol,
+38,Tlogger,Temparature at logger
+39,Vlogger,Voltage at logger
+40,Tref,

@@ -1,0 +1,248 @@
+﻿ID,name,desc
+0,TIMESTAMP,Date and Time stamp from datalogger
+1,RECORD,Sequential datalogger record number
+2,Batt_volt_Avg,Logger Battery Voltage 
+3,Panel_Temp_Avg,Logger Panel Temperature
+4,T_Air_Up_Avg(1),Room 201 Hanging 
+5,T_Air_Up_Avg(2),Room 201 VAV 
+6,T_Room_202_Avg,Room 202 Room Ambient
+7,T_VAV_202_Avg,Room 202 VAV
+8,T_Room_203_Avg,Room 203 Room Ambient
+9,T_VAV_203_Avg,Room 203 VAV
+10,T_Room_204_Avg,Room 204 Room Ambient
+11,T_VAV_204_Avg,Room 204 VAV
+12,T_Room_205_Avg,Room 205 Room Ambient
+13,T_VAV_205_Avg,Room 205 VAV
+14,T_Room_206_Avg,Room 206 Room Ambient
+15,T_VAV_206_Avg,Room 206 VAV
+16,T_SupDuctMain1_Avg,Main Supply Duct Probe 1
+17,T_SupDuctMain2_Avg,Main Supply Duct Probe 2
+18,T_RetDuctMain1_Avg,Main Return Duct Probe 1
+19,T_RetDuctMain2_Avg,Main Return Duct Probe 2
+20,T_ExhaustUp_Avg,Upstairs Exhaust Duct
+21,T_RTUintake_Avg,Fresh Air Intake On Trane RTU 
+22,RH_Air_Up_Avg(1),Room 201 Hanging value)
+23,RH_Air_Up_Avg(2),Room 201 VAV 
+24,RH_Room_202_Avg,Room 202 Room Ambient
+25,RH_VAV_202_Avg,Room 202 VAV
+26,RH_Room_203_Avg,Room 203 Room Ambient
+27,RH_VAV_203_Avg,Room 203 VAV
+28,RH_Room_204_Avg,Room 204 Room Ambient
+29,RH_VAV_204_Avg,Room 204 VAV
+30,RH_Room_205_Avg,Room 205 Room Ambient
+31,RH_VAV_205_Avg,Room 205 VAV
+32,RH_Room_206_Avg,Room 206 Room Ambient
+33,RH_VAV_206_Avg,Room 206 VAV
+34,RH_SupDuctMain1_Avg,Main Supply Duct Probe 1
+35,RH_SupDuctMain2_Avg,Main Supply Duct Probe 2
+36,RH_RetDuctMain1_Avg,Main Return Duct Probe 1
+37,RH_RetDuctMain2_Avg,Main Return Duct Probe 2
+38,RH_ExhaustUp_Avg,Upstairs Exhaust Duct
+39,RH_RTUintake_Avg,Fresh Air Intake On Trane RTU 
+40,T_Air_Dwn_Avg(1),Room 101 Hanging
+41,T_Air_Dwn_Avg(2),Room 101 VAV
+42,T_Room_102_Avg,Room 102 Room Ambient
+43,T_VAV_102_Avg,Room 102 VAV
+44,T_Room_103_Avg,Room 103 Room Ambient
+45,T_VAV_103_Avg,Room 103 VAV
+46,T_Room_104_Avg,Room 104 Room Ambient
+47,T_VAV_104_Avg,Room 104 VAV
+48,T_Room_105_Avg,Room 105 Room Ambient
+49,T_VAV_105_Avg,Room 105 VAV
+50,T_Room_106_Avg,Room 106 Room Ambient
+51,T_VAV_106_Avg,Room 106 VAV
+52,T_SupDuctDwn1_Avg,Downstairs Supply Duct Probe 1
+53,T_SupDuctDwn2_Avg,Downstairs Supply Duct Probe 2
+54,T_ExhaustDwn_Avg,Downstairs Exhaust Duct
+55,RH_Air_Dwn_Avg(1),Room 101 Hanging 
+56,RH_Air_Dwn_Avg(2),Room 101 VAV
+57,RH_Room_102_Avg,Room 102 Room Ambient
+58,RH_VAV_102_Avg,Room 102 VAV
+59,RH_Room_103_Avg,Room 103 Room Ambient
+60,RH_VAV_103_Avg,Room 103 VAV
+61,RH_Room_104_Avg,Room 104 Room Ambient
+62,RH_VAV_104_Avg,Room 104 VAV
+63,RH_Room_105_Avg,Room 105 Room Ambient
+64,RH_VAV_105_Avg,Room 105 VAV
+65,RH_Room_106_Avg,Room 106 Room Ambient
+66,RH_VAV_106_Avg,Room 106 VAV
+67,RH_SupDuctDwn1_Avg,Downstairs Supply Duct Probe 1
+68,RH_SupDuctDwn2_Avg,Downstairs Supply Duct Probe 2
+69,RH_ExhaustDwn_Avg,Downstairs Exhaust Duct
+70,T_Sup_tot_Avg,Total Supply (average of probes T_Air_Up(13) and  T_Air_Up(14)
+71,T_Sup_dwn_Avg,Downstairs Supply (average of probes T_Air_Dwn(13) and T_Air_Dwn(14)
+72,T_Sup_up_Avg,Upstairs  Supply (average of probes T_Air_Up(13) and  T_Air_Up(14)
+73,RH_Sup_tot_Avg,Total Supply (average of probes RH_Air_Up(13) and  RH_Air_Up(14)
+74,RH_Sup_dwn_Avg,Downstairs Supply (average of probes RH_Air_Dwn(13) and RH_Air_Dwn(14)
+75,RH_Sup_up_Avg,Upstairs  Supply (average of probes RH_Air_Up(13) and  RH_Air_Up(14)
+76,T_Ret_Avg,Main return air temp (F) on the Trane RTU. Average calculated from T_Air_Up(15) and  T_Air_Up(16)
+77,RH_Ret_Avg,Main return air RH on the Trane RTU. Average calculated from RH_Air_Up(15) and  RH_Air_Up(16)
+78,Patm_Avg,Barometric pressure (PSI) from the Campbell Scientific CS106 barometer in FRP2
+79,T_out_Avg,Outside air temperature from the Campbell Scientific HC2S3 Temp/RH probe on the weather station.
+80,RH_out_Avg,Outside air %RH from the Campbell Scientific HC2S3 Temp/RH probe on the weather station.
+81,Tref_RTU_Dischg1_Avg,Array of refrigerant temps (F) on the Trane RTU. 
+82,Tref_RTU_CondOut1_Avg,
+83,Tref_RTU_Suctn1_Avg,
+84,Tref_RTU_Dischg2_Avg,
+85,Tref_RTU_CondOut2_Avg,
+86,Tref_RTU_Suctn2_Avg,
+87,Pref_RTU_Dischg1_Avg,Array of refrigerant pressures PSIA on the Trane RTU. 
+88,Pref_RTU_CondOut1_Avg,
+89,Pref_RTU_Suctn1_Avg,
+90,Pref_RTU_Dischg2_Avg,
+91,Pref_RTU_CondOut2_Avg,
+92,Pref_RTU_Suctn2_Avg,
+93,Mdot_RTU1_Avg,"Array of refrigerant mass flow rates (lbm/hr). 
+"
+94,Mdot_RTU2_Avg,
+95,AirACFM_RTU_Tot_Avg,Array of volumetric air flow rates ACFM. 
+96,AirACFM_RTU_Dwn_Avg,
+97,AirACFM_RTU_Up_Avg,
+98,AirSCFM_RTU_Tot_Avg,Array of volumetric air flow rates ACFM. 
+99,AirSCFM_RTU_Dwn_Avg,
+100,AirSCFM_RTU_Up_Avg,
+101,WH_BldgTot_Tot,"Energy, Building Total"
+102,WH_Transf_Tot,"Energy, 480V side of 480-208V transformer"
+103,WH_Lights_dwn_Tot,"Energy, Downstairs lighting and controller"
+104,WH_EmLights_dwn_Tot,"Energy, Downstairs Emergency Lights"
+105,WH_Lights_up_Tot,"Energy, Upstairs lighting and controller"
+106,WH_EmLights_up_Tot,"Energy, Upstairs Emergency Lights"
+107,WH_WallHeater_Tot,"Energy, Wall Heater"
+108,WH_Plugs102_Tot,"Energy, Room 102 Plugs"
+109,WH_Plugs103_Tot,"Energy, Room 103 Plugs"
+110,WH_Plugs104_Tot,"Energy, Room 104 Plugs"
+111,WH_Plugs105_Tot,"Energy, Room 105 Plugs"
+112,WH_Plugs106_Tot,"Energy, Room 106 Plugs"
+113,WH_Plugs202_Tot,"Energy, Room 202 Plugs"
+114,WH_Plugs203_Tot,"Energy, Room 203 Plugs"
+115,WH_Plugs204_Tot,"Energy, Room 204 Plugs"
+116,WH_Plugs205_Tot,"Energy, Room 205 Plugs"
+117,WH_Plugs206_Tot,"Energy, Room 206 Plugs"
+118,WH_PlugsExt_Tot,"Energy, Exterior Plugs"
+119,WH_DuctSmokeDet_Tot,"Energy, Duct Smoke Detectors"
+120,WH_ExhaustFan_Tot,"Energy, Exhaust Fans"
+121,WH_Unitary_Tot,"Energy, Unitary Controller"
+122,WH_RTU_Total_Tot,"Energy, Trane RTU Total (excluding VAV heaters)"
+123,WH_RTU_Comp1_Tot,"Energy, Trane RTU circuit 1 compressor"
+124,WH_RTU_Cond1_Tot,"Energy, Trane RTU cond fan 1"
+125,WH_RTU_Comp2_Tot,"Energy, Trane RTU circuit 2 compressor"
+126,WH_RTU_Cond2_Tot,"Energy, Trane RTU cond fan 2"
+127,WH_RTU_EvapFan_Tot,"Energy, Trane RTU evap blower"
+128,WH_RTU_VAV102_Tot,"Energy, Room 102 VAV reheat"
+129,WH_RTU_VAV103_Tot,"Energy, Room 103 VAV reheat"
+130,WH_RTU_VAV104_Tot,"Energy, Room 104 VAV reheat"
+131,WH_RTU_VAV105_Tot,"Energy, Room 105 VAV reheat"
+132,WH_RTU_VAV106_Tot,"Energy, Room 106 VAV reheat"
+133,WH_RTU_VAV202_Tot,"Energy, Room 202 VAV reheat"
+134,WH_RTU_VAV203_Tot,"Energy, Room 203 VAV reheat"
+135,WH_RTU_VAV204_Tot,"Energy, Room 204 VAV reheat"
+136,WH_RTU_VAV205_Tot,"Energy, Room 205 VAV reheat"
+137,WH_RTU_VAV206_Tot,"Energy, Room 206 VAV reheat"
+138,Gas_SCF_Tot,Natural gas flowrate in SCFM. 
+139,Latent_WaterGal_Tot,Flowrate of water to the humidifiers in mL/min. 
+140,T_ReturnMix1_Avg,
+141,T_ReturnMix2_Avg,
+142,RH_ReturnMix1_Avg,
+143,RH_ReturnMix2_Avg,
+144,HVAC_ontime_1m,
+145,VRF102_ontime1,
+146,VRF103_ontime1,
+147,VRF104_ontime1,
+148,VRF105_ontime1,
+149,VRF106_ontime1,
+150,VRF202_ontime1,
+151,VRF203_ontime1,
+152,VRF204_ontime1,
+153,VRF205_ontime1,
+154,VRF206_ontime1,
+155,VRFcomp_ontime1,
+156,T_RetSS_102_Avg,
+157,T_RetSS_103_Avg,
+158,T_RetSS_104_Avg,
+159,T_RetSS_105_Avg,
+160,T_RetSS_106_Avg,
+161,T_RetSS_202_Avg,
+162,T_RetSS_203_Avg,
+163,T_RetSS_204_Avg,
+164,T_RetSS_205_Avg,
+165,T_RetSS_206_Avg,
+166,T_SupSS_102_Avg,
+167,T_SupSS_103_Avg,
+168,T_SupSS_104_Avg,
+169,T_SupSS_105_Avg,
+170,T_SupSS_106_Avg,
+171,T_SupSS_202_Avg,
+172,T_SupSS_203_Avg,
+173,T_SupSS_204_Avg,
+174,T_SupSS_205_Avg,
+175,T_SupSS_206_Avg,
+176,RH_RetSS_102_Avg,
+177,RH_RetSS_103_Avg,
+178,RH_RetSS_104_Avg,
+179,RH_RetSS_105_Avg,
+180,RH_RetSS_106_Avg,
+181,RH_RetSS_202_Avg,
+182,RH_RetSS_203_Avg,
+183,RH_RetSS_204_Avg,
+184,RH_RetSS_205_Avg,
+185,RH_RetSS_206_Avg,
+186,RH_SupSS_102_Avg,
+187,RH_SupSS_103_Avg,
+188,RH_SupSS_104_Avg,
+189,RH_SupSS_105_Avg,
+190,RH_SupSS_106_Avg,
+191,RH_SupSS_202_Avg,
+192,RH_SupSS_203_Avg,
+193,RH_SupSS_204_Avg,
+194,RH_SupSS_205_Avg,
+195,RH_SupSS_206_Avg,
+196,FanPulse_SS_Tot(1),
+197,FanPulse_SS_Tot(2),
+198,FanPulse_SS_Tot(3),
+199,FanPulse_SS_Tot(4),
+200,FanPulse_SS_Tot(5),
+201,FanPulse_SS_Tot(6),
+202,FanPulse_SS_Tot(7),
+203,FanPulse_SS_Tot(8),
+204,FanPulse_SS_Tot(9),
+205,FanPulse_SS_Tot(10),
+206,S_102_Avg,
+207,S_103_Avg,
+208,S_104_Avg,
+209,S_105_Avg,
+210,S_106_Avg,
+211,S_202_Avg,
+212,S_203_Avg,
+213,S_204_Avg,
+214,S_205_Avg,
+215,S_206_Avg,
+216,WH_SS_102_Tot,
+217,WH_SS_103_Tot,
+218,WH_SS_104_Tot,
+219,WH_SS_105_Tot,
+220,WH_SS_106_Tot,
+221,WH_SS_202_Tot,
+222,WH_SS_203_Tot,
+223,WH_SS_204_Tot,
+224,WH_SS_205_Tot,
+225,WH_SS_206_Tot,
+226,WH_SS_Comp_Tot,
+227,HP_condensate_Tot,
+228,MRT_Rm102_Avg,
+229,MRT_Rm103_Avg,
+230,MRT_Rm104_Avg,
+231,MRT_Rm105_Avg,
+232,MRT_Rm106_Avg,
+233,MRT_Rm202_Avg,
+234,MRT_Rm203_Avg,
+235,MRT_Rm204_Avg,
+236,MRT_Rm205_Avg,
+237,MRT_Rm206_Avg,
+238,VRFdoas_ontime1,
+239,AirACFM_DOAS_Avg,
+240,AirSCFM_DOAS_Avg,
+241,T_DOAS_Intake_Avg,
+242,T_DOAS_Supply_Avg,
+243,RH_DOAS_Intake_Avg,
+244,RH_DOAS_Supply_Avg,
+245,WH_SS_DOAS_Tot,

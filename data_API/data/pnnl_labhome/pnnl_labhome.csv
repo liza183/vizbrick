@@ -1,0 +1,241 @@
+﻿id,Name,Description
+1,TIMESTAMP,Time 24-hr time and date of data record on logger
+2,RECORD,Number sequntial data number on logger
+3,Batt_Volt_Min,Volts Data logger battery level  on logger
+4,C1Power,Watts Master bedroom lights master bedroom
+5,C1Voltage,Volts Master bedroom lights master bedroom
+6,C1Current,Amps Master bedroom lights master bedroom
+7,C2Power,Watts Bath Receptacles main bathroom
+8,C2Voltage,Volts Bath Receptacles main bathroom
+9,C2Current,Amps Bath Receptacles main bathroom
+10,C3Power,Watts 2nd Bedroom Lights (E & W) bedrooms
+11,C3Voltage,Volts 2nd Bedroom Lights (E & W) bedroom
+12,C3Current,Amps 2nd Bedroom Lights (E & W) bedrooms
+13,C4Power,Watts Small Applicance (Kitchen) kitchen 
+14,C4Voltage,Volts Small Applicance (Kitchen) kitchen 
+15,C4Current,Amps Small Applicance (Kitchen) kitchen 
+16,C5Power,Watts Master Bath Lights/Fan master bathroom
+17,C5Voltage,Volts Master Bath Lights/Fan master bathroom
+18,C5Current,Amps Master Bath Lights/Fan master bathroom
+19,C6Power,Watts Small Applicance (Kitchen) kitchen island
+20,C6Voltage,Volts Small Applicance (Kitchen) small applicance
+21,C6Current,Amps Small Applicance (Kitchen) small applicance
+22,C7Power,Watts Bath Lights/Fan bath lights
+23,C7Voltage,Volts Bath Lights/Fan bath lights
+24,C7Current,Amps Bath Lights/Fan bath lights
+25,C8Power,Watts Refrigerator kitchen
+26,C8Voltage,Volts Refrigerator kitchen
+27,C8Current,Amps Refrigerator kitchen
+28,C9Power,Watts Kitchen Lights kitchen
+29,C9Voltage,Volts Kitchen Lights kitchen
+30,C9Current,Amps Kitchen Lights kitchen
+31,C10Power,Watts Dishwasher kitchen
+32,C10Voltage,Volts Dishwasher kitchen
+33,C10Current,Amps Dishwasher kitchen
+34,C11Power,Watts Dining Room Lights dining room
+35,C11Voltage,Volts Dining Room Lights dining room
+36,C11Current,Amps Dining Room Lights dining room
+37,C12Power,Watts Range Vent Fan kitchen
+38,C12Voltage,Volts Range Vent Fan kitchen
+39,C12Current,Amps Range Vent Fan kitchen
+40,C13Power,Watts Living Room Lights living room
+41,C13Voltage,Volts Living Room Lights living room
+42,C13Current,Amps Living Room Lights living room
+43,C14Power,Watts Master Bedroom Heater master bedroom
+44,C14Voltage,Volts Master Bedroom Heater master bedroom
+45,C14Current,Amps Master Bedroom Heater master bedroom
+46,C15Power,Watts Hallway Lights hallway
+47,C15Voltage,Volts Hallway Lights hallway
+48,C15Current,Amps Hallway Lights hallway
+49,C16Power,Watts East Bedroom Heater east bedroom
+50,C16Voltage,Volts East Bedroom Heater east bedroom
+51,C16Current,Amps East Bedroom Heater east bedroom
+52,C17Power,Watts Utility Room Lights utility room
+53,C17Voltage,Volts Utility Room Lights utility room
+54,C17Current,Amps Utility Room Lights utility room
+55,C18Power,Watts West Bedroom Heater west bedroom
+56,C18Voltage,Volts West Bedroom Heater west bedroom
+57,C18Current,Amps West Bedroom Heater west bedroom
+58,C19Power,Watts Exterior Lights outside
+59,C19Voltage,Volts Exterior Lights outside
+60,C19Current,Amps Exterior Lights outside
+61,C20Power,Watts Living Room/Hall Heater living room and hallway
+62,C20Voltage,Volts Living Room/Hall Heater living room and hallway
+63,C20Current,Amps Living Room/Hall Heater living room and hallway
+64,C21Power,Watts S.E. Receptacles master bedroom
+65,C21Voltage,Volts S.E. Receptacles master bedroom
+66,C21Current,Amps S.E. Receptacles master bedroom
+67,C22Power,Watts Dining Room/Kitchen Heater Dining room and kitchen
+68,C22Voltage,Volts Dining Room/Kitchen Heater Dining room and kitchen
+69,C22Current,Amps Dining Room/Kitchen Heater Dining room and kitchen
+70,C23Power,Watts N.W. Receptacles west bedroom
+71,C23Voltage,Volts N.W. Receptacles west bedroom
+72,C23Current,Amps N.W. Receptacles west bedroom
+73,C24Power,Watts Bathroom/Utility Heater bathroom/utility
+74,C24Voltage,Volts Bathroom/Utility Heater bathroom/utility
+75,C24Current,Amps Bathroom/Utility Heater bathroom/utility
+76,C25Power,Watts N.E. Receptacles east bedroom
+77,C25Voltage,Volts N.E. Receptacles east bedroom
+78,C25Current,Amps N.E. Receptacles east bedroom
+79,C26Power,Watts Master Bathroom Heater master bathroom
+80,C26Voltage,Volts Master Bathroom Heater master bathroom
+81,C26Current,Amps Master Bathroom Heater master bathroom
+82,C27Power,Watts Utility Receptacle/Fire Alarm utility room
+83,C27Voltage,Volts Utility Receptacle/Fire Alarm utility room
+84,C27Current,Amps Utility Receptacle/Fire Alarm utility room
+85,C28Power,Watts Whole House Vent Fan utility room
+86,C28Voltage,Volts Whole House Vent Fan utility room
+87,C28Current,Amps Whole House Vent Fan utility room
+88,C29Power,Watts Heat Exterior Receptacle utility room
+89,C29Voltage,Volts Heat Exterior Receptacle utility room
+90,C29Current,Amps Heat Exterior Receptacle utility room
+91,C38Power,Watts Clothes Washer utility room
+92,C38Voltage,Volts Clothes Washer utility room
+93,C38Current,Amps Clothes Washer utility room
+94,C30Power,Watts Water Heater exterior closet
+95,C30Voltage,Volts Water Heater exterior closet
+96,C30Current,Amps Water Heater exterior closet
+97,C32Power,Watts Water Heater exterior closet
+98,C32Voltage,Volts Water Heater exterior closet
+99,C32Current,Amps Water Heater exterior closet
+100,C31Power,Watts Heat Pump Outdoor
+101,C31Voltage,Volts Heat Pump outdoor
+102,C31Current,Amps Heat Pump outdoor
+103,C33Power,Watts Heat Pump outdoor
+104,C33Voltage,Volts Heat Pump outdoor
+105,C33Current,Amps Heat Pump outdoor
+106,C34Power,Watts Clothes Dryer utility room
+107,C34Voltage,Volts Clothes Dryer utility room
+108,C34Current,Amps Clothes Dryer utility room
+109,C36Power,Watts Clothes Dryer utility room
+110,C36Voltage,Volts Clothes Dryer utility room
+111,C36Current,Amps Clothes Dryer utility room
+112,C35Power,Watts Furnace (Emergency Heat) utility room
+113,C35Voltage,Volts Furnace (Emergency Heat) utility room
+114,C35Current,Amps Furnace (Emergency Heat) utility room
+115,C37Power,Watts Furnace (Emergency Heat) utility room
+116,C37Voltage,Volts Furnace (Emergency Heat) utility room
+117,C37Current,Amps Furnace (Emergency Heat) utility room
+118,C39Power,Watts Furnace (Fan) utility room
+119,C39Voltage,Volts Furnace (Fan) utility room
+120,C39Current,Amps Furnace (Fan) utility room
+121,C41Power,Watts Furnace (Fan) utility room
+122,C41Voltage,Volts Furnace (Fan) utility room
+123,C41Current,Amps Furnace (Fan) utility room
+124,C3032TotPower,Watts Combined Water Heater Breakers calculated
+125,C3032Power1,Watts Combined Water Heater Breakers calculated
+126,C3032Power2,Watts Combined Water Heater Breakers calculated
+127,C3032Voltage,Volts Combined Water Heater Breakers calculated
+128,C3032Current1,Amps Combined Water Heater Breakers calculated
+129,C3032Current2,Amps Combined Water Heater Breakers calculated
+130,C3133TotPower,Watts Combined Heat Pump calculated
+131,C3133Power1,Watts Combined Heat Pump calculated
+132,C3133Power2,Watts Combined Heat Pump calculated
+133,C3133Voltage,Volts Combined Heat Pump calculated
+134,C3133Current1,Amps Combined Heat Pump calculated
+135,C3133Current2,Amps Combined Heat Pump calculated
+136,C3436TotPower,Watts Combined Clothes Dryer calculated
+137,C3436Power1,Watts Combined Clothes Dryer calculated
+138,C3436Power2,Watts Combined Clothes Dryer calculated
+139,C3436Voltage,Volts Combined Clothes Dryer calculated
+140,C3436Current1,Amps Combined Clothes Dryer calculated
+141,C3436Current2,Amps Combined Clothes Dryer calculated
+142,C3537TotPower,Watts Combined Furnace Element 1 calculated
+143,C3537Power1,Watts Combined Furnace Element 1 calculated
+144,C3537Power2,Watts Combined Furnace Element 1 calculated
+145,C3537Voltage,Volts Combined Furnace Element 1 calculated
+146,C3537Current1,Amps Combined Furnace Element 1 calculated
+147,C3537Current2,Amps Combined Furnace Element 1 calculated
+148,C3941TotPower,Watts Combined Furnace Element 2 calculated
+149,C3941Power1,Watts Combined Furnace Element 2 calculated
+150,C3941Power2,Watts Combined Furnace Element 2 calculated
+151,C3941Voltage,Volts Combined Furnace Element 2 calculated
+152,C3941Current1,Amps Combined Furnace Element 2 calculated
+153,C3941Current2,Amps Combined Furnace Element 2 calculated
+154,C4042TotPower,Watts Combined Range calculated
+155,C4042Power1,Watts Combined Range calculated
+156,C4042Power2,Watts Combined Range calculated
+157,C4042Voltage,Volts Combined Range calculated
+158,C4042Current1,Amps Combined Range calculated
+159,C4042Current2,Amps Combined Range calculated
+160,MainsTotPower,"Watts Combined Lighting, Equipment, Occupancy, Water Heater, and HVAC calculated"
+161,MainsPower1,"Watts Combined Lighting, Equipment, Occupancy, Water Heater, and HVAC calculated"
+162,MainsPower2,"Watts Combined Lighting, Equipment, Occupancy, Water Heater, and HVAC calculated"
+163,MainsVoltage,"Volts Combined Lighting, Equipment, Occupancy, Water Heater, and HVAC calculated"
+164,MainsCurrent1,"Amps Combined Lighting, Equipment, Occupancy, Water Heater, and HVAC calculated"
+165,MainsCurrent2,"Amps Combined Lighting, Equipment, Occupancy, Water Heater, and HVAC calculated"
+166,TC_KitSp,Fahrenheit Middle of Kitchen Ceiling Kitchen
+167,TC_KitWIn,Fahrenheit Kitchen Window Interior Kitchen
+168,TC_DinSldrIn,Fahrenheit Dining Room Slider Interer Dining Room
+169,TC_DinSp,Fahrenheit Dining Room Ceiling Dining Room
+170,TC_DinWCntrIn,Fahrenheit Dining Room Window Center Interior Dining Room
+171,TC_LivWDwnIn,Fahrenheit Living Room Window Bottom Interior Living Room
+172,TC_DinWDwnIn,Fahrenheit Dining Room Window Bottom Interior Dining Room
+173,TC_LivSldrIn,Fahrenheit Living Room Slider Middle Interior Living Room
+174,TC_LivSpWestIn,Fahrenheit Living Room Ceiling West Living Room
+175,TC_LivWCtrIn,Fahrenheit Living Room Window Center Interior Living Room
+176,TC_LivEntry,Fahrenheit Living Room Ceiling Entry Way Living Room
+177,TC_HallSp,Fahrenheit Hallway Ceiling Hallway
+178,TC_WBedSp,Fahrenheit West Bedroom Ceiling West Bedroom
+179,TC_WBedWIn,Fahrenheit West Bedroom Window West Bedroom
+180,TC_EBedSp,Fahrenheit East Bedroom Ceiling East Bedroom
+181,TC_EBedWIn,Fahrenheit East Bedroom Window Interior East Bedroom
+182,TC_MBedSp,Fahrenheit Master Bedroom Ceiling Master Bedroom
+183,TC_MBedWIn,Fahrenheit Master Bedroom Window Interior Master Bedroom
+184,TC_MBathSp,Fahrenheit Master Bathroom Ceiling Master Bathroom
+185,TC_MBathWIn,Fahrenheit Master Bathroom Window Interior Master Bathroom
+186,TC_H2OCloset,Fahrenheit Hot Water Closet Ceiling Hot Water Closet
+187,TC_BathSp,Fahrenheit Bathroom Ceiling Bathroom
+188,TC_UtilitySp,Fahrenheit Utility Room Ceiling Utility Room
+189,TC_DuctSupply,Fahrenheit  
+190,TC_Thermostat,"Fahrenheit Hallway, Near Kitchen, Mid-wall Hallway"
+191,TC_KitOut,Fahrenheit Kitchen Window Exterior Kitchen
+192,TC_DinSldrOut,Fahrenheit Dining Room Slider Exterior Dining Room
+193,TC_DinWCntrOut,Fahrenheit Dining Room Window Center Exterior Dining Room
+194,TC_LivWDwnOut,Fahrenheit Living Room Window Bottom Exterior Living Room
+195,TC_DinWDwnOut,Fahrenheit Dining Room Window Bottom Exterior Dining Room
+196,TC_LivSldrOut,Fahrenheit Living Room Slider Middle Exterior Living Room
+197,TC_LivWCtrOut,Fahrenheit Living Room Window Center Exterior Living Room
+198,TC_WBedWOut,Fahrenheit West Bedroom Window Exterior West Bedroom
+199,TC_EBedWOut,Fahrenheit East Bedroom Window Exterior East Bedroom
+200,TC_MBedWOut,Fahrenheit Master Bedroom Window Exterior Master Bedroom
+201,TC_BathWOut,Fahrenheit Master Bedroom Window Exterior Master Bedroom
+202,TC_Vent1,Fahrenheit Air Duct Interior Register Ducts
+203,TC_Vent2,Fahrenheit Air Duct Interior Register Ducts
+204,TC_Vent3,Fahrenheit Air Duct Interior Register Ducts
+205,TC_Vent4,Fahrenheit Air Duct Interior Register Ducts
+206,TC_StorageTank_to_HP,Fahrenheit Heat Pump Water Heater Tank Hot Water Closet
+207,TC_HP_To_StorageTank,Fahrenheit Heat Pump Water Heater Tank Hot Water Closet
+208,TC_Mixed_Return_to_tank,Fahrenheit Heat Pump Water Heater Tank Hot Water Closet
+209,TC_DHW_Temp_Hot,Fahrenheit Hot Water Intake from City 
+210,TC_HPWH_LowerTank,Fahrenheit Heat Pump Water Heater Tank Hot Water Closet
+211,TC_DHW_to_Home,Fahrenheit Hot Water Intake from City 
+212,TC_HPWH_Closet2,Fahrenheit Hot Water Closet Hot Water Closet
+213,TC_HPWH_Closet3,Fahrenheit Hot Water Closet Hot Water Closet
+214,TC_City_Water_In,Fahrenheit Hot Water Intake from City 
+215,Crawl_Space_A,Fahrenheit Crawl Space  Crawl Space 
+216,Crawl_Space_B,Fahrenheit Crawl Space  Crawl Space 
+217,Crawl_Space_C,Fahrenheit Crawl Space  Crawl Space 
+218,Solar,W/m^2 Blackglobe tripod Living Room
+219,MRT_W,Fahrenheit mean radiant temperature 
+220,MRT_E,Fahrenheit mean radiant temperature 
+221,WindSpd_Mean,"meter/second wind speed Weather Station, Lab Home B Roof"
+222,WindDir_Mean,"Degree wind direction Weather Station, Lab Home B Roof"
+223,WindDir_StDev,"Degree wind direction standard deviation Weather Station, Lab Home B Roof"
+224,TC_Outdoor_TempFF,"Fahrenheit outdoor temperature Weather Station, Lab Home B Roof"
+225,RelHumidity,"Rh(%) relative humidity Weather Station, Lab Home B Roof"
+226,AirPressure,"Hectopascals air pressure Weather Station, Lab Home B Roof"
+227,City_Water_In_Flow,Gallons per minute water intake flow 
+228,City_Water_In_Temp,Fahrenheit water intake temperature 
+229,Domestic_Hot_Water_Flow,Gallons domestic hot water flow Kitchen Sink
+230,Domestic_Hot_Water_Temp,Fahrenheit domestic hot water temperature Kitchen Sink
+231,Calibration_Flow,Gallons  
+232,Calibration_Temp,Fahrenheit  
+233,KtchSinkHotOnOfFTot," Kitchen Sink, Underneath Kitchen"
+234,Solar_Outside,W/m^2 Pyranometer Stand Outside back door
+235,Outside_Air,Fahrenheit Pyranometer Stand Outside back door
+236,Outside_RH,Rh(%) Pyranometer Stand Outside back door
+237,WAirTCC,Celsius West Indoor
+238,WRh,Rh(%) West Indoor
+239,EAirTCC,Celsius East Indoor
+240,Erh,Rh(%) East Indoor

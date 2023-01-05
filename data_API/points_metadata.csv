@@ -1,0 +1,42 @@
+﻿Labels,Units,Description,Notes,Equipment,Location
+ID,,Logger ID,,,
+Year,,Year,,,
+Day,,Day of year,,,
+Hour,,Time,in HHMM format,,
+Ihor,Wm2,Solar radiation - horizontal,,,Outdoor
+Icoll,Wm2,Solar radiation - plane of collectors,,,Outdoor
+Tamb,C,Outdoor air temperature,,,Outdoor
+Rhamb,fraction,Outdoor relative humidity,,,Outdoor
+WS,ms,Millisecond,,,
+TsolIn,C,Solar water heating system - water temperature (to collectors),,Solar water heater,
+TsolOut,C,Solar water heating system - water temperature (from collectors),,Solar water heater,
+Ttank,C,Solar water heating system - tank water temperature,,Solar water heater,
+TwtrHtr,C,Hot water temperature (supply to house),,Solar water heater,
+Tliving,C,Living room air temperature,,,Living room
+Tbath,C,Bathroom air temperature,,,Bathroom
+TbrNW,C,North bedroom air temperature,,,North bedroom
+TbrSW,C,Southeast bedroom air temperature,,,Southeast bedroom
+TbrSE,C,Cold water supply temperature,,,
+Textra1,C,Water heater temperature 1,redundant,,
+Textra2,C,Water heater temperature 2,redundant,,
+Textra3,C,Water heater temperature 3,redundant,,
+Textra4,C,Water heater temperature 4,redundant,,
+Textra5,C,Water heater temperature 5,redundant,,
+Textra6,C,Water heater temperature 6,redundant,,
+Emsc1,kWh,All other loads part 1,,Plug,
+Emsc2,kWh,All other loads part 2,,Plug,
+Epv,kWh,PV energy generation,,PV,Roof
+Elite,kWh,Hard-wired lights energy consumption,,Lighting,
+Epump,kWh,Solar pump energy consumption,,Solar pump,
+Ehtrs,kWh,Baseboard electric heaters energy consumption,,Electric heater,Bedrooms
+Ewatr,kWh,Space and water heating energy consumption,,Space heater,
+Erang,kWh,Kitchen range energy consumption,,Range,Kitchen
+Eerv,kWh,ERV ventilation system energy consumption,,ERV ventilation,
+Extra,kWh,,,,
+GwtrH,ft3,Space heater natural gas consumption,,Space heater,
+GspcH,ft3,Back-up water heater natural gas consumption,,Back-up water heater,
+FhWtr,lit,Hot water use,,Solar water heater and back-up water heater,
+FDTsol,lC,,,,
+Tlogger,C,Temparature at logger,,Logger,
+Vlogger,V,Voltage at logger,,Logger,
+Tref,C,,,,

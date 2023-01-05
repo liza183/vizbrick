@@ -1,0 +1,380 @@
+﻿Data Label,Subsystem,Measurement Location,Measured Parameter,Description,Units
+DHW_ClothesWasherColdFlow,DHW,Utility,Flow_Water,The cumulative volume of cold water flowing into the clothes washer starting at midnight,Gallons
+DHW_ClothesWasherHotFlow,DHW,Utility,Flow_Water,The cumulative volume of hot water flowing into the clothes washer starting at midnight,Gallons
+DHW_DishwasherHotFlow,DHW,Kitchen,Flow_Water,The cumulative volume of hot water flowing into the dishwasher starting at midnight,Gallons
+DHW_SHWGlycolTempIn,DHW,Basement,Temp_Glycol,The instantaneous temperature of the glycol-water solution on the inlet side of the heat exchanger of the solar water heating system (from the solar panels),°C
+DHW_SHWGlycolTempOut,DHW,Basement,Temp_Glycol,The instantaneous temperature of the glycol-water solution on the outlet side of the heat exchanger of the solar water heating system (returning to the solar panels),°C
+DHW_HeatPumpWaterHeaterEnergyTotal,DHW,Basement,Energy_Electrical,Cumulative energy consumption by heat pump water heater starting from midnight,Wh
+DHW_HeatPumpWaterHeaterPowerTotal,DHW,Basement,Power_Electrical,Instantaneous power consumption by heat pump water heater,W
+DHW_ManifoldColdFlow,DHW,Basement,Flow_Water,The cumulative volume of water flowing into the cold side of the plumbing distribution manifold starting at midnight,Gallons
+DHW_ManifoldHotFlow,DHW,Basement,Flow_Water,The cumulative volume of water flowing into the hot side of the plumbing distribution manifold starting at midnight,Gallons
+DHW_MixValveColdFlow,DHW,Basement,Flow_Water,The cumulative volume of mains water flowing into the mixing valve that is positioned downstream of the solar thermal storage tank starting at midnight,Gallons
+DHW_RoomTempBasementHPWH,DHW,Basement,Temp_Air,The dry bulb air temperature located two feet from the surface of the heat pump water heater at a vertical distance halfway up the tank,°C
+DHW_SHWPumpsEnergywithStandby,DHW,Basement,Energy_Electrical,Cumulative energy consumption by solar water heating system pumps starting from midnight,Wh
+DHW_SHWPumpsPowerwithStandby,DHW,Basement,Power_Electrical,Instantaneous power consumption by solar water heating system pumps,W
+DHW_StatusSolenoidColdMBATub,DHW,MBath,Status_OnOff,"Number to indicate whether cold water is flowing in master bath tub (1: Yes, O: No)",
+DHW_StatusSolenoidColdMBAShower,DHW,MBath,Status_OnOff,"Number to indicate whether cold water is flowing in master bath shower (1: Yes, O: No)",
+DHW_StatusSolenoidColdKitchenSink,DHW,Kitchen,Status_OnOff,"Number to indicate whether cold water is flowing in kitchen sink (1: Yes, O: No)",
+DHW_StatusSolenoidHotKitchenSink,DHW,Kitchen,Status_OnOff,"Number to indicate whether hot water is flowing in kitchen sink (1: Yes, O: No) ",
+DHW_StatusSolenoidHotMBATub,DHW,MBath,Status_OnOff,"Number to indicate whether hot water is flowing in master bath tub (1: Yes, O: No) ",
+DHW_StatusSolenoidHotMBAShower,DHW,MBath,Status_OnOff,"Number to indicate whether hot water is flowing in master bath shower (1: Yes, O: No) ",
+DHW_WaterTempBAShowerMixed,DHW,Bath2,Temp_Water,The instantaneous temperature of the water in the shower faucet of the bathroom located off the hallway on the second floor after the mixing valve,°C
+DHW_WaterTempBAShwCold,DHW,Bath2,Temp_Water,The instantaneous temperature of the water in the cold water line at the shower in the bathroom located off the hallway on the second floor,°C
+DHW_WaterTempBAShwHot,DHW,Bath2,Temp_Water,The instantaneous temperature of the water in the hot water line at the shower in the bathroom located off the hallway on the second floor,°C
+DHW_WaterTempBASinkCold,DHW,Bath2,Temp_Water,The instantaneous temperature of the water in the cold water line at the sink in the bathroom located off the hallway on the second floor,°C
+DHW_WaterTempBASinkHot,DHW,Bath2,Temp_Water,The instantaneous temperature of the water in the hot water line at the sink in the bathroom located off the hallway on the second floor,°C
+DHW_WaterTempBASinkMixed,DHW,Bath2,Temp_Water,The instantaneous temperature of the water in the sink faucet of the bathroom located off the hallway on the second floor after the mixing valve,°C
+DHW_WaterTempDishwasher,DHW,Kitchen,Temp_Water,The instantaneous temperature of the water in the hot water line at the dishwasher,°C
+DHW_WaterTempHPWHIn,DHW,Basement,Temp_Water,The instantaneous temperature of the water on the inlet side of the heat pump water heater,°C
+DHW_WaterTempHPWHOut,DHW,Basement,Temp_Water,The instantaneous temperature of the water on the exit side of the heat pump water heater,°C
+DHW_WaterTempKSinkCold,DHW,Kitchen,Temp_Water,The instantaneous temperature of the water in the cold water line at the kitchen sink,°C
+DHW_WaterTempKSinkHot,DHW,Kitchen,Temp_Water,The instantaneous temperature of the water in the hot water line at the kitchen sink,°C
+DHW_WaterTempKSinkMix,DHW,Kitchen,Temp_Water,The instantaneous temperature of the water in the kitchen sink faucet after the mixing valve,°C
+DHW_WaterTempManifoldColdIn,DHW,Basement,Temp_Water,The instantaneous temperature of the water entering the cold side of the plumbing manifold,°C
+DHW_WaterTempManifoldHotIn,DHW,Basement,Temp_Water,The instantaneous temperature of the water entering the hot side of the plumbing manifold,°C
+DHW_WaterTempMBAShwCold,DHW,MBath,Temp_Water,The instantaneous temperature of the water in the cold water line at the shower in the Master Bathroom ,°C
+DHW_WaterTempMBAShwHot,DHW,MBath,Temp_Water,The instantaneous temperature of the water in the hot water line at the shower in the Master Bathroom ,°C
+DHW_WaterTempMBAShwMix,DHW,MBath,Temp_Water,The instantaneous temperature of the water in the master bath shower after the mixing valve,°C
+DHW_WaterTempMBASinkRMixed,DHW,MBath,Temp_Water,The instantaneous temperature of the water in the master bath sink located on the right after the mixing valve,°C
+DHW_WaterTempMBASinkRCold,DHW,MBath,Temp_Water,The instantaneous temperature of the water in the cold water line at the right sink in the Master Bathroom,°C
+DHW_WaterTempMBASinkRHot,DHW,MBath,Temp_Water,The instantaneous temperature of the water in the hot water line at the right sink in the Master Bathroom,°C
+DHW_WaterTempMBATubCold,DHW,MBath,Temp_Water,The instantaneous temperature of the water in the cold water line at the tub in the Master Bathroom ,°C
+DHW_WaterTempMBATubHot,DHW,MBath,Temp_Water,The instantaneous temperature of the water in the hot water line at the tub in the Master Bathroom ,°C
+DHW_WaterTempMBATubMix,DHW,MBath,Temp_Water,The instantaneous temperature of the water in the tub faucet after the mixing valve,°C
+DHW_WaterTempMixValveColdIn,DHW,Basement,Temp_Water,The instantaneous temperature of the water from the main entering the mixing valve downstream of the solar preheat tank,°C
+DHW_WaterTempMixValveHotIn,DHW,Basement,Temp_Water,The instantaneous temperature of the water from the solar preheat tank entering the mixing valve downstream of that tank,°C
+DHW_WaterTempSHWHX80galIn,DHW,Basement,Temp_Water,The instantaneous temperature of the potable water on the inlet side of the heat exchanger of the solar water heating system (from the storage tank),°C
+DHW_WaterTempSHWHX80galOut,DHW,Basement,Temp_Water,The instantaneous temperature of the potable water on the exit side of the heat exchanger of the solar water heating system (returning to the storage tank),°C
+DHW_WaterTempSHWTank80galIn,DHW,Basement,Temp_Water,The instantaneous temperature of the water entering the 80 gallon solar preheat tank,°C
+DHW_WaterTempSHWTank80galOut,DHW,Basement,Temp_Water,The instantaneous temperature of the water leaving the 80 gallon solar preheat tank,°C
+DHW_WaterTempWasherCold,DHW,Utility,Temp_Water,The instantaneous temperature of the water in the cold water line at the clothes washer,°C
+DHW_WaterTempWasherHot,DHW,Utility,Temp_Water,The instantaneous temperature of the water in the hot water line at the clothes washer,°C
+Elec_EnergyHeatPumpWH1of2,DHW,Basement,Energy_Electrical,Cumulative energy consumption of one leg of electrical supply to heat pump water heater from midnight; note that energy consumption from other leg is needed to get total energy consumption by heat pump water heater,Wh
+Elec_EnergyHeatPumpWH2of2,DHW,Basement,Energy_Electrical,Cumulative energy consumption of one leg of electrical supply to heat pump water heater from midnight; note that energy consumption from other leg is needed to get total energy consumption by heat pump water heater,Wh
+Elec_PowerHeatPumpWH1of2,DHW,Basement,Power_Electrical,Instantaneous power consumption of one leg of electrical supply to heat pump water heater; note that power from other leg is needed to get total power consumption by heat pump water heater,W
+Elec_PowerHeatPumpWH2of2,DHW,Basement,Power_Electrical,Instantaneous power consumption of one leg of electrical supply to heat pump water heater; note that power from other leg is needed to get total power consumption by heat pump water heater,W
+Elec_EnergyPlugsBaseAHeliodyneHXs,Elec,Basement,Energy_Electrical,Cumulative energy used by solar water heater pumps from midnight,Wh
+Elec_EnergyPlugsDR,Electrical,Dining Room,Energy_Electrical,Cumulative energy consumption at receptacles of dining room from midnight,Wh
+Elec_EnergyPlugsBR4,Electrical,Bedroom4,Energy_Electrical,Cumulative energy consumption at receptacles of bedroom 4 from midnight,Wh
+Elec_EnergyPlugsEntryHall,Electrical,Entry Hallway,Energy_Electrical,Cumulative energy consumption at receptacles in entry hallway from midnight,Wh
+Elec_EnergyPlugsLR,Electrical,Living Room,Energy_Electrical,Cumulative energy consumption at receptacles of living room from midnight,Wh
+Elec_EnergyClothesWasher,Electrical,Utility,Energy_Electrical,Cumulative energy consumption of clothes washer from midnight,Wh
+Elec_EnergyDryer1of2,Electrical,Utility,Energy_Electrical,Cumulative energy consumption of one leg of electrical supply to dryer from midnight; note that energy consumption from other leg is needed to get total energy consumption by dryer,Wh
+Elec_EnergyDryer2of2,Electrical,Utility,Energy_Electrical,Cumulative energy consumption of one leg of electrical supply to dryer from midnight; note that energy consumption from other leg is needed to get total energy consumption by dryer,Wh
+Elec_EnergyPlugsBaseB,Electrical,Basement,Energy_Electrical,Cumulative energy consumption at receptacle B in basement from midnight,Wh
+Elec_EnergyPlugsBaseC,Electrical,Basement,Energy_Electrical,Cumulative energy consumption at receptacle C in basement from midnight,Wh
+Elec_EnergySumpPump,Electrical,Basement,Energy_Electrical,Cumulative energy consumption of sump pump in basement from midnight,Wh
+Elec_EnergySpare1,Electrical ,Basement,Energy_Electrical,Cumulative energy consumption of standby electrical load in basement from midnight,Wh
+Elec_EnergyPlugsBA1,Electrical,Bath1,Energy_Electrical,Cumulative energy consumption at receptacles of bathroom 1 from midnight,Wh
+Elec_EnergyGarbageDisposal,Electrical ,Kitchen,Energy_Electrical,Cumulative energy consumption by garbage disposal from midnight,Wh
+Elec_EnergyPlugsKitRange,Electrical ,Kitchen,Energy_Electrical,Cumulative energy consumption by blender from midnight,Wh
+Elec_EnergyPlugsKitPeninsula,Electrical ,Kitchen,Energy_Electrical,Cumulative energy consumption by hand mixer and can opener from midnight,Wh
+Elec_EnergyMicrowave,Electrical ,Kitchen,Energy_Electrical,Cumulative energy consumption by microwave oven from midnight,Wh
+Elec_EnergyPlugs2ndFloor,Electrical,Bath2,Energy_Electrical,Cumulative energy consumption from receptacles in bathroom 2 from midnight,Wh
+Elec_EnergySpare2,Electrical,Basement,Energy_Electrical,Cumulative energy consumption by computer network hardware in basement from midnight,Wh
+Elec_EnergyPlugsBR2,Electrical,Bedroom2,Energy_Electrical,Cumulative energy consumption from receptacles in bedroom 2 from midnight,Wh
+Elec_EnergyPlugsMBR,Electrical,MBedroom,Energy_Electrical,Cumulative energy consumption from receptacles in master bedroom from midnight,Wh
+Elec_EnergyPlugsMBAEast,Electrical,MBath,Energy_Electrical,Cumulative energy consumption from receptacles on east side of master bathroom from midnight,Wh
+Elec_EnergyDishwasher,Electrical,Kitchen,Energy_Electrical,Cumulative energy consumption by dishwasher from midnight,Wh
+Elec_EnergyPlugsBA2South,Electrical,Bath2,Energy_Electrical,Cumulative energy consumption from receptacles on south side of bathroom 2 from midnight,Wh
+Elec_EnergyPlugsMBAWest,Electrical,MBath,Energy_Electrical,Cumulative energy consumption from receptacles on west side of master bathroom from midnight,Wh
+Elec_EnergyPlugsBA2North,Electrical,Bath2,Energy_Electrical,Cumulative energy consumption from receptacles on north side of bathroom 2 from midnight,Wh
+Elec_EnergyPlugsBR3,Electrical,Bedroom3,Energy_Electrical,Cumulative energy consumption from receptacles in bedroom 3 from midnight,Wh
+Elec_EnergyRefrigerator,Electrical,Kitchen,Energy_Electrical,Cumulative energy consumption by refrigerator from midnight,Wh
+Elec_EnergyPlugsKitSink,Electrical ,Kitchen,Energy_Electrical,Cumulative energy consumption by toaster from midnight,Wh
+Elec_EnergyPlugsDRB,Electrical,Dining Room,Energy_Electrical,Cumulative energy consumption from receptacles in dining room from midnight,Wh
+Elec_EnergyPlugsAttic,Electrical,Attic,Energy_Electrical,Cumulative energy consumption from receptacles in attic from midnight,Wh
+Elec_PowerPlugsDR,Electrical,Dining Room,Power_Electrical,Instantaneous power used at receptacles of dining room ,W
+Elec_PowerPlugsBR4,Electrical,Bedroom4,Power_Electrical,Instantaneous power used at receptacles of bedroom 4 ,W
+Elec_PowerPlugsEntryHall,Electrical,Entry Hallway,Power_Electrical,Instantaneous power used at receptacles in entry hallway ,W
+Elec_PowerPlugsLR,Electrical,Living Room,Power_Electrical,Instantaneous power used at receptacles of living room ,W
+Elec_PowerClothesWasher,Electrical,Utility,Power_Electrical,Instantaneous power used by clothes washer ,W
+Elec_PowerDryer1of2,Electrical,Utility,Power_Electrical,Instantaneous power used by one leg of electrical supply to dryer; note that power from other leg is needed to get total power consumption by dryer,W
+Elec_PowerDryer2of2,Electrical,Utility,Power_Electrical,Instantaneous power consumption of one leg of electrical supply to dryer; note that power from other leg is needed to get total power consumption by dryer,W
+Elec_PowerPlugsBaseB,Electrical,Basement,Power_Electrical,Instantaneous power used at receptacle B in basement ,W
+Elec_PowerPlugsBaseC,Electrical,Basement,Power_Electrical,Instantaneous power used at receptacle C in basement ,W
+Elec_PowerSumpPump,Electrical,Basement,Power_Electrical,Instantaneous power used by sump pump in basement,W
+Elec_PowerSpare1,Electrical,Basement,Power_Electrical,Instantaneous power used by standby load in basement,W
+Elec_PowerPlugsBA1,Electrical,Bath1,Power_Electrical,Instantaneous power used by receptacles of bathroom 1,W
+Elec_PowerGarbageDisposal,Electrical ,Kitchen,Power_Electrical,Instantaneous power consumption by garbage disposal ,W
+Elec_PowerPlugsKitRange,Electrical ,Kitchen,Power_Electrical,Instantaneous power consumption by blender ,W
+Elec_PowerPlugsKitPeninsula,Electrical ,Kitchen,Power_Electrical,Instantaneous power consumption by mixer and can opener,W
+Elec_PowerMicrowave,Electrical ,Kitchen,Power_Electrical,Instantaneous power consumption by microwave oven ,W
+Elec_PowerPlugs2ndFloor,Electrical,Bath2,Power_Electrical,Instantaneous power consumption from receptacles in bathroom 2 ,W
+Elec_PowerSpare2,Electrical,Basement,Power_Electrical,Instantaneous power consumption by computer network connection in basement,W
+Elec_PowerPlugsBR2,Electrical,Bedroom2,Power_Electrical,Instantaneous power consumption from receptacles in bedroom 2 ,W
+Elec_PowerPlugsMBR,Electrical,MBedroom,Power_Electrical,Instantaneous power consumption from receptacles in master bedroom ,W
+Elec_PowerPlugsMBAEast,Electrical,MBath,Power_Electrical,Instantaneous power consumption from receptacles on east side of master bathroom ,W
+Elec_PowerDishwasher,Electrical,Kitchen,Power_Electrical,Instantaneous power consumption by dishwasher ,W
+Elec_PowerPlugsBA2South,Electrical,Bath2,Power_Electrical,Instantaneous power consumption from receptacles on south side of bathroom 2 ,W
+Elec_PowerPlugsMBAWest,Electrical,MBath,Power_Electrical,Instantaneous power consumption from receptacles on west side of master bathroom ,W
+Elec_PowerPlugsBA2North,Electrical,Bath2,Power_Electrical,Instantaneous power consumption from receptacles on north side of bathroom 2 ,W
+Elec_PowerPlugsBR3,Electrical,Bedroom3,Power_Electrical,Instantaneous power consumption from receptacles in bedroom 3 ,W
+Elec_PowerRefrigerator,Electrical,Kitchen,Power_Electrical,Instantaneous power consumption by refrigerator ,W
+Elec_PowerPlugsKitSink,Electrical ,Kitchen,Power_Electrical,Instantaneous power consumption by toaster,W
+Elec_PowerPlugsDRB,Electrical,Dining Room,Power_Electrical,Instantaneous power consumption from receptacles in dining room ,W
+Elec_PowerPlugsAttic,Electrical,Attic,Power_Electrical,Instantaneous power consumption from receptacles in attic ,W
+Elec_EnergyHRV,HVAC,Basement,Energy_Electrical,Cumulative energy consumption of heat recovery ventilator from midnight,Wh
+Elec_PowerHRV,HVAC,Basement,Power_Electrical,Instantaneous power consumption of heat recovery ventilator ,W
+HVAC_DehumidifierAirflow,HVAC,Basement,Flow_Air,Average airflow through dedicated dehumidifier over the course of the minute,ft3/min
+HVAC_DehumidifierExitAirTemp,HVAC,Basement,Temp_Air,Average temperature of air in outlet duct from dedicated dehumidifier over the course of the minute,°F
+HVAC_DehumidifierInletAirTemp,HVAC,Basement,Temp_Air,Average temperature of air in inlet duct to dedicated dehumidifier over the course of the minute,°F
+HVAC_DehumidifierPower,HVAC,Basement,Power_Electrical,Average power consumption of dedicated dehumidifier over the course of the minute,W
+HVAC_HeatPumpIndoorUnitPower,HVAC,Basement,Power_Electrical,"Average power consumption of heat pump indoor unit (blower, controls, resistance heat) over the course of the minute",W
+HVAC_HeatPumpOutdoorUnitPower,HVAC ,Outdoor,Power_Electrical,"Average power consumption of heat pump outdoor unit (compressor, fan, controls, defrost) over the course of the minute",W
+HVAC_HVACDewpointReturnAir,HVAC,Basement,Temp_DewP,Instantaneous dewpoint temperature of air in return duct prior to indoor unit,°C
+HVAC_HVACDewpointSupplyAir,HVAC,Basement,Temp_DewP,Instantaneous dewpoint temperature of air in supply duct after indoor unit,°C
+HVAC_HVACTempReturnAir,HVAC,Basement,Temp_Air,Instantaneous dry bulb temperature of air in return duct prior to indoor unit,°C
+HVAC_HVACTempSupplyAir,HVAC,Basement,Temp_Air,Instantaneous dry bulb temperature of air in supply duct after indoor unit,°C
+IndEnv_BasementRH,IndEnv,Basement,RH,"Relative humidity in basement, on a scale of 0 to 1",
+IndEnv_Bedroom2RH,IndEnv,Bedroom2,RH,"Relative humidity in bedroom 2 on second floor, on a scale of 0 to 1",
+IndEnv_Bedroom3RH,IndEnv,Bedroom3,RH,"Relative humidity in bedroom 3 on second floor, on a scale of 0 to 1",
+IndEnv_KitchenRH,IndEnv,Kitchen,RH,"Relative humidity in kitchen, on a scale of 0 to 1",
+IndEnv_LivingRmRH,IndEnv,Living Room,RH,"Relative humidity in living room, on a scale of 0 to 1",
+IndEnv_MastBedRmRH,IndEnv,Master Bedroom,RH,"Relative humidity in master bedroom, on a scale of 0 to 1",
+IndEnv_MBARH,IndEnv,MBath,RH,"Relative humidity in master bathroom, on a scale of 0 to 1",
+IndEnv_RadiantTempBR2,IndEnv,Bedroom2,Temp_Rad,Instantaneous drybulb temperature within the radiant temperature sensor in bedroom 2 on second floor,°C
+IndEnv_RadiantTempBR3,IndEnv,Bedroom3,Temp_Rad,Instantaneous drybulb temperature within the radiant temperature sensor in bedroom 3 on second floor,°C
+IndEnv_RadiantTempKitchen,IndEnv,Kitchen,Temp_Rad,Instantaneous drybulb temperature within the radiant temperature sensor in the kitchen,°C
+IndEnv_RadiantTempLR,IndEnv,Living Room,Temp_Rad,Instantaneous drybulb temperature within the radiant temperature sensor in the living room,°C
+IndEnv_RadiantTempMBR,IndEnv,Master Bedroom,Temp_Rad,Instantaneous drybulb temperature within the radiant temperature sensor in the master bedroom,°C
+IndEnv_RoomTempAtticNE,IndEnv,Attic,Temp_Air,Instantaneous drybulb temperature in northeast quadrant of attic,°C
+IndEnv_RoomTempAtticNW,IndEnv,Attic,Temp_Air,Instantaneous drybulb temperature in northwest quadrant of attic,°C
+IndEnv_RoomTempAtticSE,IndEnv,Attic,Temp_Air,Instantaneous drybulb temperature in southeast quadrant of attic,°C
+IndEnv_RoomTempAtticSW,IndEnv,Attic,Temp_Air,Instantaneous drybulb temperature in southwest quadrant of attic,°C
+IndEnv_RoomTempBA1Temp,IndEnv,Bath1,Temp_Air,Instantaneous drybulb temperature in bathroom 1 on first floor,°C
+IndEnv_RoomTempBA2Temp,IndEnv,Bath2,Temp_Air,Instantaneous drybulb temperature in bathroom 2 on second floor,°C
+IndEnv_RoomTempBasementNE,IndEnv,Basement,Temp_Air,Instantaneous drybulb temperature in middle of northeast quadrant of basement,°C
+IndEnv_RoomTempBasementNW,IndEnv,Basement,Temp_Air,Instantaneous drybulb temperature in middle of northwest quadrant of basement,°C
+IndEnv_RoomTempBasementSE,IndEnv,Basement,Temp_Air,Instantaneous drybulb temperature in middle of southeast quadrant of basement,°C
+IndEnv_RoomTempBasementSW,IndEnv,Basement,Temp_Air,Instantaneous drybulb temperature in middle of southwest quadrant of basement,°C
+IndEnv_RoomTempBR2Temp,IndEnv,Bedroom2,Temp_Air,Instantaneous drybulb temperature in bedroom 2 on second floor,°C
+IndEnv_RoomTempBR3Temp,IndEnv,Bedroom3,Temp_Air,Instantaneous drybulb temperature in bedroom 3 on second floor,°C
+IndEnv_RoomTempBR4Temp,IndEnv,Bedroom4,Temp_Air,Instantaneous drybulb temperature in bedroom 4,°C
+IndEnv_RoomTempDRTemp,IndEnv,Dining Room,Temp_Air,Instantaneous drybulb temperature in dining room,°C
+IndEnv_RoomTempHallLowerMid,IndEnv,Entry Hallway,Temp_Air,"Instantaneous drybulb temperature in center hallway, measured at a height of 1.8 m",°C
+IndEnv_RoomTempHallLowest,IndEnv,Entry Hallway,Temp_Air,"Instantaneous drybulb temperature in center hallway, measured at a height of 0.6 m",°C
+IndEnv_RoomTempHallMiddle,IndEnv,Entry Hallway,Temp_Air,"Instantaneous drybulb temperature in center hallway, measured at a height of 3.0 m",°C
+IndEnv_RoomTempHallUpper,IndEnv,Entry Hallway,Temp_Air,"Instantaneous drybulb temperature in center hallway, measured at a height of 5.5 m",°C
+IndEnv_RoomTempHallUpperMid,IndEnv,Entry Hallway,Temp_Air,"Instantaneous drybulb temperature in center hallway, measured at a height of 4.3 m",°C
+IndEnv_RoomTempKitchenTemp,IndEnv,Kitchen,Temp_Air,Instantaneous drybulb temperature in kitchen,°C
+IndEnv_RoomTempLRTemp,IndEnv,Living Room,Temp_Air,Instantaneous drybulb temperature in living room,°C
+IndEnv_RoomTempMBATemp,IndEnv,MBath,Temp_Air,Instantaneous drybulb temperature in master bathroom on second floor,°C
+IndEnv_RoomTempMBRTemp,IndEnv,Master Bedroom,Temp_Air,Instantaneous drybulb temperature in master bedroom on second floor,°C
+IndEnv_RoomTempWDTemp,IndEnv,Kitchen,Temp_Air,Instantaneous drybulb temperature in utility closet holding clothes washer and dryer,°C
+Elec_EnergyPlugsInstBR4A,Instr,Bedroom4,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in bedroom 4,Wh
+Elec_EnergyPlugsInstBR4B,Instr,Bedroom4,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in bedroom 4,Wh
+Elec_EnergyPlugsInstLRA,Instr,Living Room,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in living room,Wh
+Elec_EnergyPlugsInstLRB,Instr,Living Room,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in living room,Wh
+Elec_EnergyPlugsInstBA2,Instr,Bath2,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in bathroom 2,Wh
+Elec_EnergyPlugsInstMBAB,Instr,MBath,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in master bathroom,Wh
+Elec_EnergyPlugsGSHPInstrumentation,Instr,Basement,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation connected to ground source heat pump test apparatus,Wh
+Elec_EnergyPlugsInstMBRA,Instr,Master Bedroom,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in the master bedroom,Wh
+Elec_EnergyPlugsInstBR2Hall,Instr,Bedroom 2,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in bedroom 2,Wh
+Elec_EnergyPlugsInstHall,Instr,Entry Hallway,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in entry hallway,Wh
+Elec_EnergyLightingControlPanelRPS1,Instr,Basement,Energy_Electrical,Cumulative energy consumption from midnight by lighting control panel located in basement,Wh
+Elec_EnergyPlugsInstBR3,Instr,Bedroom3,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in bedroom 3,Wh
+Elec_EnergyHeatLoadforRefrigerator,Instr,Kitchen,Energy_Thermal,Cumulative heat energy added to compartment of refrigerator to simulate opening and adding warm items,Wh
+Elec_EnergyPlugsInstMudroomA,Instr,Mudroom,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in mudroom,Wh
+Elec_EnergyLightingControlPanelRPS2,Instr,Basement,Energy_Electrical,Cumulative energy consumption from midnight by lighting control panel located in basement,Wh
+Elec_EnergyPlugsHVACInstrumentation,Instr,Basement,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation connected to heat pump ,Wh
+Elec_EnergyPlugsInstKitD,Instr,Kitchen,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation located in kitchen,Wh
+Elec_EnergyPlugsInstBA1,Instr,Bath1,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in bathroom 1,Wh
+Elec_EnergyPlugsInstKitA,Instr,Kitchen,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in kitchen,Wh
+Elec_EnergyPlugsInstMudroomB,Instr,Mudroom,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in mudroom,Wh
+Elec_EnergyPlugsInstDRA,Instr,Dining Room,Energy_Electrical,Cumulative energy consumption from midnight by instrumentation plugged into receptacles in dining room,Wh
+Elec_PowerPlugsInstBR4A,Instr,Bedroom4,Power_Electrical,Instantaneous power consumption by instrumentation plugged into receptacles in bedroom 4,W
+Elec_PowerPlugsInstBR4B,Instr,Bedroom4,Power_Electrical,Instantaneous power consumption by instrumentation plugged into receptacles in bedroom 4,W
+Elec_PowerPlugsInstLRA,Instr,Living Room,Power_Electrical,Instantaneous power consumption by instrumentation plugged into receptacles in living room,W
+Elec_PowerPlugsInstLRB,Instr,Living Room,Power_Electrical,Instantaneous power consumption by instrumentation plugged into receptacles in living room,W
+Elec_PowerPlugsInstBA2,Instr,Bath2,Power_Electrical,Instantaneous power consumption by instrumentation plugged into receptacles in bathroom 2,W
+Elec_PowerPlugsInstMBAB,Instr,MBath,Power_Electrical,Instantaneous power consumption by instrumentation plugged into receptacles in master bathroom,W
+Elec_PowerPlugsGSHPInstrumentation,Instr,Basement,Power_Electrical,Instantaneous power consumption by instrumentation connected to ground source heat pump test apparatus,W
+Elec_PowerPlugsInstMBRA,Instr,Master Bedroom,Power_Electrical,Instantaneous power by instrumentation plugged into receptacles in the master bedroom,W
+Elec_PowerPlugsInstBR2Hall,Instr,Bedroom 2,Power_Electrical,Instantaneous power consumption by instrumentation plugged into receptacles in bedroom 2,W
+Elec_PowerPlugsInstHall,Instr,Entry Hallway,Power_Electrical,Instantaneous power consumption by instrumentation plugged into receptacles in entry hallway,W
+Elec_PowerLightingControlPanelRPS1,Instr,Basement,Power_Electrical,Instantaneous power consumption by lighting control panel located in basement,W
+Elec_PowerPlugsInstBR3,Instr,Bedroom3,Power_Electrical,Instantaneous power consumption by instrumentation plugged into receptacles in bedroom 3,W
+Elec_PowerHeatLoadforRefrigerator,Instr,Kitchen,Power_Thermal,Instantaneous power of heat load in refrigerator to simulate opening and adding warm items,W
+Elec_PowerPlugsInstMudroomA,Instr,Mudroom,Power_Electrical,Instantaneous power consumption by instrumentation plugged into receptacles in mudroom,W
+Elec_PowerLightingControlPanelRPS2,Instr,Basement,Power_Electrical,Instantaneous power consumption by lighting control panel located in basement,W
+Elec_PowerPlugsHVACInstrumentation,Instr,Basement,Power_Electrical,Instantaneous power consumption by instrumentation connected to heat pump ,W
+Elec_PowerPlugsInstKitD,Instr,Kitchen,Power_Electrical,Instantaneous power consumption by instrumentation located in kitchen,W
+Elec_PowerPlugsInstBA1,Instr,Bath1,Power_Electrical,Instantaneous power consumption by instrumentation plugged into receptacles in bathroom 1,W
+Elec_PowerPlugsInstKitA,Instr,Kitchen,Power_Electrical,Instantaneous power consumption by instrumentation plugged into receptacles in kitchen,W
+Elec_PowerPlugsInstMudroomB,Instr,Mudroom,Power_Electrical,Instantaneous power consumption by instrumentation plugged into receptacles in mudroom,W
+Elec_PowerPlugsInstDRA,Instr,Dining Room,Power_Electrical,Instantaneous power consumption by instrumentation plugged into receptacles in dining room,W
+Elec_EnergyLightsBasementStair,Lighting,Basement,Energy_Electrical,Cumulative energy consumption of lights over basement stairs from midnight,Wh
+Elec_EnergyLights2ndFloor,Lighting,Bath2,Energy_Electrical,Cumulative energy consumption of lighting in bathroom 2 from midnight,Wh
+Elec_EnergyLights1stFloorA,Lighting,Multiple,Energy_Electrical,"Cumulative energy consumption by a subset of lighting on first floor from midnight; includes living room, hallway, and bedroom 4.  ",Wh
+Elec_EnergyLights1stFloorB,Lighting,Multiple,Energy_Electrical,"Cumulative energy consumption by a subset of lighting on first floor from midnight; includes hallway, bathroom, kitchen, and dining room",Wh
+Elec_EnergyLightsBasement,Lighting,Basement,Energy_Electrical,Cumulative energy consumption from midnight by lights activated in basement,Wh
+Elec_EnergyLightsAttic,Lighting,Attic,Energy_Electrical,Cumulative energy consumption from midnight by lights activated in attic,Wh
+Elec_PowerLightsBasementStair,Lighting,Basement,Power_Electrical,Instantaneous power used by lights over basement stairs,W
+Elec_PowerLights2ndFloor,Lighting,Bath2,Power_Electrical,Instantaneous power consumption of lighting in bathroom 2 ,W
+Elec_PowerLights1stFloorA,Lighting,Multiple,Power_Electrical,"Instantaneous power consumption by a subset of lighting on first floor from midnight; includes living room, hallway, and bedroom 4.  ",W
+Elec_PowerLights1stFloorB,Lighting,Multiple,Power_Electrical,"Instantaneous power consumption by a subset of lighting on first floor from midnight; includes hallway, bathroom, kitchen, and dining room",W
+Elec_PowerLightsBasement,Lighting,Basement,Power_Electrical,Instantaneous power consumption by lights activated in basement,W
+Elec_PowerLightsAttic,Lighting,Attic,Power_Electrical,Instantaneous power consumption by lights activated in attic,W
+Elec_EnergyChildBDownstairs,Loads,Dining Room,Energy_Thermal,Cumulative heat energy given off from midnight by emulator of child B in the dining room,Wh
+Elec_EnergyChildADownstairs,Loads,Living Room,Energy_Thermal,Cumulative heat energy given off from midnight by emulator of child A in the living room,Wh
+Elec_EnergyParentAUpstairs,Loads,Master Bedroom,Energy_Thermal,Cumulative heat energy given off from midnight by emulator of parent A in the master bedroom ,Wh
+Elec_EnergyChildAUpstairs,Loads,Bedroom2,Energy_Thermal,Cumulative heat energy given off from midnight by emulator of child A in bedroom 2,Wh
+Elec_EnergyChildBUpstairs,Loads,Bedroom3,Energy_Thermal,Cumulative heat energy given off from midnight by emulator of child B in bedroom 3,Wh
+Elec_EnergyParentBUpstairs,Loads,Master Bedroom,Energy_Thermal,Cumulative heat energy given off from midnight by emulator of parent B in master bedroom ,Wh
+Elec_EnergyParentBDownstairs,Loads,Dining Room,Energy_Thermal,Cumulative heat energy given off from midnight by emulator of parent B in dining room ,Wh
+Elec_EnergyParentADownstairs,Loads,Kitchen,Energy_Thermal,Cumulative heat energy given off from midnight by emulator of parent A in the kitchen,Wh
+Elec_PowerChildBDownstairs,Loads,Dining Room,Power_Thermal,Instantaneous power consumption by emulator of child B in the dining room,W
+Elec_PowerChildADownstairs,Loads,Living Room,Power_Thermal,Instantaneous power consumption by emulator of child A in the living room,W
+Elec_PowerParentAUpstairs,Loads,Master Bedroom,Power_Thermal,Instantaneous power consumption by emulator of parent A in the master bedroom ,W
+Elec_PowerChildAUpstairs,Loads,Bedroom2,Power_Thermal,Instantaneous power consumption by emulator of child A in bedroom 2,W
+Elec_PowerChildBUpstairs,Loads,Bedroom3,Power_Thermal,Instantaneous power consumption by emulator of child B in bedroom 3,W
+Elec_PowerParentBUpstairs,Loads,Master Bedroom,Power_Thermal,Instantaneous power consumption by emulator of parent B in master bedroom ,W
+Elec_PowerParentBDownstairs,Loads,Dining Room,Power_Thermal,Instantaneous power consumption by emulator of parent B in dining room ,W
+Elec_PowerParentADownstairs,Loads,Kitchen,Power_Thermal,Instantaneous power consumption by emulator of parent A in the kitchen,W
+Load_1stFloorLightsEnergyUsage,Loads,Multiple,Energy_Electrical,Cumulative energy consumption starting at midnight by lights on first floor,Wh
+Load_1stFloorLightsPowerUsage,Loads,Multiple,Power_Electrical,Instantaneous power consumption by lights on first floor ,W
+Load_1stFloorSensHeatEnergyUsage,Loads,Multiple,Energy_Thermal,Cumulative energy consumption starting at midnight by sensible heat generators on first floor,Wh
+Load_1stFloorSensHeatPowerUsage,Loads,Multiple,Power_Thermal,Instantaneous power consumption by sensible heat emulators on first floor ,W
+Load_2ndFloorLightsEnergyUsage,Loads,Multiple,Energy_Electrical,Cumulative energy consumption starting at midnight by lights on second floor,Wh
+Load_2ndFloorLightsPowerUsage,Loads,Multiple,Power_Electrical,Instantaneous power consumption by lights on second floor ,W
+Load_2ndFloorSensHeatEnergyUsage,Loads,Multiple,Energy_Thermal,Cumulative energy consumption starting at midnight by sensible heat generators on second floor,Wh
+Load_2ndFloorSensHeatPowerUsage,Loads,Multiple,Power_Thermal,Instantaneous power consumption by sensible heat emulators on second floor ,W
+Load_BasementPlugLoadsEnergyUsage,Loads ,Basement,Energy_Electrical,Cumulative energy consumption starting at midnight by plug loads in basement,Wh
+Load_BasementPlugLoadsPowerUsage,Loads ,Basement,Power_Electrical,Instantaneous power consumption by plug loads in basement,W
+Load_BR2PlugLoadsEnergyUsage,Loads,Bedroom2,Energy_Electrical,Cumulative energy consumption starting at midnight by plug loads in bedroom 2,Wh
+Load_BR2PlugLoadsPowerUsage,Loads,Bedroom2,Power_Electrical,Instantaneous power consumption by plug loads in bedroom 2,W
+Load_BR3PlugLoadsEnergyUsage,Loads,Bedroom3,Energy_Electrical,Cumulative energy consumption starting at midnight by plug loads in bedroom 3,Wh
+Load_BR3PlugLoadsPowerUsage,Loads,Bedroom3,Power_Electrical,Instantaneous power consumption by plug loads in bedroom 3,W
+Load_BR4PlugLoadsEnergyUsage,Loads,Bedroom4,Energy_Electrical,Cumulative energy consumption starting at midnight by plug loads in bedroom 4,Wh
+Load_BR4PlugLoadsPowerUsage,Loads,Bedroom4,Power_Electrical,Instantaneous power consumption by plug loads in bedroom 4,W
+Load_ClothesWasherEnergywithStandby,Loads ,Utility,Energy_Electrical,Cumulative energy consumption starting at midnight by clothes washer,Wh
+Load_ClothesWasherPowerWithStandby,Loads,Utility,Power_Electrical,Instantaneous power consumption by clothes washer,W
+Load_DryerEnergyTotal,Loads,Utility,Energy_Electrical,Cumulative energy consumption starting at midnight by dryer,Wh
+Load_DryerPowerTotal,Loads,Utility,Power_Electrical,Instantaneous power consumption by dryer,W
+Load_RefrigeratorTemp,Loads,Kitchen,Temp_Air,Instantaneous temperature within refrigerator compartment,°C
+Load_KPlugLoadsEnergyUsage,Loads,Kitchen,Energy_Electrical,Cumulative energy consumption starting at midnight by plug loads in kitchen,Wh
+Load_KPlugLoadsPowerUsage,Loads,Kitchen,Power_Electrical,Instantaneous power consumption by plug loads in kitchen ,W
+Load_LatentHeatEnergyUsage,Loads,Kitchen,Energy_Thermal,Cumulative energy consumption starting at midnight by moisture generators,Wh
+Load_LatentHeatPowerUsage,Loads,Kitchen,Power_Thermal,Instantaneous power consumption by moisture generator ,W
+Load_LatentHeatWaterVolume,Loads,Kitchen,Flow_Water,Cumulative volume of water injected into space by humidifier to simulate moisture addition by occupant behavior,Gallons
+Load_LRPlugLoadsEnergyUsage,Loads,Living Room,Energy_Electrical,Cumulative energy consumption starting at midnight by plug loads in living room,Wh
+Load_LRPlugLoadsPowerUsage,Loads,Living Room,Power_Electrical,Instantaneous power consumption by plug loads in living room ,W
+Load_MBRPlugLoadsEnergyUsage,Loads,Master Bedroom,Energy_Electrical,Cumulative energy consumption starting at midnight by plug loads in master bedroom,Wh
+Load_MBRPlugLoadsPowerUsage,Loads,Master Bedroom,Power_Electrical,Instantaneous power consumption by plug loads in master bedroom,W
+Load_MicrowaveEnergywithStandby,Loads ,Kitchen,Energy_Electrical,Cumulative energy consumption starting at midnight by microwave oven,Wh
+Load_MicrowavePowerWithStandby,Loads,Kitchen,Power_Electrical,Instantaneous power consumption by microwave oven,W
+Load_OvenEnergyTotal,Loads,Kitchen,Energy_Electrical,Cumulative energy consumption starting at midnight by oven,Wh
+Load_OvenPowerTotal,Loads,Kitchen,Power_Electrical,Instantaneous power consumption by oven,W
+Load_RefrigeratorEnergywithStandby,Loads ,Kitchen,Energy_Electrical,Cumulative energy consumption starting at midnight by refrigerator,Wh
+Load_RefrigeratorPowerWithStandby,Loads,Kitchen,Power_Electrical,Instantaneous power consumption by refrigerator,W
+Load_StatusApplianceCooktop,Loads,Kitchen,Status_OnOff,"Number to indicate whether cooktop is activated (1: Yes, O: No)",
+Load_StatusApplianceDishwasher,Loads,Kitchen,Status_OnOff,"Number to indicate whether dishwasher is activated (1: Yes, O: No)",
+Load_StatusApplianceOven,Loads,Kitchen,Status_OnOff,"Number to indicate whether oven is activated (1: Yes, O: No)",
+Load_StatusApplianceRangeHood,Loads,Kitchen,Status_OnOff,"Number to indicate whether range hood is activated (1: Yes, O: No)",
+Load_StatusLatentload,Loads,Kitchen,Status_OnOff,"Number to indicate whether moisture generator is activated (1: Yes, O: No)",
+Load_StatusPlugLoadBlender,Loads,Kitchen,Status_OnOff,"Number to indicate whether blender is activated (1: Yes, O: No)",
+Load_StatusPlugLoadBR2Laptop,Loads,Bedroom2,Status_OnOff,"Number to indicate whether laptop computer in bedroom 2 is activated (1: Yes, O: No)",
+Load_StatusPlugLoadBR3Laptop,Loads,Bedroom3,Status_OnOff,"Number to indicate whether laptop computer in bedroom 3 is activated (1: Yes, O: No)",
+Load_StatusPlugLoadCanOpener,Loads,Kitchen,Status_OnOff,"Number to indicate whether can opener is activated (1: Yes, O: No)",
+Load_StatusPlugLoadCoffeeMaker,Loads,Kitchen,Status_OnOff,"Number to indicate whether coffee maker is activated (1: Yes, O: No)",
+Load_StatusPlugLoadDesktopPCMonitor,Loads,Bedroom4,Status_OnOff,"Number to indicate whether desktop computer and monitor in first floor bedroom is activated (1: Yes, O: No)",
+Load_StatusPlugLoadFan,Loads,Master Bedroom,Status_OnOff,"Number to indicate whether fan in master bedroom is activated (1: Yes, O: No)",
+Load_StatusPlugLoadHairDryerCurlIron,Loads,MBath,Status_OnOff,"Number to indicate whether hair dryer or curling iron is activated (1: Yes, O: No)",
+Load_StatusPlugLoadHandMixer,Loads,Kitchen,Status_OnOff,"Number to indicate whether hand mixer is activated (1: Yes, O: No)",
+Load_StatusPlugLoadHeatingPad,Loads,Master Bedroom,Status_OnOff,"Number to indicate whether heating pad is activated (1: Yes, O: No)",
+Load_StatusPlugLoadIron,Loads,Master Bedroom,Status_OnOff,"Number to indicate whether iron is activated (1: Yes, O: No)",
+Load_StatusPlugLoadLRBlueRay,Loads,Living Room,Status_OnOff,"Number to indicate whether BluRay player in living room is activated (1: Yes, O: No)",
+Load_StatusPlugLoadLRTV,Loads,Living Room,Status_OnOff,"Number to indicate whether television in living room is activated (1: Yes, O: No)",
+Load_StatusPlugLoadMBRBlueRay,Loads,Master Bedroom,Status_OnOff,"Number to indicate whether BluRay player in master bedroom is activated (1: Yes, O: No)",
+Load_StatusPlugLoadMBRTV,Loads,Master Bedroom,Status_OnOff,"Number to indicate whether television in master bedroom is activated (1: Yes, O: No)",
+Load_StatusPlugLoadSlowCooker,Loads,Kitchen,Status_OnOff,"Number to indicate whether slow cooker is activated (1: Yes, O: No)",
+Load_StatusPlugLoadToaster,Loads,Kitchen,Status_OnOff,"Number to indicate whether toaster is activated (1: Yes, O: No)",
+Load_StatusPlugLoadToasterOven,Loads,Kitchen,Status_OnOff,"Number to indicate whether toaster oven is activated (1: Yes, O: No)",
+Load_StatusPlugLoadVacuum,Loads,Bedroom4,Status_OnOff,"Number to indicate whether vacuum is activated (1: Yes, O: No)",
+Load_StatusPlugLoadVideoGame,Loads,Living Room,Status_OnOff,"Number to indicate whether video game console in living room is activated (1: Yes, O: No)",
+Load_StatusBR4Lights,Loads,Bedroom4,Status_OnOff,"Number to indicate whether lights in bedroom 4 are activated (1: Yes, O: No)",
+Load_StatusMBALights,Loads,MBath,Status_OnOff,"Number to indicate whether lights in master bathroom are activated (1: Yes, O: No)",
+Load_StatusMBRLights1,Loads,Master Bedroom,Status_OnOff,"Number to indicate whether lights A in master bedroom are activated (1: Yes, O: No)",
+Load_StatusMBRLights2,Loads,Master Bedroom,Status_OnOff,"Number to indicate whether lights B in master bedroom are activated (1: Yes, O: No)",
+Load_StatusBA2Lights,Loads,Bath2,Status_OnOff,"Number to indicate whether lights 2nd floor bathroom located off hallway are activated (1: Yes, O: No)",
+Load_StatusBR2Lights,Loads,Bedroom2,Status_OnOff,"Number to indicate whether lights in bedroom 2 are activated (1: Yes, O: No)",
+Load_StatusBA1Lights,Loads,Bath1,Status_OnOff,"Number to indicate whether lights in 1st floor bathroom are activated (1: Yes, O: No)",
+Load_StatusBR3Lights,Loads,Bedroom3,Status_OnOff,"Number to indicate whether lights in bedroom 3 are activated (1: Yes, O: No)",
+Load_StatusSensHeatPrntBDOWN,Loads,Dining Room,Status_OnOff,"Number to indicate whether parent B is simulated as being downstairs (1: Yes, O: No)",
+Load_StatusSensHeatPrntAUP,Loads,Master Bedroom,Status_OnOff,"Number to indicate whether parent A is simulated as being upstairs (1: Yes, O: No)",
+Load_StatusKitchenLightsA,Loads,Kitchen,Status_OnOff,"Number to indicate whether lights A in kitchen are activated (1: Yes, O: No)",
+Load_StatusSensHeatPrntBUP,Loads,Master Bedroom,Status_OnOff,"Number to indicate whether parent B is simulated as being upstairs (1: Yes, O: No)",
+Load_StatusSensHeatChildAUP,Loads,Bedroom2,Status_OnOff,"Number to indicate whether child A is simulated as being upstairs (1: Yes, O: No)",
+Load_StatusSensHeatChildBUP,Loads,Bedroom3,Status_OnOff,"Number to indicate whether child B is simulated as being upstairs (1: Yes, O: No)",
+Load_StatusKitchen LightsB,Loads,Kitchen,Status_OnOff,"Number to indicate whether lights B in kitchen are activated (1: Yes, O: No)",
+Load_StatusSensHeatChildBDOWN,Loads,Dining Room,Status_OnOff,"Number to indicate whether child B is simulated as being downstairs (1: Yes, O: No)",
+Load_StatusLRLights1,Loads,Living Room,Status_OnOff,"Number to indicate whether lights in living room are activated (1: Yes, O: No)",
+Load_StatusSensHeatPrntADOWN,Loads,Kitchen,Status_OnOff,"Number to indicate whether parent A is simulated as being downstairs (1: Yes, O: No)",
+Load_StatusSensHeatChildADOWN,Loads,Living Room,Status_OnOff,"Number to indicate whether child A is simulated as being downstairs (1: Yes, O: No)",
+Load_StatusKitchenLightsC,Loads,Kitchen,Status_OnOff,"Number to indicate whether lights C in kitchen are activated (1: Yes, O: No)",
+Load_StatusLRLights2,Loads,Living Room,Status_OnOff,"Number to indicate whether lights in living room are activated (1: Yes, O: No)",
+Load_StatusDRLights,Loads,Dining Room,Status_OnOff,"Number to indicate whether lights in dining room are activated (1: Yes, O: No)",
+Load_StatusLRLights3,Loads,Living Room,Status_OnOff,"Number to indicate whether lights in living room are activated (1: Yes, O: No)",
+Load_StatusEntryHallLights,Loads,Entry Hallway,Status_OnOff,"Number to indicate whether lights in entry hallway are activated (1: Yes, O: No)",
+OutEnv_OutdoorAmbTemp,OutEnv,Outdoor,Temp_Air,Instantaneous dry bulb temperature measured above the roof's peak,°C
+OutEnv_RooftopWindDirection,OutEnv,Outdoor,Flow_Air,"Instantaneous wind direction measured above the roof's peak; 0° means wind is blowing from true north; all other readings are taken relative to clockwise from true north.  For example, 90° means wind is blowing from true east to true west.   ",degrees
+OutEnv_RooftopWindSpeed,OutEnv,Outdoor,Flow_Air,Instantaneous wind speed measured above the roof's peak,m/s
+Elec_EnergyPV1of2,PV,Basement,Energy_Electrical,Cumulative energy fed into breaker panel by one leg of electrical supply from PV inverters from midnight; note that energy supplied from other leg is needed to get total energy supply from inverters,Wh
+Elec_EnergyPV2of2,PV,Basement,Energy_Electrical,Cumulative energy fed into breaker panel by one leg of electrical supply from PV inverters from midnight; note that energy supplied from other leg is needed to get total energy supply from inverters,Wh
+Elec_PowerPV1of2,PV,Basement,Power_Electrical,Instantaneous power fed into breaker panel by one leg of electrical supply from PV inverters; note that power supplied from other leg is needed to get total power supply from inverters,W
+Elec_PowerPV2of2,PV,Basement,Power_Electrical,Instantaneous power fed into breaker panel by one leg of electrical supply from PV inverters; note that power supplied from other leg is needed to get total power supply from inverters,W
+PV_AmpsAIA1,PV,Attic,Current_Electrical,Instantaneous current produced from the Phase A wire from inverter 1 (AC),A
+PV_AmpsAIA2,PV,Attic,Current_Electrical,Instantaneous current produced from the Phase A wire from inverter 2 (AC),A
+PV_AmpsBIB1,PV,Attic,Current_Electrical,Instantaneous current produced from the Phase B wire from inverter 1 (AC),V
+PV_AmpsBIB2,PV,Attic,Current_Electrical,Instantaneous current produced from the Phase B wire from inverter 2 (AC),V
+PV_FrequencyF1,PV ,Attic,Frequency_Electrical,Instantaneous frequency of AC electricity output from inverter 1,Hz
+PV_FrequencyF2,PV ,Attic,Frequency_Electrical,Instantaneous frequency of AC electricity output from inverter 2,Hz
+PV_PowerFactor3PhTotalPF3PhT1,PV,Attic,PowerFactor_Electrical,Instantaneous power factor of electricity output from inverter 1 (Single Phase AC),
+PV_PowerFactor3PhTotalPF3PhT2,PV,Attic,PowerFactor_Electrical,Instantaneous power factor of electricity output from inverter 2 (Single Phase AC),
+PV_PVBacksideTemp2,PV,Outdoor,Temp_PV,"Instantaneous temperature on the backside of module at location 2 of the photovoltaic array.  Location 2 is on the 3rd string from the bottom of the array, the fourth module from the west side of the array.  ",°C
+PV_PVBacksideTemp3,PV,Outdoor,Temp_PV,"Instantaneous temperature on the backside of module at location 3 of the photovoltaic array.  Location 3 is on the 3rd string from the bottom of the array, the fourth module from the west side of the array.  ",°C
+PV_PVBacksideTemp4,PV,Outdoor,Temp_PV,"Instantaneous temperature on the backside of module at location 4 of the photovoltaic array.  Location 4 is on the 3rd string from the bottom of the array, the fourth module from the west side of the array.  ",°C
+PV_PVBacksideTemp7,PV,Outdoor,Temp_PV,"Instantaneous temperature on the backside of module at location 7 of the photovoltaic array.  Location 7 is on the top string of the array, the west-most module of the array.  ",°C
+PV_PVInsolationHArray,PV,Outdoor,Light_Solar,The amount of sunlight impacting the array during the past minute.  ,kWh
+PV_PVSystem1ACEnergyOSEACPV1OS,PV,Attic,Energy_Electrical,Cumulative AC energy generation out of inverter 1 of the photovoltaic array; data collected with an inline meter.  ,Wh
+PV_PVSystem1ACPowerOSPACPV1OS,PV,Attic,Power_Electrical,Instantaneous AC power reading from inverter 1 as measured by an inline meter,W
+PV_PVSystem2ACEnergyOSEACPV2OS,PV,Attic,Energy_Electrical,Cumulative AC energy generation out of the inverter 2 of the photovoltaic array; data collected with an inline meter.  ,Wh
+PV_PVSystem2ACPowerOSPACPV2OS,PV,Attic,Power_Electrical,Instantaneous AC power reading from inverter 1 as measured by an inline meter,W
+PV_StringCurrentIStr1,PV ,Attic,Current_Electrical,Instantaneous direct current from string 1 feeding into inverter 1,A
+PV_StringCurrentIStr2,PV ,Attic,Current_Electrical,Instantaneous direct current from string 2 feeding into inverter 1,A
+PV_StringCurrentIStr3,PV ,Attic,Current_Electrical,Instantaneous direct current from string 3 feeding into inverter 2,A
+PV_StringCurrentIStr4,PV ,Attic,Current_Electrical,Instantaneous direct current from string 4 feeding into inverter 2,A
+PV_StringVoltageUStr2,PV,Attic,Voltage_Electrical,Instantaneous voltage from Strings 1 and 2 of photovoltaic array into inverter 1 (DC),V
+PV_StringVoltageUStr4,PV,Attic,Voltage_Electrical,Instantaneous voltage from Strings 3 and 4 of photovoltaic array into inverter 2 (DC),V
+PV_VoltsANUAN1,PV,Attic,Voltage_Electrical,Instantaneous voltage difference between the Phase A wire and the neutral wire for inverter 1 (AC),V
+PV_VoltsANUAN2,PV,Attic,Voltage_Electrical,Instantaneous voltage difference between the Phase A wire and the neutral wire for inverter 2 (AC),V
+PV_VoltsBNUBN1,PV,Attic,Voltage_Electrical,Instantaneous voltage difference between the Phase B wire and the neutral wire for inverter 1 (AC),V
+PV_VoltsBNUBN2,PV,Attic,Voltage_Electrical,Instantaneous voltage difference between the Phase B wire and the neutral wire for inverter 2 (AC),V
+PV_Watts3PhTotalW3PhT1,PV,Attic,Power_Electrical,Instantaneous power produced from Inverter 1 (1-phase AC); meter uses remotely located  current transformers,W
+PV_Watts3PhTotalW3PhT2,PV,Attic,Power_Electrical,Instantaneous power produced from Inverter 2 (1-phase AC); meter uses remotely located current transformers,W
+PV_WhoursDeliveredWhD1,PV,Attic,Energy_Electrical,Cumulative energy delivered by inverter 1 from beginning of operation as measured by meter using current transformers,Wh
+PV_WhoursDeliveredWhD2,PV,Attic,Energy_Electrical,Cumulative energy delivered by inverter 2 from beginning of operation as measured by meter using current transformers,Wh
+Elec_PowerPlugsBaseAHeliodyneHXs,SHW,Basement,Power_Electrical,Instantaneous power used by solar water heater pumps,W
+SHW_GlycolFlowHXCoriolisSHW,SHW,Basement,Flow_Glycol,Cumulative volume of glycol/water solution flowing through the heat exchanger of the solar water heating system starting from midnight,Gallons
+SHW_GlycolFlowRateHXCoriolisSHW,SHW,Basement,Flow_Glycol,Instantaneous flow rate of glycol/water solution flowing through the heat exchanger of the solar water heating system,Gallons Per Minute
+SHW_GlycolTempSHWPanel80galOut,SHW,Outdoor,Temp_Glycol,Instantaneous temperature of glycol/water solution leaving solar panel on roof; temperature is measured with a surface RTD mounted on the surface of the pipe and wrapped in insulation  ,°C
+SHW_PSPSHW,SHW,Outdoor,Light_Solar,Solar broadband insolation measured adjacent to and in the plane of the solar thermal collectors,W/m2
+SHW_SHWHX80galWaterFlow,SHW,Basement,Flow_Water,Cumulative volume of potable water flowing through the heat exchanger of the solar water heating system starting from midnight (as measured by the heat exchanger’s internal flow meter),Gallons
+SHW_WaterFlowHXCoriolisSHW,SHW,Basement,Flow_Water,Cumulative volume of potable water flowing through the heat exchanger of the solar water heating system starting from midnight,Gallons
+SHW_WaterFlowRateHXCoriolisSHW,SHW,Basement,Flow_Water,Instantaneous flow rate of potable water flowing through the heat exchanger of the solar water heating system,Gallons Per Minute
+Elec_EnergyMakeUpAirDamper,Ventilation,Attic,Energy_Electrical,Cumulative energy consumption of make-up air damper located in attic from midnight,Wh
+Elec_PowerMakeUpAirDamper,Ventilation,Attic,Power_Electrical,Instantaneous power consumption of make-up air damper located in attic ,W
+Vent_HRVDewpointTemperatureExhaust,Ventilation,Basement,Temp_DewP,Instantaneous dew point temperature in the exhaust duct outlet from the heat recovery ventilator; refers to indoor air being exhausted from the house,°C
+Vent_HRVDewpointTemperatureOutdoor,Ventilation,Basement,Temp_DewP,Instantaneous dew point temperature in the outdoor inlet duct to the heat recovery ventilator; refers to outdoor air being brought into the house,°C
+Vent_HRVDewpointTemperatureReturn,Ventilation,Basement,Temp_DewP,Instantaneous dew point temperature in the return duct inlet to the heat recovery ventilator; refers to indoor air being returned to the HRV  from the house,°C
+Vent_HRVDewpointTemperatureSupply,Ventilation,Basement,Temp_DewP,Instantaneous dew point temperature in the supply duct outlet from the heat recovery ventilator; refers to outdoor air being brought into the heat recovery ventilator,°C
+Vent_HRVexhaustflowrate,Ventilation,Basement,Flow_Air,Instantaneous flow rate of air in the exhaust duct outlet from the heat recovery ventilator; refers to indoor air being exhausted from the house,ft3/min
+Vent_HRVfreshairpressuredifferential,Ventilation,Basement,Pressure_Air,Instantaneous pressure differential across heat recovery ventilator of the outdoor air stream,Inches H2O
+Vent_HRVoutdoorflowrate,Ventilation,Basement,Flow_Air,Instantaneous flow rate of air in the outdoor inlet duct to the heat recovery ventilator; refers to outdoor air being brought into the house,ft3/min
+Vent_HRVreturnflowrate,Ventilation,Basement,Flow_Air,Instantaneous flow rate of air in the return flow duct entering the heat recovery ventilator; refers to indoor air being returned to HRV from the house,ft3/min
+Vent_HRVstaleairpressuredifferential,Ventilation,Basement,Pressure_Air,Instantaneous pressure differential across heat recovery ventilator of the exhaust air stream,Inches H2O
+Vent_HRVTempExhaustOut,Ventilation,Basement,Temp_Air,Instantaneous dry bulb temperature in the exhaust duct outlet from the heat recovery ventilator; refers to indoor air being exhausted from the house,°C
+Vent_HRVTempOutdoorin,Ventilation,Basement,Temp_Air,Instantaneous dry bulb temperature in the outdoor inlet duct to the heat recovery ventilator; refers to outdoor air being brought into the house,°C
+Vent_HRVTempReturnIn,Ventilation,Basement,Temp_Air,Instantaneous dry bulb temperature in the return duct inlet to the heat recovery ventilator; refers to indoor air being returned to HRV from the house,°C
+Vent_HRVTempSupplyOut,Ventilation,Basement,Temp_Air,Instantaneous dry bulb temperature in the supply duct outlet from the heat recovery ventilator; refers to outdoor air being brought into the heat recovery ventilator,°C
