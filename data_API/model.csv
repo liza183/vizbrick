@@ -1,0 +1,2 @@
+DHW_ClothesWasherColdFlow,DHW_ClothesWasherColdFlow DHW Utility Flow_Water The cumulative volume of cold water flowing into the clothes washer starting at midnight Gallons,Water Usage Sensor
+DHW_ClothesWasherHotFlow,DHW_ClothesWasherHotFlow DHW Utility Flow_Water The cumulative volume of hot water flowing into the clothes washer starting at midnight Gallons,Hot Water Usage Sensor
