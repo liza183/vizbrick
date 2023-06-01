@@ -12,6 +12,14 @@ Click the following image to see the VizBrick demonstration video on YouTube:
 
 [![VizBrick Demonstration Video](https://img.youtube.com/vi/YMkrOF9t8w0/0.jpg)](https://youtu.be/TO38GtuaYgw)
 
+# How to run using Docker
+
+Run
+    docker-compose build
+    docker-compose up
+
+Then, open any web browser and go to ``http://localhost:8088/` . If you see the following interface, now, you’re ready to use the VizBrick.
+
 # Installation & how to run
 
 VizBrick requires Python version 3.X, and using Anaconda is recommended. Please download Anaconda from [https://www.anaconda.com/download/](https://www.anaconda.com/download/) and install it first.
