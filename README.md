@@ -14,8 +14,10 @@ Click the following image to see the VizBrick demonstration video on YouTube:
 
 # How to run using Docker
 
-Run
+Run:
+
     docker-compose build
+
     docker-compose up
 
 Then, open any web browser and go to ``http://localhost:8088/` . If you see the following interface, now, you’re ready to use the VizBrick.
