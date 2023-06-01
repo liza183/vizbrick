@@ -1,0 +1,12 @@
+version: '3'
+services:
+ data-api:
+  build: ./data_API
+  ports:
+    - "8889:8889"
+  volumes:
+    - $PWD/data_API/data:/data_API/data
+ web:
+  build: ./web_interface
+  ports:
+    - "8088:8088"

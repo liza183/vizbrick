@@ -14,7 +14,7 @@ from tornado import gen
 from tornado.options import define, options, parse_command_line
 import requests
         
-REST_API_URL = 'http://localhost:8889'
+REST_API_URL = 'http://data-api:8889'
 
 class ProxyHandler(tornado.web.RequestHandler):
         

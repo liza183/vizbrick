@@ -9,29 +9,21 @@
     <link rel="shortcut icon" href="">
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <!-- DataTable -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/scroller/2.0.6/js/dataTables.scroller.min.js"></script>
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
-
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/scroller/2.0.6/js/dataTables.scroller.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
     <link rel="stylesheet" type="text/css"
-        src="https://cdn.datatables.net/scroller/2.0.6/css/scroller.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" src="https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css">
-
+        href="https://cdn.datatables.net/scroller/2.0.6/css/scroller.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css">
 
     <!-- vis.js-->
-    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 
-    <style type="text/css">
+    <style>
         #mynetwork {
             width: 100%;
             height: 480pt;
@@ -60,88 +52,115 @@
         var edges;
 
         function proxy_request(url, request_type, data, callback) {
-
-            var json_data =
-            {
+            // Create a JSON object with the url, request_type, and data
+            var json_data = {
                 url: url,
                 request_type: request_type,
                 data: data
             };
 
+            // Convert the JSON object to a string
             var dataToSend = JSON.stringify(json_data);
             var objresponse = null;
-            $("body").css("cursor", "progress");
-            $('selector').click(false);
-            $.ajax({
 
+            // Change the cursor to a progress cursor
+            $("body").css("cursor", "progress");
+
+            // Turn off click event for 'selector' element
+            $('selector').off('click');
+
+            // Make an AJAX request
+            $.ajax({
                 url: '/proxy',
                 type: 'POST',
                 data: dataToSend,
-
                 success: function (jsonResponse) {
+                    // Parse the JSON response
                     objresponse = JSON.parse(jsonResponse);
+
+                    // Reset the cursor to the default cursor
                     $("body").css("cursor", "default");
-                    $('selector').click(true);
+
+                    // Turn on click event for 'selector' element
+                    $('selector').on('click', true);
+
+                    // Call the callback function with the response object
                     callback(objresponse);
                 },
                 error: function (jsonResponse) {
+                    // Show an alert if there's an error
                     alert('Something went wrong.');
                 }
             });
 
+            // Return the response object (which is initially null)
             return objresponse;
-
         };
 
         function check_node(nodeId, include, exclude) {
-
+            // Check if both include and exclude arrays are empty
             if (include[0] == '' && include[0] == '')
                 return true;
 
+            // Iterate through the include array
             for (var k = 0; k < include.length; k++) {
                 if (include[k] != '') {
+                    // Check if nodeId includes the current include value
                     if (nodeId.includes(include[k]) == false) {
+                        // If nodeId does not include the current include value, return false
                         return false;
                     }
                 };
             };
+
+            // Iterate through the exclude array
             for (var k = 0; k < exclude.length; k++) {
                 if (exclude[k] != '') {
+                    // Check if nodeId includes the current exclude value
                     if (nodeId.includes(exclude[k]) == true) {
+                        // If nodeId includes the current exclude value, return false
                         return false;
                     }
                 };
             };
+
+            // If nodeId passes all conditions, return true
             return true;
         };
 
         function make_search_result_selectable() {
-            $('#search-result-list li').on('click', function () {
-                var $this = $(this);
-                var $alias = $this.data('alias');
+        // Attach click event handler to list items in the search result list
+        $('#search-result-list li').on('click', function () {
+            var $this = $(this);
+            var $alias = $this.data('alias');
 
-                $('.active').removeClass('active');
-                $this.toggleClass('active')
-            });
-        };
+            // Remove 'active' class from any existing active elements
+            $('.active').removeClass('active');
+
+            // Toggle the 'active' class for the clicked list item
+            $this.toggleClass('active');
+        });
+    };
 
         function slugify(str) {
             str = str.toLowerCase()
                 .replace(/ /g, '-')
                 .replace(/[^\w-]+/g, '');
-
             return str;
         }
+
         function get_metadata_csv(data) {
+            //import a csv file to the metadata table
             list_of_rows = data['list_of_rows'];
             for (var i = 0; i < list_of_rows.length; i++) {
                 metadata_table.row.add([i, list_of_rows[i][0], list_of_rows[i][0], list_of_rows[i][1], "", "Started"]).draw();
+                metadata_table.rows({ selected: true }).deselect();
             }
-
         };
 
         function add_row() {
             metadata_table.row.add([metadata_table.rows().data().toArray().length, "", "", "", "", "New Row"]).draw();
+            metadata_table.rows({ selected: true }).deselect();
 
         };
 
@@ -230,15 +249,13 @@
             // add functions that need to be executed when the web-page is loaded
             function clear_everything() {
                 metadata_table.clear();
-                //location_table.clear();
                 metadata_table.draw();
-                //location_table.draw();
                 class_table.clear();
                 relationship_table.clear();
                 class_table.draw();
                 relationship_table.draw();
                 network.destroy();
-                // // create an array with nodes
+                // create an array with nodes
                 nodes = new vis.DataSet([
                 ]);
 
@@ -246,16 +263,16 @@
                 edges = new vis.DataSet([
                 ]);
 
-                // // create a network
+                // create a network
                 var container = document.getElementById('mynetwork');
 
-                // // provide the data in the vis format
+                // provide the data in the vis format
                 var data = {
                     nodes: nodes,
                     edges: edges
                 };
                 var options = {};
-                // // initialize your network!
+                // initialize your network!
                 network = new vis.Network(container, data, options);
                 network.on('click', function (properties) {
                     var ids = properties.nodes;
@@ -273,7 +290,7 @@
                 data_to_save['filename'] = $('#brick-file').val();
                 list_of_rels = []
                 edge_id_list = edges.getIds();
-                for (id in edge_id_list){
+                for (id in edge_id_list) {
                     edge_id = edge_id_list[id];
                     list_of_rels.push([edges.get(edge_id)['id'], edges.get(edge_id)['from'], edges.get(edge_id)['to'], edges.get(edge_id)['rel_type']]);
                 };
@@ -354,11 +371,6 @@
                     for (var i = 0; i < list_of_rows.length; i++) {
                         metadata_table.row.add([list_of_rows[i][0], list_of_rows[i][1], list_of_rows[i][2], list_of_rows[i][3], list_of_rows[i][4], list_of_rows[i][5]]).draw();
                     }
-                    /*
-                    list_of_locations = data['data']['location_table_data'];
-                    for (var i = 0; i < list_of_locations.length; i++) {
-                        location_table.row.add([list_of_locations[i][0], list_of_locations[i][1], list_of_locations[i][2]]).draw();
-                    }*/
 
                     list_of_classes = data['data']['class_table_data'];
                     for (var i = 0; i < list_of_classes.length; i++) {
@@ -370,7 +382,7 @@
                         relationship_table.row.add([lost_of_rels[i][0], lost_of_rels[i][1], lost_of_rels[i][2], lost_of_rels[i][3]]).draw();
                     }
 
-                    // // create an array with nodes
+                    // create an array with nodes
                     nodes = new vis.DataSet(data['data']['node_data']);
 
                     // create an array with edges
@@ -401,7 +413,6 @@
             $('#create-checkpoint').click(function (event) {
                 node_data = nodes.get(nodes.getIds());
                 edge_data = edges.get(edges.getIds());
-                //location_table_data = location_table.rows().data().toArray();
                 metadata_table_data = metadata_table.rows().data().toArray();
                 class_table_data = class_table.rows().data().toArray();
                 relationship_table_data = relationship_table.rows().data().toArray();
@@ -409,7 +420,6 @@
                 data_to_save = {}
                 data_to_save['node_data'] = node_data;
                 data_to_save['edge_data'] = edge_data;
-                //data_to_save['location_table_data'] = location_table_data;
                 data_to_save['metadata_table_data'] = metadata_table_data;
                 data_to_save['class_table_data'] = class_table_data;
                 data_to_save['relationship_table_data'] = relationship_table_data;
@@ -433,44 +443,10 @@
                 proxy_request("/get_checkpoint", "POST", data, get_checkpoint_done);
             });
 
-            /*
-            $('#add-all-to-graph-btn').click(function (event) {
-
-                
-                location_table.rows().every(function (rowIdx, tableLoop, rowLoop) {
-
-
-                    data = this.data();
-
-                    $('#obj-type').text('Location');
-                    $('#obj-row-id').text(data[0]);
-                    $('#original-lbl').text(data[1]);
-                    $('#obj-name').text(data[1]);
-                    $('#brick-class').text(data[2]);
-                    $('#description').text('');
-                    $('#location').text('');
-
-                    if ($('#brick-class').text() != "" && $('#obj-name').text() != "") {
-
-                        newId = $('#obj-name').text() + " (" + $('#brick-class').text() + ")"
-
-                        try {
-                            nodes.add({ id: newId, label: newId });
-                            class_table.row.add([newId, $('#obj-type').text(), $('#obj-row-id').text(), $('#original-lbl').text(), $('#brick-class').text(), $('#obj-name').text(), $('#description').text()]).draw();
-                        } catch (err) {
-                            //alert(newId + " is already in the network!");
-                        }
-                    }
-
-
-                });
-
-            });*/
-
             $('#convert-btn').click(function (event) {
                 warning = 0;
                 list_of_selected_rows = metadata_table.rows('.selected').data().toArray();
-                
+
                 for (var i = 0; i < list_of_selected_rows.length; i++) {
 
                     obj_row_id = list_of_selected_rows[i][0];
@@ -480,10 +456,10 @@
                     description = list_of_selected_rows[i][3];
 
                     //the following information is something we can use for training
-                    data_to_save = {"data_label":obj_name, "description":description, "brick_class":brick_class};
+                    data_to_save = { "data_label": obj_name, "description": description, "brick_class": brick_class };
                     proxy_request("/update_model", "POST", data_to_save, update_model_done);
 
-                    
+
                     if (brick_class != "" && obj_name != "") {
                         newId = obj_name + " (" + brick_class + ")"
                         pass = 1;
@@ -491,11 +467,7 @@
                         for (var j = 0; j < class_table_data.length; j++) {
                             existing_newId = class_table_data[j][0];
                             if (existing_newId == newId) {
-                                //alert(newId + ' : Same Node ID already exist! please remove first!');
                                 class_table.column(0).search(newId).draw();
-                                //filtered_data = class_table.rows({ "filter": "applied" }).data().toArray()[0];
-                                //newId = filtered_data[0];
-                                //nodes.remove({ id: newId });
                                 class_table.rows({ "filter": "applied" }).remove();
                                 class_table.search('').columns().search('').draw();
 
@@ -503,7 +475,6 @@
                         }
                         if (pass == 1) {
                             try {
-                                //nodes.add({ id: newId, label: newId });
                                 class_table.row.add([newId, obj_row_id, org_row_lbl, brick_class, obj_name, description, "Started"]).draw();
                             } catch (err) {
                                 //alert(newId + " is already in the network!");
@@ -575,7 +546,6 @@
                 $('#selected-to-canvas').text('');
             });
 
-
             $('#suggest-selected-btn').click(function (event) {
 
                 selected_rows = metadata_table.rows('.selected').data().toArray();
@@ -599,36 +569,28 @@
             });
 
             $('#select-all-btn').click(function (event) {
-                //metadata_table.selectAll();
-                metadata_table.rows( { search: 'applied' } ).select();
+                metadata_table.rows({ search: 'applied' }).select();
 
             });
 
             $('#select-none-btn').click(function (event) {
-                //metadata_table.selectAll();
                 metadata_table.rows().deselect();
             });
 
             $('#select-all-class-btn').click(function (event) {
-                //metadata_table.selectAll();
-                //class_table.rows().select();
-                class_table.rows( { search: 'applied' } ).select();
+                class_table.rows({ search: 'applied' }).select();
             });
 
             $('#select-none-class-btn').click(function (event) {
-                //metadata_table.selectAll();
                 class_table.rows().deselect();
             });
 
             $('#select-all-rel-btn').click(function (event) {
-                //metadata_table.selectAll();
-                //relationship_table.rows().select();
-                relationship_table.rows( { search: 'applied' } ).select();
-                
+                relationship_table.rows({ search: 'applied' }).select();
+
             });
 
             $('#select-none-rel-btn').click(function (event) {
-                //metadata_table.selectAll();
                 relationship_table.rows().deselect();
             });
 
@@ -646,6 +608,7 @@
                 list_of_selected_rows = metadata_table.rows('.selected').data().toArray();
                 for (var i = 0; i < list_of_selected_rows.length; i++) {
                     metadata_table.row(list_of_selected_rows[i][0]).data([list_of_selected_rows[i][0], list_of_selected_rows[i][1], list_of_selected_rows[i][2], list_of_selected_rows[i][3], list_of_selected_rows[i][4], "Complete"]).draw();
+                    metadata_table.rows({ selected: true }).deselect();
                 }
 
             });
@@ -655,6 +618,7 @@
                 list_of_selected_rows = metadata_table.rows('.selected').data().toArray();
                 for (var i = 0; i < list_of_selected_rows.length; i++) {
                     metadata_table.row(list_of_selected_rows[i][0]).data([list_of_selected_rows[i][0], list_of_selected_rows[i][1], list_of_selected_rows[i][2], list_of_selected_rows[i][3], list_of_selected_rows[i][4], "Pass"]).draw();
+                    metadata_table.rows({ selected: true }).deselect();
                 }
 
             });
@@ -667,6 +631,7 @@
                     // The checks the id of the current row
                     class_table.row(rowIdx).data([class_table.row(rowIdx).data()[0], class_table.row(rowIdx).data()[1], class_table.row(rowIdx).data()[2], class_table.row(rowIdx).data()[3], class_table.row(rowIdx).data()[4], class_table.row(rowIdx).data()[5], "Completed"]).draw();
                 });
+                class_table.rows({ selected: true }).deselect();
 
 
             });
@@ -679,6 +644,7 @@
                     // The checks the id of the current row
                     class_table.row(rowIdx).data([class_table.row(rowIdx).data()[0], class_table.row(rowIdx).data()[1], class_table.row(rowIdx).data()[2], class_table.row(rowIdx).data()[3], class_table.row(rowIdx).data()[4], class_table.row(rowIdx).data()[5], "Pass"]).draw();
                 });
+                class_table.rows({ selected: true }).deselect();
 
             });
 
@@ -688,17 +654,12 @@
 
                 if ($('#brick-class').text() != "" && $('#obj-name').text() != "") {
                     newId = $('#obj-name').text() + " (" + $('#brick-class').text() + ")"
-                    //nodes.remove({ id: newId });
-                    //nodes.add({ id: newId, label: newId });
                     pass = 1;
                     class_table_data = class_table.rows().data().toArray();
                     for (var j = 0; j < class_table_data.length; j++) {
                         existing_newId = class_table_data[j][0];
                         if (existing_newId == newId) {
                             class_table.column(0).search(newId).draw();
-                            //filtered_data = class_table.rows({ "filter": "applied" }).data().toArray()[0];
-                            //newId = filtered_data[0];
-                            //nodes.remove({ id: newId });
                             class_table.rows({ "filter": "applied" }).remove();
                             class_table.search('').columns().search('').draw();
                         }
@@ -725,6 +686,10 @@
 
             $('#search-btn').click(function (event) {
                 search_kwd = $("#search-kwd").val();
+                if (search_kwd.trim() === '') {
+                    alert("Please enter a search keyword.");
+                    return; // Stop further execution
+                }
                 data = { search_kwd: search_kwd };
                 proxy_request("/search", "POST", data, search_btn_callback);
             });
@@ -739,13 +704,13 @@
                 $('#obj-name').text(obj_name);
 
                 metadata_table.row($('#obj-row-id').text()).data([$('#obj-row-id').text(), $('#original-lbl').text(), $('#obj-name').text(), $('#description').text(), $('#brick-class').text(), "Name Updated"]).draw();
+                metadata_table.rows({ selected: true }).deselect();
 
             });
 
             $('#update-row-btn').click(function (event) {
                 selected_rows = metadata_table.rows('.selected').data().toArray();
                 brick_class = $("#search-result-list li.active b").text();
-
                 if (brick_class == '') {
                     //alert('Please select one from the list after searching ..');
                 }
@@ -754,35 +719,48 @@
                         alert('Please select just 1 row to update.');
                     } else {
                         metadata_table.row(selected_rows[0][0]).data([selected_rows[0][0], selected_rows[0][1], selected_rows[0][2], selected_rows[0][3], brick_class, "Suggested"]).draw();
-                        data_to_save = {"data_label":selected_rows[0][2], "description":selected_rows[0][3], "brick_class":brick_class};
+                        data_to_save = { "data_label": selected_rows[0][2], "description": selected_rows[0][3], "brick_class": brick_class };
                         proxy_request("/update_model", "POST", data_to_save, update_model_done);
+                        metadata_table.rows({ selected: true }).deselect();
                     }
                 }
 
                 obj_name = $("#updater-obj-name").val();
-                if (obj_name != '')
-                    {
+                if (obj_name != '') {
+                    if (selected_rows.length != 1) {
+                        alert('Please select just 1 row to update.');
+                    } else {
                         metadata_table.row(selected_rows[0][0]).data([selected_rows[0][0], selected_rows[0][1], obj_name, selected_rows[0][3], brick_class, "Suggested"]).draw();
-                        data_to_save = {"data_label":obj_name, "description":selected_rows[0][3], "brick_class":brick_class};
+                        data_to_save = { "data_label": obj_name, "description": selected_rows[0][3], "brick_class": brick_class };
                         proxy_request("/update_model", "POST", data_to_save, update_model_done);
+                        metadata_table.rows({ selected: true }).deselect();
                     }
+                }
                 obj_desc = $("#updater-obj-desc").val();
-                if (obj_desc != '')
-                    {
+                if (obj_desc != '') {
+                    if (selected_rows.length != 1) {
+                        alert('Please select just 1 row to update.');
+                    } else {
                         metadata_table.row(selected_rows[0][0]).data([selected_rows[0][0], selected_rows[0][1], selected_rows[0][2], obj_desc, brick_class, "Suggested"]).draw();
-                        data_to_save = {"data_label":selected_rows[0][2], "description":obj_desc, "brick_class":brick_class};
+                        data_to_save = { "data_label": selected_rows[0][2], "description": obj_desc, "brick_class": brick_class };
                         proxy_request("/update_model", "POST", data_to_save, update_model_done);
+                        metadata_table.rows({ selected: true }).deselect();
                     }
-                if (obj_desc != '' && obj_name != '')
-                    {
+                }
+                if (obj_desc != '' && obj_name != '') {
+                    if (selected_rows.length != 1) {
+                        alert('Please select just 1 row to update.');
+                    } else {
                         metadata_table.row(selected_rows[0][0]).data([selected_rows[0][0], selected_rows[0][1], obj_name, obj_desc, brick_class, "Suggested"]).draw();
-                        data_to_save = {"data_label":obj_name, "description":obj_desc, "brick_class":brick_class};
+                        data_to_save = { "data_label": obj_name, "description": obj_desc, "brick_class": brick_class };
                         proxy_request("/update_model", "POST", data_to_save, update_model_done);
+                        metadata_table.rows({ selected: true }).deselect();
                     }
+                }
 
-                    proxy_request("/reindex", "POST", data, reindexing_done);
+                proxy_request("/reindex", "POST", data, reindexing_done);
 
-                });
+            });
 
             $('#update-inspector-btn').click(function (event) {
                 selected_rows = metadata_table.rows('.selected').data().toArray();
@@ -826,51 +804,29 @@
                                 row_to_update[4] = brick_class;
                                 row_to_update[5] = 'Rule-based Mapped';
                                 metadata_table.row(i).data(row_to_update).draw();
+                                metadata_table.rows({ selected: true }).deselect();
+
 
                             }
 
                         }
                     }
-                    /*
-                    for (var i = 0; i < node_list.length; i++) {
-                        for (var j = 0; j < node_list.length; j++) {
-                            from_node_id = node_list[i];
-                            to_node_id = node_list[j];
-                            check_node_from = check_node(from_node_id, from_include, from_exclude);
-                            check_node_to = check_node(to_node_id, to_include, to_exclude);
-                            //console.log(from_node_id+" "+to_node_id+" "+check_node_from+" "+check_node_to);
-
-                            rel_type = $("#rel_list_1 li.active").text();
-                            if (check_node_from == true && check_node_to == true && rel_type != '') {
-                                edges.add({
-                                    from: from_node_id, to: to_node_id, rel_type: rel_type, id: slugify(from_node_id + ":" + to_node_id + ":" + rel_type),
-                                    arrows: {
-                                        to: {
-                                            enabled: true,
-                                            type: "arrow",
-                                        }
-                                    }
-                                });
-                                relationship_table.row.add([slugify(from_node_id + ":" + to_node_id + ":" + rel_type), from_node_id, to_node_id, rel_type]).draw();
-                            };
-                        }
-                    }*/
                 };
             });
 
-            
+
 
             $('#create-edge-btn-canvas').click(function (event) {
                 from_node = $('#selected-from-canvas').text();
                 to_node = $('#selected-to-canvas').text();
-                
+
                 rel_type = $("#rel_list_3 li.active").text();
                 if (rel_type == '' || from_node == '' || to_node == '') {
                     alert('Please select from_node, to_node, and a relationship type!');
                     return;
                 }
 
-                edge_id = slugify(from_node+ ":" + to_node + ":" + rel_type);
+                edge_id = slugify(from_node + ":" + to_node + ":" + rel_type);
                 edge_ids = edges.getIds();
                 if (edge_ids.includes(edge_id) == false) {
                     edges.add({
@@ -883,6 +839,7 @@
                         }
                     });
                     relationship_table.row.add([edge_id, from_node, to_node, rel_type]).draw();
+                    relationship_table.rows({ selected: true }).deselect();
                 }
             });
 
@@ -896,16 +853,7 @@
                     return;
                 }
                 try {
-                    /*
-                    edges.add({
-                        from: from_node, to: to_node, rel_type: rel_type, id: slugify(from_node + ":" + to_node + ":" + rel_type),
-                        arrows: {
-                            to: {
-                                enabled: true,
-                                type: "arrow",
-                            }
-                        }
-                    });*/
+
                 } catch (err) {
                     //alert('Edge already exists in the network!', from_node, to_node, rel_type);
                 }
@@ -930,6 +878,7 @@
                             }
                         }
                         relationship_table.row.add([id_to_add, from_node, to_node_list[i], rel_type]).draw();
+                        relationship_table.rows({ selected: true }).deselect();
                         ids_of_rel.push(id_to_add);
                     }
                 }
@@ -959,8 +908,6 @@
 
                             check_node_from = check_node(from_node_id, from_include, from_exclude);
                             check_node_to = check_node(to_node_id, to_include, to_exclude);
-                            //console.log(check_node_from+"--"+from_node_id+"--"+from_include+"--"+from_exclude);
-                            //console.log(check_node_to+"--"+to_node_id+"--"+to_include+"--"+to_exclude);
 
                             if (check_node_from == true && check_node_to == true) {
                                 rel_type = $("#rel_list_1 li.active").text();
@@ -975,17 +922,14 @@
                                 for (var k = 0; k < relationship_table_data.length; k++) {
                                     existing_newId = relationship_table_data[k][0];
                                     if (existing_newId == id_to_add) {
-                                        //alert(newId + ' : Same Node ID already exist! please remove first!');
                                         relationship_table.column(0).search(id_to_add).draw();
-                                        //filtered_data = class_table.rows({ "filter": "applied" }).data().toArray()[0];
-                                        //newId = filtered_data[0];
-                                        //nodes.remove({ id: newId });
                                         relationship_table.rows({ "filter": "applied" }).remove();
                                         relationship_table.search('').columns().search('').draw();
 
                                     }
                                 }
                                 relationship_table.row.add([id_to_add, from_node_id, to_node_id, rel_type]).draw();
+                                relationship_table.rows({ selected: true }).deselect();
                             }
                         }
                     }
@@ -1000,7 +944,6 @@
                 $('#obj-name').text(selected_rows[4]);
                 $('#brick-class').text(selected_rows[3]);
                 $('#description').text(selected_rows[5]);
-                //$('#location').text('');
 
             });
 
@@ -1017,7 +960,7 @@
             });
 
             $('#remove-rel-btn').click(function (event) {
-                
+
                 list_of_selected_rows = relationship_table.rows('.selected').data().toArray();
                 for (var i = 0; i < list_of_selected_rows.length; i++) {
                     rel_id = list_of_selected_rows[i][0];
@@ -1046,10 +989,10 @@
                 console.log('sluggified_node' + slugified_node);
                 for (var k = 0; k < edge_id_list.length; k++) {
                     edge_id = edge_id_list[k];
-                    
-                    if(edge_id.includes(slugified_node)==true){
-                        console.log(edge_id+" "+ true);
-                        edges.remove({id:edge_id});
+
+                    if (edge_id.includes(slugified_node) == true) {
+                        console.log(edge_id + " " + true);
+                        edges.remove({ id: edge_id });
                     }
                 };
 
@@ -1099,6 +1042,12 @@
             });
 
             metadata_table = $('#metadataTable').DataTable({
+                "preDrawCallback": function (settings) {
+                    pageScrollPos = $('div.dataTables_scrollBody').scrollTop();
+                },
+                "drawCallback": function (settings) {
+                    $('div.dataTables_scrollBody').scrollTop(pageScrollPos);
+                },
                 dom: 'Bfrtip',
                 language: {
                     info: "Showing _START_ to _END_ of _TOTAL_ entries ",
@@ -1113,6 +1062,12 @@
             });
 
             relationship_table = $('#relationshipTable').DataTable({
+                "preDrawCallback": function (settings) {
+                    pageScrollPos = $('div.dataTables_scrollBody').scrollTop();
+                },
+                "drawCallback": function (settings) {
+                    $('div.dataTables_scrollBody').scrollTop(pageScrollPos);
+                },
                 dom: 'Bfrtip',
                 language: {
                     info: "Showing _START_ to _END_ of _TOTAL_ entries ",
@@ -1129,6 +1084,12 @@
             });
 
             class_table = $('#classTable').DataTable({
+                "preDrawCallback": function (settings) {
+                    pageScrollPos = $('div.dataTables_scrollBody').scrollTop();
+                },
+                "drawCallback": function (settings) {
+                    $('div.dataTables_scrollBody').scrollTop(pageScrollPos);
+                },
                 dom: 'Bfrtip',
                 language: {
                     info: "Showing _START_ to _END_ of _TOTAL_ entries ",
@@ -1241,7 +1202,6 @@
                     <button id="add-row-btn" class="btn btn-default">Add a row</button>
                     <button id="mark-as-complete" class="btn btn-default">Complete</button>
                     <button id="mark-as-pass" class="btn btn-default">Pass</button>
-                    <button id="show-stats" class="btn btn-default">Stats</button>
                     <hr />
                     <table id="metadataTable" class="display">
                         <thead>
@@ -1424,73 +1384,6 @@
             </div>
         </div>
         <div class="col-md-3">
-            <!--div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Brick Object Creator</h3>
-                </div>
-                <div class="panel-body" id="panel-canvas-body" style="min-height: 700px; max-height: 700px;">
-                    
-                    <button id="create-brick-obj" class="btn btn-default">Create a Brick Object</button>
-                    <button id="clear-inspector-btn" class="btn btn-default">Clear</button>
-                    <hr />
-                    <div class="input-group">
-                        <input type="text" id="new-obj-name" class="form-control" placeholder="">
-                        <span class="input-group-btn">
-                            <button id="update-objname-btn" class="btn btn-default" type="button">Update Object
-                                Name</button>
-                        </span>
-                    </div>
-                    <hr />
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <b>Row ID:</b>
-                                </td>
-                                <td>
-                                    <div id="obj-row-id"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Original Label:</b>
-                                </td>
-                                <td>
-                                    <div id="original-lbl"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Object Name:</b>
-                                </td>
-                                <td>
-                                    <div id="obj-name"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Brick Class:</b>
-                                </td>
-                                <td>
-                                    <div id="brick-class"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Description:</b>
-                                </td>
-                                <td>
-                                    <div id="description"></div>
-                                </td>
-                            </tr>
-                           
-                        </tbody>
-                    </table>
-                    
-
-                </div>
-            </div>
-        </div-->
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Edge Creator</h3>
@@ -1528,10 +1421,10 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Rule-based Edge Creator !!</h3>
+                    <h3 class="panel-title">Rule-based Edge Creator</h3>
                 </div>
                 <div class="panel-body" id="panel-canvas-body">
-                    <button id="create-edges-btn" class="btn btn-default">Create Relationships (beta)</button>
+                    <button id="create-edges-btn" class="btn btn-default">Create Relationships</button>
                     <hr />
                     <table class="table">
                         <tbody>
